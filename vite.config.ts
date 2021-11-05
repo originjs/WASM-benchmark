@@ -1,6 +1,10 @@
 import { defineConfig } from 'vite'
 import path from 'path'
 import vue from '@vitejs/plugin-vue'
+import components from 'unplugin-vue-components/vite'
+import content from '@originjs/vite-plugin-content'
+import pages from '@originjs/vite-plugin-pages'
+import markdown from 'vite-plugin-md'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +15,20 @@ export default defineConfig({
     }],
   },
   plugins:[
-    vue()
+    vue({
+      include: [/\.vue$/, /\.md$/],
+    }),
+    components({
+      // allow auto load markdown components under `./src/components/`
+      extensions: ['vue', 'md'],
+      // allow typescript
+      dts: true,
+      // allow auto import and register components used in markdown
+      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+    }),
+    content(),
+    pages(),
+    markdown()
   ],
   define: {
     __VUE_I18N_FULL_INSTALL__: true,

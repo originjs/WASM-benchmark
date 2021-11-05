@@ -5,18 +5,7 @@ import en from './locales/en.json'
 import zh from './locales/zh.json'
 import App from './App.vue'
 import store from './store'
-import Default from './layouts/default.vue'
-import Index from './pages/index.vue'
-
-const routes = [
-  {
-    path: '/',
-    component: Default,
-    children: [
-      { path: '/', component: Index }
-    ]
-  }
-]
+import routes from 'virtual:plugin-pages'
 
 const router = createRouter({
   history: createWebHistory(),
