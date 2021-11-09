@@ -20,9 +20,5 @@ export default {
   height: calc(100vh - 3.2rem);
   min-height: 568px;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 </style>
