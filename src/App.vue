@@ -1,22 +1,6 @@
 <template>
-  <main :class="isLight ? 'light' : 'dark'">
+  <main class='light'>
     <router-view />
-    <div>
-      <button
-        type="button"
-        @click="changeMode"
-        class="normal-btn theme-ctrl-btn"
-      >
-        {{ !isLight ? $t('lightMode') : $t('darkMode') }}
-      </button>
-      <button
-        type="button"
-        @click="changeLocale"
-        class="normal-btn theme-ctrl-btn"
-      >
-        {{ $t("changeLanguage") }}
-      </button>
-    </div>
   </main>
 </template>
 
@@ -26,24 +10,6 @@ import { useI18n } from 'vue-i18n'
 
 export default {
   name: 'App',
-  setup: () => {
-    const isLight = ref(true)
-
-    const changeMode = () => {
-      isLight.value = !isLight.value
-    }
-
-    const { locale } = useI18n()
-    const changeLocale = () => {
-      if (locale.value === 'en') {
-        locale.value = 'zh'
-      } else if (locale.value === 'zh') {
-        locale.value = 'en'
-      }
-    }
-
-    return { isLight, changeMode, changeLocale }
-  }
 }
 </script>
 
