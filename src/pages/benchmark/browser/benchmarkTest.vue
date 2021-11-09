@@ -18,7 +18,6 @@
 </template>
 <script>
 import { ref } from "vue";
-import Module from '@/../browser_benchmark/sumInt.js'
 import { loadEmccCompiledWasm, SumIntWasmTest } from '@/utils/loadWasmUtils'
 
 export default {

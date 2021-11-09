@@ -1,3 +1,4 @@
+// @ts-ignore
 import sumIntModule from '~/browser_benchmark/sumInt.js'
 
 const benchmarkDatasets = {

@@ -5,8 +5,7 @@
       src="../assets/originjs.png"
       class="logo logo-large"
     >
-    <h2 class="text-h2">Origin.js</h2>
-    <p class="text-p">{{ $t("introduction") }}</p>
+    <h3 class="text-h3">A simple WebAssembly benchmark built with Vue3 & Vite</h3>
     <router-view />
   </div>
 </template>
