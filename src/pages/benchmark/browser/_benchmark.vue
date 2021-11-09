@@ -1,11 +1,9 @@
 <template>
-  <div style="width: 100%; vertical-align: top;">
-    <h2>This is a JavaScript vs WebAssembly(WASM) benchmark.</h2>
-    <h3>The WASM files are written in C/C++ and compiled by emscripten.</h3>
+  <div style="width: 100%;">
+    <h1 style="margin-top: 3rem;">Benchmark : {{ $route.params.benchmark }}</h1>
     <div style="width: 100%; display: flex; justify-content: center; height: 40rem;">
-      <ul style="margin-left: 150px; display: flex; flex-direction: column; justify-content: center;">
-        <li><a>test</a></li>
-        <li><a>test</a></li>
+      <ul style="margin-left: 5rem; display: flex; flex-direction: column; justify-content: center;">
+        <li><router-link class="text-router-link" to="/benchmark/browser/sumInt">sumInt</router-link></li>
         <li><a>test</a></li>
         <li><a>test</a></li>
         <li><a>test</a></li>
@@ -13,7 +11,7 @@
         <li><a>test</a></li>
         <li><a>test</a></li>
       </ul>
-      <div style="width: 100%; margin-left: -5rem; display: flex; flex-direction: column; justify-content: center;">
+      <div style="width: 100%; margin-left: 0; display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; justify-content: center;">
           <suspense>
             <template #default>

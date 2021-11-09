@@ -1,5 +1,7 @@
 <template>
   <router-view />
+  <h3>This is a JavaScript vs WebAssembly(WASM) benchmark.</h3>
+  <h3>The WASM files are written in C/C++ and compiled by emscripten.</h3>
   <div class="logo-box-flex">
     <img
       alt="Origin.js logo"
