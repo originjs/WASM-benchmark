@@ -2,10 +2,7 @@ import { WasmTestInterface, WasmTestAbstractBaseClass } from "./index.ts";
 
 export default class SumIntWasmTest extends WasmTestAbstractBaseClass implements WasmTestInterface {
     array: Int32Array
-    dataSize: number
-    warmUpRunLoops: number
-    benchmarkRunLoops: number
-    module: any
+
     constructor(dataSize: number, warmUpRunLoops: number, benchmarkRunLoops: number, module: Object) {
         super()
         this.dataSize = dataSize

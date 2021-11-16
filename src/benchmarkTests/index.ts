@@ -7,7 +7,20 @@ export interface WasmTestInterface {
 }
 
 export class WasmTestAbstractBaseClass implements WasmTestInterface {
+    dataSize: number
+    warmUpRunLoops: number
+    benchmarkRunLoops: number
+    module: any
+
     constructor() {}
+
+    runWasm(): number {
+        throw new Error('This method should be implemented in inherited class')
+    }
+
+    runJavaScript(): number {
+        throw new Error('This method should be implemented in inherited class')
+    }
 
     runWasmBenchmark(): string {
         for (let i = 0; i < this.warmUpRunLoops; i++) {
