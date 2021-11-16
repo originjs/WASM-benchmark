@@ -6,7 +6,7 @@ export interface WasmTestInterface {
     runJavaScriptBenchmark(): string
 }
 
-export class WasmTestBaseClass implements WasmTestInterface {
+export class WasmTestAbstractBaseClass implements WasmTestInterface {
     constructor() {}
 
     runWasmBenchmark(): string {
