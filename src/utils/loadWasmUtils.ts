@@ -12,11 +12,3 @@ export async function loadEmccCompiledWasm(wasmUrl: string, emccJsModule: Functi
         })
     return module
 }
-
-export interface WasmTestInterface {
-    initTestData(): void
-    runWasm(): number
-    runWasmBenchmark(): string
-    runJavaScript(): number
-    runJavaScriptBenchmark(): string
-}

@@ -1,12 +1,13 @@
-import {WasmTestInterface} from "../utils/loadWasmUtils";
+import { WasmTestInterface, WasmTestBaseClass } from "./index.ts";
 
-export default class SumIntWasmTest implements WasmTestInterface {
+export default class SumIntWasmTest extends WasmTestBaseClass implements WasmTestInterface {
     array: Int32Array
     dataSize: number
     warmUpRunLoops: number
     benchmarkRunLoops: number
     module: any
     constructor(dataSize: number, warmUpRunLoops: number, benchmarkRunLoops: number, module: Object) {
+        super()
         this.dataSize = dataSize
         this.warmUpRunLoops = warmUpRunLoops
         this.benchmarkRunLoops = benchmarkRunLoops
@@ -31,39 +32,11 @@ export default class SumIntWasmTest implements WasmTestInterface {
         return result
     }
 
-    runWasmBenchmark(): string {
-        for (let i = 0; i < this.warmUpRunLoops; i++) {
-            this.runWasm(); // warm-up
-        }
-        let elapsedTime = 0.0;
-        for (let i = 0; i < this.benchmarkRunLoops; i++) {
-            let startTime = performance.now();
-            this.runWasm();
-            let endTime = performance.now();
-            elapsedTime += (endTime - startTime);
-        }
-        return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
-    }
-
     runJavaScript(): number {
         let s = 0
         for (let i = 0; i < this.dataSize; i++) {
             s += this.array[i]
         }
         return s
-    }
-
-    runJavaScriptBenchmark() {
-        for (let i = 0; i < this.warmUpRunLoops; i++) {
-            this.runJavaScript(); // warm-up
-        }
-        let elapsedTime = 0.0;
-        for (let i = 0; i < this.benchmarkRunLoops; i++) {
-            let startTime = performance.now();
-            this.runJavaScript();
-            let endTime = performance.now();
-            elapsedTime += (endTime - startTime);
-        }
-        return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
     }
 }
