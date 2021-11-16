@@ -1,4 +1,4 @@
-import { WasmTestInterface, WasmTestAbstractBaseClass } from "./index.ts";
+import { WasmTestInterface, WasmTestAbstractBaseClass } from "./index";
 
 export default class SumIntWasmTest extends WasmTestAbstractBaseClass implements WasmTestInterface {
     array: Int32Array
