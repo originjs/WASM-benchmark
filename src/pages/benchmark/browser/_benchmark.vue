@@ -27,7 +27,6 @@
   </div>
 </template>
 <script>
-import BenchmarkTest from './benchmarkTest.vue'
 import { Suspense } from 'vue'
 import benchmarkDatasets from '@/benchmarkDatasets/benchmarkDatasets'
 export default {
@@ -36,7 +35,6 @@ export default {
     return { benchmarkDatasets }
   },
   components: {
-    BenchmarkTest,
     Suspense
   }
 }
