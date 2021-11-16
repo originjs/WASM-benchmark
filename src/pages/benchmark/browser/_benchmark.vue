@@ -15,7 +15,7 @@
         <div style="display: flex; justify-content: center;">
           <suspense>
             <template #default>
-              <BenchmarkTest :benchmarkDataset="benchmarkDatasets.sumInt"/>
+              <BenchmarkTest :benchmarkDataset="getBenchmarkDataset()"/>
             </template>
             <template #fallback>
               <h2>Loading WASM</h2>
@@ -36,6 +36,17 @@ export default {
   },
   components: {
     Suspense
+  },
+  methods: {
+    getBenchmarkDataset() {
+      const benchmarkName = this.$route.params.benchmark
+      if (benchmarkDatasets[benchmarkName]) {
+        return benchmarkDatasets[benchmarkName]
+      }
+
+      // default benchmark
+      return benchmarkDatasets.sumInt
+    }
   }
 }
 </script>
