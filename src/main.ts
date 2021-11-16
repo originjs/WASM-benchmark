@@ -5,6 +5,7 @@ import en from './locales/en.json'
 import zh from './locales/zh.json'
 import App from './App.vue'
 import store from './store'
+// @ts-ignore
 import routes from 'virtual:plugin-pages'
 
 const router = createRouter({
