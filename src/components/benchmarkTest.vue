@@ -18,7 +18,7 @@
 </template>
 <script>
 import { ref } from "vue";
-import { loadEmccCompiledWasm, SumIntWasmTest } from '@/utils/loadWasmUtils'
+import { loadEmccCompiledWasm } from '@/utils/loadWasmUtils'
 
 export default {
   name: 'benchmarkTest',
@@ -33,7 +33,6 @@ export default {
       wsPerformance: '',
       comparison: '',
       benchmarkName: 'JavaScript ',
-      wasmTest: SumIntWasmTest,
     }
   },
   async setup(props) {
@@ -43,7 +42,7 @@ export default {
     let wasmTest = {}
 
     module = await loadEmccCompiledWasm(props.benchmarkDataset.url, props.benchmarkDataset.Module)
-    wasmTest = new SumIntWasmTest(props.benchmarkDataset.dataSize, warmUpRunLoops, benchmarkRunLoops, module)
+    wasmTest = new props.benchmarkDataset.testbench(props.benchmarkDataset.dataSize, warmUpRunLoops, benchmarkRunLoops, module)
     return { module, wasmTest }
   },
   methods: {
