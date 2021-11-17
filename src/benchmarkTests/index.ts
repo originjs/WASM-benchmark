@@ -7,20 +7,29 @@ export interface WasmTestInterface {
 }
 
 export class WasmTestAbstractBaseClass implements WasmTestInterface {
-    dataSize: number
     warmUpRunLoops: number
     benchmarkRunLoops: number
     module: any
+    shouldOverrideError: Error
+    constructor(warmUpRunLoops: number, benchmarkRunLoops: number, module: Object) {
+        this.warmUpRunLoops = warmUpRunLoops
+        this.benchmarkRunLoops = benchmarkRunLoops
+        this.module = module
+        this.shouldOverrideError = Error('Should override this function in sub class')
+    }
 
-    constructor() {}
+    initTestData() {
+        // override if you need
+    }
 
     runWasm(): number {
-        throw new Error('This method should be implemented in inherited class')
+        throw this.shouldOverrideError
     }
 
     runJavaScript(): number {
-        throw new Error('This method should be implemented in inherited class')
+        throw this.shouldOverrideError
     }
+
 
     runWasmBenchmark(): string {
         for (let i = 0; i < this.warmUpRunLoops; i++) {
