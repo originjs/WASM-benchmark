@@ -1,7 +1,6 @@
 // @ts-ignore
-import sumIntModule from '~/browser_benchmark/sumInt.js'
-// @ts-ignore
-import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest.ts'
+import sumIntModule from '~/browser_benchmark/sumInt'
+import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest'
 
 const benchmarkDatasets = {
     'sumInt': {

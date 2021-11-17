@@ -2,7 +2,9 @@ import { defineConfig } from 'vite'
 import path from 'path'
 import vue from '@vitejs/plugin-vue'
 import components from 'unplugin-vue-components/vite'
+// @ts-ignore
 import content from '@originjs/vite-plugin-content'
+// @ts-ignore
 import pages from '@originjs/vite-plugin-pages'
 import markdown from 'vite-plugin-md'
 
