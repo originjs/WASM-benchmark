@@ -1,5 +1,6 @@
 export interface WasmTestInterface {
     initTestData(): void
+    checkFunctionality(): boolean
     runWasm(): number
     runWasmBenchmark(): string
     runJavaScript(): number
@@ -20,6 +21,10 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
 
     initTestData() {
         // override if you need
+    }
+
+    checkFunctionality(): boolean {
+        throw this.shouldOverrideError
     }
 
     runWasm(): number {

@@ -46,12 +46,9 @@ export default {
     return { module, wasmTest }
   },
   methods: {
-    checkFunctionality() {
-      return this.wasmTest.runWasm() === this.wasmTest.runJavaScript()
-    },
     start() {
       setTimeout(() => {
-        if (!this.checkFunctionality()) {
+        if (!this.wasmTest.checkFunctionality()) {
           this.message = 'Two functions seem not equal';
           this.btnDisabled = false;
           return;

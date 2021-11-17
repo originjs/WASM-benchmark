@@ -17,6 +17,10 @@ export default class SumIntWasmTest extends WasmTestAbstractBaseClass {
         }
     }
 
+    checkFunctionality(): boolean {
+        return this.runWasm() === this.runJavaScript()
+    }
+
     runWasm() {
         const pointer = this.module._malloc(this.array.length * 4)
         const offset = pointer / 4
