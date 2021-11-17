@@ -1,20 +1,15 @@
-import {WasmTestInterface} from "../utils/loadWasmUtils";
+import { WasmTestInterface, WasmTestAbstractBaseClass } from './index';
 
-export default class CollisionDetectionWasmTest implements WasmTestInterface {
+export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClass implements WasmTestInterface {
     array: Int32Array
     dataSize: number
-    warmUpRunLoops: number
-    benchmarkRunLoops: number
-    module: any
     positions: any
     radiuses: Float64Array
     javascriptResult: Uint8Array
     wasmtResult: Uint8Array
     constructor(dataSize: number, warmUpRunLoops: number, benchmarkRunLoops: number, module: Object) {
+        super(warmUpRunLoops, benchmarkRunLoops, module)
         this.dataSize = dataSize
-        this.warmUpRunLoops = warmUpRunLoops
-        this.benchmarkRunLoops = benchmarkRunLoops
-        this.module = module
         this.array = new Int32Array(this.dataSize)
         this.radiuses = new Float64Array(dataSize)
         this.positions = []
@@ -50,53 +45,88 @@ export default class CollisionDetectionWasmTest implements WasmTestInterface {
     }
 
     initRadiuses(): void {
-        for (var i = 0, il = this.radiuses.length; i < il; i++) {
+        for (let i = 0, il = this.radiuses.length; i < il; i++) {
             this.radiuses[i] = Math.random() * 10
         }
     }
 
-    runWasm() {
-        const pointer = this.module._malloc(this.array.length * 4)
-        const offset = pointer / 4
-        this.module.HEAP32.set(this.array, offset)
-        const result = this.module._sumInt(pointer, this.dataSize)
-        this.module._free(pointer)
-        return result
+    checkFunctionality(): boolean {
+        this.clearArray(this.javascriptResult);
+        this.clearArray(this.wasmtResult);
+        let count1 = this.runJavaScript();
+        let count2 = this.runWasm();
+        return count1 === count2 && this.equalArray(this.javascriptResult, this.wasmtResult);
     }
 
-    runWasmBenchmark(): string {
-        for (let i = 0; i < this.warmUpRunLoops; i++) {
-            this.runWasm(); // warm-up
+    clearArray(array: Uint8Array): void {
+        for (let i = 0, il = array.length; i < il; i++) {
+            array[i] = 0;
         }
-        let elapsedTime = 0.0;
-        for (let i = 0; i < this.benchmarkRunLoops; i++) {
-            let startTime = performance.now();
-            this.runWasm();
-            let endTime = performance.now();
-            elapsedTime += (endTime - startTime);
+    }
+
+    equalArray(array1: Uint8Array, array2: Uint8Array): boolean {
+        if (array1.length !== array2.length)
+            return false;
+        for (let i = 0, il = array1.length; i < il; i++) {
+            if (array1[i] !== array2[i])
+                return false;
         }
-        return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+        return true;
+    }
+
+    runWasm(): number {
+        let pointer1 = this.module._malloc(this.positions.length * 3 * 8);
+        let pointer2 = this.module._malloc(this.radiuses.length * 8);
+        let pointer3 = this.module._malloc(this.wasmtResult.length);
+        let offset1 = pointer1 / 8;
+        let offset2 = pointer2 / 8;
+        let offset3 = pointer3;
+        this.setPositionsToFloat64Array(this.positions, this.module.HEAPF64, offset1);
+        this.module.HEAPF64.set(this.radiuses, offset2);
+        let result = this.module._collisionDetection(
+            pointer1, pointer2, pointer3, this.dataSize);
+        this.wasmtResult.set(this.module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length));
+        this.module._free(pointer1);
+        this.module._free(pointer2);
+        this.module._free(pointer3);
+        return result;
     }
 
     runJavaScript(): number {
-        let s = 0
+        let count = 0;
         for (let i = 0; i < this.dataSize; i++) {
-            s += this.array[i]
+            let p = this.positions[i];
+            let r = this.radiuses[i];
+            let collision = 0;
+            for (let j = i+1; j < this.dataSize; j++) {
+                let p2 = this.positions[j];
+                let dx = p.x - p2.x;
+                let dy = p.y - p2.y;
+                let dz = p.z - p2.z;
+                let d = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                if (r > d) {
+                    collision = 1;
+                    count++;
+                    break;
+                }
+            }
+            let index = (i / 8) | 0;
+            let pos = 7 - (i % 8);
+            if (collision === 0) {
+                this.javascriptResult[index] &= ~(1 << pos);
+            } else {
+                this.javascriptResult[index] |= (1 << pos);
+            }
         }
-        return s
+        return count;
     }
 
-    runJavaScriptBenchmark() {
-        for (let i = 0; i < this.warmUpRunLoops; i++) {
-            this.runJavaScript(); // warm-up
+    setPositionsToFloat64Array(positions: any, array: any, offset: number): void {
+        for (let i = 0, il = positions.length; i < il; i++) {
+            let index = offset + i*3;
+            array[index+0] = positions[i].x;
+            array[index+1] = positions[i].y;
+            array[index+2] = positions[i].z;
         }
-        let elapsedTime = 0.0;
-        for (let i = 0; i < this.benchmarkRunLoops; i++) {
-            let startTime = performance.now();
-            this.runJavaScript();
-            let endTime = performance.now();
-            elapsedTime += (endTime - startTime);
-        }
-        return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
     }
 }
