@@ -14,9 +14,9 @@
       </ul>
       <div style="width: 100%; margin-left: 0; display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; justify-content: center;">
-          <suspense>
+          <suspense :timeout="0">
             <template #default>
-              <BenchmarkTest :benchmarkDataset="getBenchmarkDataset()"/>
+              <BenchmarkTest :key="$route.params.benchmark" :benchmarkDataset="getBenchmarkDataset()"/>
             </template>
             <template #fallback>
               <h2>Loading WASM</h2>
