@@ -2366,3 +2366,5 @@ var Module = function (Module) {
   run();
   return Module;
 };
+
+export default Module;
