@@ -26,7 +26,7 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
   }
 
   initTestData() {
-    // override if you need
+    throw this.shouldOverrideError;
   }
 
   checkFunctionality(): boolean {

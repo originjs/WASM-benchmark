@@ -16,7 +16,7 @@ export default class SumDoubleWasmTest extends WasmTestAbstractBaseClass {
     this.initTestData();
   }
 
-  initArray() {
+  initTestData() {
     for (let i = 0, il = this.array.length; i < il; i++) {
       this.array[i] = Math.random() * 20000 - 10000;
     }
