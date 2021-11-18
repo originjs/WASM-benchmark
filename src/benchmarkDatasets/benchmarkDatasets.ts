@@ -15,7 +15,7 @@ const benchmarkDatasets = {
     url: '/browser_benchmark/sumInt.wasm',
     dataSize: 0x8000000,
   },
-  fib: {
+  fibonacci: {
     Module: fibModule,
     testbench: fibWasmTest,
     url: '/browser_benchmark/fib.wasm',
