@@ -10,33 +10,16 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
+          text-align: left;
         "
       >
-        <li>
-          <router-link class="text-router-link" to="/benchmark/browser/sumInt"
-            >sumInt</router-link
-          >
-        </li>
-        <li>
+        <li v-for="testName in testNames">
           <router-link
             class="text-router-link"
-            to="/benchmark/browser/collisionDetection"
-            >collisionDetection</router-link
+            :to="'/benchmark/browser/' + testName"
+            >{{ testName }}</router-link
           >
         </li>
-        <li>
-          <router-link
-            class="text-router-link"
-            to="/benchmark/browser/fibonacci"
-            >fibonacci</router-link
-          >
-        </li>
-        <li><a>test</a></li>
-        <li><a>test</a></li>
-        <li><a>test</a></li>
-        <li><a>test</a></li>
-        <li><a>test</a></li>
-        <li><a>test</a></li>
       </ul>
       <div
         style="
@@ -70,7 +53,8 @@ import benchmarkDatasets from '@/benchmarkDatasets/benchmarkDatasets';
 export default {
   name: 'benchmark',
   setup() {
-    return { benchmarkDatasets };
+    const testNames = ['sumInt', 'collisionDetection', 'fibonacci'];
+    return { testNames, benchmarkDatasets };
   },
   components: {
     Suspense,
