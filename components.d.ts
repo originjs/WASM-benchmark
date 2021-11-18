@@ -4,10 +4,10 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BenchmarkTest: typeof import('./src/components/benchmarkTest.vue')['default']
-    README: typeof import('./src/components/README.md')['default']
-    Sources: typeof import('./src/components/Sources.vue')['default']
+    BenchmarkTest: typeof import('./src/components/benchmarkTest.vue')['default'];
+    README: typeof import('./src/components/README.md')['default'];
+    Sources: typeof import('./src/components/Sources.vue')['default'];
   }
 }
 
-export { }
+export {};
