@@ -1,5 +1,5 @@
 <template>
-  <main class='light'>
+  <main class="light">
     <router-view />
   </main>
 </template>
@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'App',
-}
+};
 </script>
 
 <style src="./assets/global-theme.css"></style>

@@ -6,7 +6,7 @@
     "dev": "vite --force",
     "build": "vite build",
     "serve": "vite preview",
-    "fix": "prettier **/*.{js,ts,json}  --write"
+    "fix": "prettier **/*.{js,ts,vue,json}  --write"
   },
   "dependencies": {
     "vue": "^3.0.5",

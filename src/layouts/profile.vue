@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'Profile',
@@ -28,12 +28,12 @@ export default {
         title: 'docs',
         link: 'https://originjs.github.io/docs/',
       },
-    ])
+    ]);
 
-    const router = useRouter()
-    const { currentRoute } = router
+    const router = useRouter();
+    const { currentRoute } = router;
 
-    return { currentRoute, sourceOpitons }
-  }
-}
+    return { currentRoute, sourceOpitons };
+  },
+};
 </script>
