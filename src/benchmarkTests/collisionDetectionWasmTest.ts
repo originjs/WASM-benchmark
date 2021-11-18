@@ -1,9 +1,6 @@
-import { WasmTestInterface, WasmTestAbstractBaseClass } from './index';
+import { WasmTestAbstractBaseClass } from './index';
 
-export default class CollisionDetectionWasmTest
-  extends WasmTestAbstractBaseClass
-  implements WasmTestInterface
-{
+export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClass {
   array: Int32Array;
   dataSize: number;
   positions: any;
