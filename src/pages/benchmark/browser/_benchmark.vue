@@ -5,6 +5,7 @@
       <ul style="margin-left: 5rem; display: flex; flex-direction: column; justify-content: center;">
         <li><router-link class="text-router-link" to="/benchmark/browser/sumInt">sumInt</router-link></li>
         <li><router-link class="text-router-link" to="/benchmark/browser/collisionDetection">collisionDetection</router-link></li>
+        <li><router-link class="text-router-link" to="/benchmark/browser/fibonacci">fibonacci</router-link></li>
         <li><a>test</a></li>
         <li><a>test</a></li>
         <li><a>test</a></li>
