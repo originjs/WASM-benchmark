@@ -1,12 +1,15 @@
 // @ts-ignore
-import sumIntModule from '~/browser_benchmark/sumInt';
-import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
+import collisionDetectionModule from '~/browser_benchmark/collisionDetection';
+import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmTest';
 // @ts-ignore
 import fibModule from '~/browser_benchmark/fib';
 import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 // @ts-ignore
-import collisionDetectionModule from '~/browser_benchmark/collisionDetection';
-import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmTest';
+import sumIntModule from '~/browser_benchmark/sumInt';
+import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
+// @ts-ignore
+import sumDoubleModule from '~/browser_benchmark/sumDouble';
+import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -26,6 +29,12 @@ const benchmarkDatasets = {
     testbench: sumIntWasmTest,
     url: '/browser_benchmark/sumInt.wasm',
     dataSize: 0x8000000,
+  },
+  sumDouble: {
+    Module: sumDoubleModule,
+    testbench: sumDoubleWasmTest,
+    url: '/browser_benchmark/sumDouble.wasm',
+    dataSize: 0x4000000,
   },
 };
 
