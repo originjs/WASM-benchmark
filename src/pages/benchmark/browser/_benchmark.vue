@@ -53,7 +53,7 @@ import benchmarkDatasets from '@/benchmarkDatasets/benchmarkDatasets';
 export default {
   name: 'benchmark',
   setup() {
-    const testNames = ['sumInt', 'collisionDetection', 'fibonacci'];
+    const testNames = ['collisionDetection', 'fibonacci', 'sumInt'];
     return { testNames, benchmarkDatasets };
   },
   components: {
@@ -67,7 +67,7 @@ export default {
       }
 
       // default benchmark
-      return benchmarkDatasets.sumInt;
+      return benchmarkDatasets.collisionDetection;
     },
   },
 };

@@ -9,11 +9,11 @@ import collisionDetectionModule from '~/browser_benchmark/collisionDetection';
 import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmTest';
 
 const benchmarkDatasets = {
-  sumInt: {
-    Module: sumIntModule,
-    testbench: sumIntWasmTest,
-    url: '/browser_benchmark/sumInt.wasm',
-    dataSize: 0x8000000,
+  collisionDetection: {
+    Module: collisionDetectionModule,
+    testbench: collisionDetectionWasmTest,
+    url: '/browser_benchmark/collisionDetection.wasm',
+    dataSize: 0x4000,
   },
   fibonacci: {
     Module: fibModule,
@@ -21,11 +21,11 @@ const benchmarkDatasets = {
     url: '/browser_benchmark/fib.wasm',
     dataSize: 0x28,
   },
-  collisionDetection: {
-    Module: collisionDetectionModule,
-    testbench: collisionDetectionWasmTest,
-    url: '/browser_benchmark/collisionDetection.wasm',
-    dataSize: 0x4000,
+  sumInt: {
+    Module: sumIntModule,
+    testbench: sumIntWasmTest,
+    url: '/browser_benchmark/sumInt.wasm',
+    dataSize: 0x8000000,
   },
 };
 
