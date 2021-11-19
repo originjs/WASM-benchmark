@@ -26,12 +26,6 @@ export default class quicksortDoubleWasmTest extends WasmTestAbstractBaseClass {
     }
   }
 
-  copyArray(src: Float64Array, res: Float64Array) {
-    for (let i = 0, il = src.length; i < il; i++) {
-      res[i] = src[i];
-    }
-  }
-
   checkFunctionality(): boolean {
     function equalArray(array1: Float64Array, array2: Float64Array) {
       if (array1.length !== array2.length) return false;

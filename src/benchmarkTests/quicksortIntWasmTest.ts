@@ -26,12 +26,6 @@ export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
     }
   }
 
-  copyArray(src: Int32Array, res: Int32Array) {
-    for (let i = 0, il = src.length; i < il; i++) {
-      res[i] = src[i];
-    }
-  }
-
   checkFunctionality(): boolean {
     function equalArray(array1: Int32Array, array2: Int32Array) {
       if (array1.length !== array2.length) return false;

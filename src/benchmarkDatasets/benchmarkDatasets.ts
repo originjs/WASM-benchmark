@@ -7,6 +7,8 @@ import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 // @ts-ignore
 import imageConvoluteModule from '~/browser_benchmark/imageConvolute';
 import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
+import imageGrayscaleModule from '~/browser_benchmark/imageGrayscale';
+import imageGrayscaleWasmTest from '@/benchmarkTests/imageGrayscaleWasmTest';
 // @ts-ignore
 import multiplyDoubleModule from '~/browser_benchmark/multiplyDouble';
 import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
@@ -46,6 +48,12 @@ const benchmarkDatasets = {
     Module: imageConvoluteModule,
     testbench: imageConvoluteWasmTest,
     url: '/browser_benchmark/imageConvolute.wasm',
+    image: '/src/assets/image.jpg',
+  },
+  imageGrayscale: {
+    Module: imageGrayscaleModule,
+    testbench: imageGrayscaleWasmTest,
+    url: '/browser_benchmark/imageGrayscale.wasm',
     image: '/src/assets/image.jpg',
   },
   multiplyDouble: {

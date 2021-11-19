@@ -2,26 +2,33 @@
   <div style="width: 100%">
     <h1 style="margin-top: 3rem">Benchmark : {{ $route.params.benchmark }}</h1>
     <div v-if="getImage()">
-      <button style="font-size: 15px; margin-bottom: 25px" @click="toggleImages">
+      <button
+        style="font-size: 15px; margin-bottom: 25px"
+        @click="toggleImages"
+      >
         {{ toggleImagesString }}
       </button>
       <div
-          v-show="displayImages"
-          style="display: flex; justify-content: space-around; margin-bottom: 25px"
+        v-show="displayImages"
+        style="
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: 25px;
+        "
       >
         <img
-            style="width: calc(30vw)"
-            @load="onImageLoad"
-            ref="image"
-            :src="getImage()"
+          style="width: calc(30vw)"
+          @load="onImageLoad"
+          ref="image"
+          :src="getImage()"
         />
         <canvas
-            style="width: calc(30vw); border: 1px solid"
-            ref="js_canvas"
+          style="width: calc(30vw); border: 1px solid"
+          ref="js_canvas"
         ></canvas>
         <canvas
-            style="width: calc(30vw); border: 1px solid"
-            ref="ws_canvas"
+          style="width: calc(30vw); border: 1px solid"
+          ref="ws_canvas"
         ></canvas>
       </div>
     </div>
@@ -92,6 +99,7 @@ export default {
       'collisionDetection',
       'fibonacci',
       'imageConvolute',
+      'imageGrayscale',
       'multiplyDouble',
       'multiplyIntVec',
       'multiplyDoubleVec',
