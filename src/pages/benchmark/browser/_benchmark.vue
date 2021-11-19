@@ -72,6 +72,8 @@ export default {
       'imageConvolute',
       'sumInt',
       'sumDouble',
+      'multiplyDouble',
+      'multiplyIntVec',
     ];
 
     return { testNames, benchmarkDatasets, image, js_canvas, ws_canvas };
