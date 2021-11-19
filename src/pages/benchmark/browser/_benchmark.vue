@@ -1,8 +1,13 @@
 <template>
   <div style="width: 100%">
     <h1 style="margin-top: 3rem">Benchmark : {{ $route.params.benchmark }}</h1>
+    <div v-if="getBenchmarkDataset().image">
+      <img @load="onImageLoad" ref="image" :src="getImage()"/>
+      <canvas ref="js_canvas"></canvas>
+      <canvas ref="ws_canvas"></canvas>
+    </div>
     <div
-      style="width: 100%; display: flex; justify-content: center; height: 40rem"
+      style="width: 100%; display: flex; justify-content: center;"
     >
       <ul
         style="
@@ -30,7 +35,7 @@
           justify-content: center;
         "
       >
-        <div style="display: flex; justify-content: center">
+        <div v-if="shouldLoadWasm" style="display: flex; justify-content: center">
           <suspense :timeout="0">
             <template #default>
               <BenchmarkTest
@@ -48,18 +53,28 @@
   </div>
 </template>
 <script>
-import { Suspense } from 'vue';
+import { ref, Suspense } from 'vue';
 import benchmarkDatasets from '@/benchmarkDatasets/benchmarkDatasets';
 export default {
   name: 'benchmark',
+  data() {
+    return {
+      shouldLoadWasm: !this.getBenchmarkDataset().image,
+    }
+  },
   setup() {
+    const image = ref(null)
+    const js_canvas = ref(null)
+    const ws_canvas = ref(null)
     const testNames = [
       'collisionDetection',
       'fibonacci',
+      'imageConvolute',
       'sumInt',
       'sumDouble',
     ];
-    return { testNames, benchmarkDatasets };
+
+    return { testNames, benchmarkDatasets, image, js_canvas, ws_canvas };
   },
   components: {
     Suspense,
@@ -68,11 +83,22 @@ export default {
     getBenchmarkDataset() {
       const benchmarkName = this.$route.params.benchmark;
       if (benchmarkDatasets[benchmarkName]) {
+        if (benchmarkDatasets[benchmarkName].image) {
+          benchmarkDatasets[benchmarkName].dom = this.image
+          benchmarkDatasets[benchmarkName].jsCanvas = this.js_canvas
+          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_canvas
+        }
         return benchmarkDatasets[benchmarkName];
       }
 
       // default benchmark
       return benchmarkDatasets.collisionDetection;
+    },
+    onImageLoad() {
+      this.shouldLoadWasm = true
+    },
+    getImage() {
+      return this.getBenchmarkDataset().image
     },
   },
 };

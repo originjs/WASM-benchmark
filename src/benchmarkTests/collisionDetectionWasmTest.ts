@@ -72,14 +72,6 @@ export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClas
     }
   }
 
-  equalArray(array1: Uint8Array, array2: Uint8Array): boolean {
-    if (array1.length !== array2.length) return false;
-    for (let i = 0, il = array1.length; i < il; i++) {
-      if (array1[i] !== array2[i]) return false;
-    }
-    return true;
-  }
-
   runWasm(): number {
     let pointer1 = this.module._malloc(this.positions.length * 3 * 8);
     let pointer2 = this.module._malloc(this.radiuses.length * 8);

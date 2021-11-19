@@ -1,9 +1,9 @@
 export interface WasmTestInterface {
   initTestData(): void;
   checkFunctionality(): boolean;
-  runWasm(): number;
+  runWasm(): number | void;
   runWasmBenchmark(): string;
-  runJavaScript(): number;
+  runJavaScript(): number | void;
   runJavaScriptBenchmark(): string;
 }
 
@@ -33,11 +33,11 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     throw this.shouldOverrideError;
   }
 
-  runWasm(): number {
+  runWasm(): number | void {
     throw this.shouldOverrideError;
   }
 
-  runJavaScript(): number {
+  runJavaScript(): number | void {
     throw this.shouldOverrideError;
   }
 
@@ -67,5 +67,13 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
       elapsedTime += endTime - startTime;
     }
     return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+  }
+
+  equalArray(array1: any, array2: any): boolean {
+    if (array1.length !== array2.length) return false;
+    for (let i = 0, il = array1.length; i < il; i++) {
+      if (array1[i] !== array2[i]) return false;
+    }
+    return true;
   }
 }

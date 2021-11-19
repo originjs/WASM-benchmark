@@ -5,6 +5,9 @@ import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmT
 import fibModule from '~/browser_benchmark/fib';
 import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 // @ts-ignore
+import imageConvoluteModule from '~/browser_benchmark/imageConvolute'
+import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
+// @ts-ignore
 import sumIntModule from '~/browser_benchmark/sumInt';
 import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
@@ -23,6 +26,12 @@ const benchmarkDatasets = {
     testbench: fibWasmTest,
     url: '/browser_benchmark/fib.wasm',
     dataSize: 0x28,
+  },
+  imageConvolute: {
+    Module: imageConvoluteModule,
+    testbench: imageConvoluteWasmTest,
+    url: '/browser_benchmark/imageConvolute.wasm',
+    image: '/src/assets/image.jpg',
   },
   sumInt: {
     Module: sumIntModule,

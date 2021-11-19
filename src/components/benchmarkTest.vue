@@ -80,6 +80,9 @@ export default {
       warmUpRunLoops,
       benchmarkRunLoops,
       module,
+      props.benchmarkDataset.dom,
+      props.benchmarkDataset.jsCanvas,
+      props.benchmarkDataset.wsCanvas,
     );
     return { module, wasmTest };
   },
