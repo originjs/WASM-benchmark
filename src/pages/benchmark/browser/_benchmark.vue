@@ -1,27 +1,29 @@
 <template>
   <div style="width: 100%">
     <h1 style="margin-top: 3rem">Benchmark : {{ $route.params.benchmark }}</h1>
-    <button style="font-size: 15px; margin-bottom: 25px" @click="toggleImages">
-      {{ toggleImagesString }}
-    </button>
-    <div
-      v-show="displayImages"
-      style="display: flex; justify-content: space-around; margin-bottom: 25px"
-    >
-      <img
-        style="width: calc(30vw)"
-        @load="onImageLoad"
-        ref="image"
-        :src="getImage()"
-      />
-      <canvas
-        style="width: calc(30vw); border: 1px solid"
-        ref="js_canvas"
-      ></canvas>
-      <canvas
-        style="width: calc(30vw); border: 1px solid"
-        ref="ws_canvas"
-      ></canvas>
+    <div v-if="getImage()">
+      <button style="font-size: 15px; margin-bottom: 25px" @click="toggleImages">
+        {{ toggleImagesString }}
+      </button>
+      <div
+          v-show="displayImages"
+          style="display: flex; justify-content: space-around; margin-bottom: 25px"
+      >
+        <img
+            style="width: calc(30vw)"
+            @load="onImageLoad"
+            ref="image"
+            :src="getImage()"
+        />
+        <canvas
+            style="width: calc(30vw); border: 1px solid"
+            ref="js_canvas"
+        ></canvas>
+        <canvas
+            style="width: calc(30vw); border: 1px solid"
+            ref="ws_canvas"
+        ></canvas>
+      </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center">
       <ul
@@ -78,8 +80,8 @@ export default {
   data() {
     return {
       shouldLoadWasm: !this.getBenchmarkDataset().image,
-      toggleImagesString: '+ images',
-      displayImages: false,
+      toggleImagesString: '- images',
+      displayImages: true,
     };
   },
   setup() {
