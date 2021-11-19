@@ -77,6 +77,7 @@ export default {
       'sumDouble',
       'multiplyDouble',
       'multiplyIntVec',
+      'multiplyDoubleVec',
     ];
 
     return { testNames, benchmarkDatasets, image, js_canvas, ws_canvas };

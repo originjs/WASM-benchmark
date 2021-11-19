@@ -19,6 +19,9 @@ import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
 // @ts-ignore
 import multiplyIntVecModule from '~/browser_benchmark/multiplyIntVec';
 import multiplyIntVecWasmTest from '@/benchmarkTests/multiplyIntVecWasmTest';
+// @ts-ignore
+import multiplyDoubleVecModule from '~/browser_benchmark/multiplyDoubleVec';
+import multiplyDoubleVecWasmTest from '@/benchmarkTests/multiplyDoubleVecWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -61,6 +64,12 @@ const benchmarkDatasets = {
     Module: multiplyIntVecModule,
     testbench: multiplyIntVecWasmTest,
     url: '/browser_benchmark/multiplyIntVec.wasm',
+    dataSize: 0x2000000,
+  },
+  multiplyDoubleVec: {
+    Module: multiplyDoubleVecModule,
+    testbench: multiplyDoubleVecWasmTest,
+    url: '/browser_benchmark/multiplyDoubleVec.wasm',
     dataSize: 0x2000000,
   },
 };
