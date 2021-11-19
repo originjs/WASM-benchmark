@@ -90,11 +90,12 @@ export default {
       'collisionDetection',
       'fibonacci',
       'imageConvolute',
-      'sumInt',
-      'sumDouble',
       'multiplyDouble',
       'multiplyIntVec',
       'multiplyDoubleVec',
+      'quicksortInt',
+      'sumInt',
+      'sumDouble',
     ];
 
     return { testNames, benchmarkDatasets, image, js_canvas, ws_canvas };

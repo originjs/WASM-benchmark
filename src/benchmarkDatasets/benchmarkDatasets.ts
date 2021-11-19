@@ -8,12 +8,6 @@ import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 import imageConvoluteModule from '~/browser_benchmark/imageConvolute';
 import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
 // @ts-ignore
-import sumIntModule from '~/browser_benchmark/sumInt';
-import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
-// @ts-ignore
-import sumDoubleModule from '~/browser_benchmark/sumDouble';
-import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
-// @ts-ignore
 import multiplyDoubleModule from '~/browser_benchmark/multiplyDouble';
 import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
 // @ts-ignore
@@ -22,6 +16,15 @@ import multiplyIntVecWasmTest from '@/benchmarkTests/multiplyIntVecWasmTest';
 // @ts-ignore
 import multiplyDoubleVecModule from '~/browser_benchmark/multiplyDoubleVec';
 import multiplyDoubleVecWasmTest from '@/benchmarkTests/multiplyDoubleVecWasmTest';
+// @ts-ignore
+import quickSortIntModule from '~/browser_benchmark/quicksortInt';
+import quickSortIntWasmTest from '@/benchmarkTests/quicksortIntWasmTest';
+// @ts-ignore
+import sumIntModule from '~/browser_benchmark/sumInt';
+import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
+// @ts-ignore
+import sumDoubleModule from '~/browser_benchmark/sumDouble';
+import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -42,18 +45,6 @@ const benchmarkDatasets = {
     url: '/browser_benchmark/imageConvolute.wasm',
     image: '/src/assets/image.jpg',
   },
-  sumInt: {
-    Module: sumIntModule,
-    testbench: sumIntWasmTest,
-    url: '/browser_benchmark/sumInt.wasm',
-    dataSize: 0x8000000,
-  },
-  sumDouble: {
-    Module: sumDoubleModule,
-    testbench: sumDoubleWasmTest,
-    url: '/browser_benchmark/sumDouble.wasm',
-    dataSize: 0x4000000,
-  },
   multiplyDouble: {
     Module: multiplyDoubleModule,
     testbench: multiplyDoubleWasmTest,
@@ -71,6 +62,24 @@ const benchmarkDatasets = {
     testbench: multiplyDoubleVecWasmTest,
     url: '/browser_benchmark/multiplyDoubleVec.wasm',
     dataSize: 0x2000000,
+  },
+  quicksortInt: {
+    Module: quickSortIntModule,
+    testbench: quickSortIntWasmTest,
+    url: '/browser_benchmark/quicksortInt.wasm',
+    dataSize: 0x200000,
+  },
+  sumInt: {
+    Module: sumIntModule,
+    testbench: sumIntWasmTest,
+    url: '/browser_benchmark/sumInt.wasm',
+    dataSize: 0x8000000,
+  },
+  sumDouble: {
+    Module: sumDoubleModule,
+    testbench: sumDoubleWasmTest,
+    url: '/browser_benchmark/sumDouble.wasm',
+    dataSize: 0x4000000,
   },
 };
 
