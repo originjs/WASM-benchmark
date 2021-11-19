@@ -17,7 +17,7 @@ export default class MultiplyDoubleWasmTest extends WasmTestAbstractBaseClass {
     return this.runWasm() === this.runJavaScript();
   }
 
-  runWasm() {
+  runWasm(): number {
     return this.module._multiplyDouble(1.0, 1.0, this.dataSize);
   }
 

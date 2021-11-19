@@ -17,7 +17,7 @@ export default class FibWasmTest extends WasmTestAbstractBaseClass {
     return this.runWasm() === this.runJavaScript();
   }
 
-  runWasm() {
+  runWasm(): number {
     return this.module._fib(this.dataSize);
   }
 

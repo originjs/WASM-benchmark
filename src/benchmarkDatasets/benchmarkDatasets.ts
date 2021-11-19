@@ -5,7 +5,7 @@ import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmT
 import fibModule from '~/browser_benchmark/fib';
 import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 // @ts-ignore
-import imageConvoluteModule from '~/browser_benchmark/imageConvolute'
+import imageConvoluteModule from '~/browser_benchmark/imageConvolute';
 import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
 // @ts-ignore
 import sumIntModule from '~/browser_benchmark/sumInt';

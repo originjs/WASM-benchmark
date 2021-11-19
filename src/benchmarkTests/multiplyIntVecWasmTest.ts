@@ -60,14 +60,11 @@ export default class MultiplyIntVecWasmTest extends WasmTestAbstractBaseClass {
     this.module._free(pointer1);
     this.module._free(pointer2);
     this.module._free(pointer3);
-
-    return 0;
   }
 
-  runJavaScript(): number {
+  runJavaScript() {
     for (let i = 0; i < this.dataSize; i++) {
       this.res1[i] = this.src1[i] * this.src2[i];
     }
-    return 0;
   }
 }

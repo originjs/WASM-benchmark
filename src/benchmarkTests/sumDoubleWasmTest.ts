@@ -26,7 +26,7 @@ export default class SumDoubleWasmTest extends WasmTestAbstractBaseClass {
     return this.runWasm() === this.runJavaScript();
   }
 
-  runWasm() {
+  runWasm(): number {
     const pointer = this.module._malloc(this.array.length * 8);
     const offset = pointer / 8;
     this.module.HEAPF64.set(this.array, offset);

@@ -1,15 +1,29 @@
 <template>
   <div style="width: 100%">
     <h1 style="margin-top: 3rem">Benchmark : {{ $route.params.benchmark }}</h1>
-    <button style="font-size: 15px;margin-bottom: 25px;" @click="toggleImages">{{ toggleImagesString }}</button>
-    <div v-show="displayImages" style="display: flex; justify-content: space-around;margin-bottom: 25px;">
-      <img style="width: calc(30vw);" @load="onImageLoad" ref="image" :src="getImage()"/>
-      <canvas style="width: calc(30vw); border: 1px solid;" ref="js_canvas"></canvas>
-      <canvas style="width: calc(30vw); border: 1px solid;" ref="ws_canvas"></canvas>
-    </div>
+    <button style="font-size: 15px; margin-bottom: 25px" @click="toggleImages">
+      {{ toggleImagesString }}
+    </button>
     <div
-      style="width: 100%; display: flex; justify-content: center;"
+      v-show="displayImages"
+      style="display: flex; justify-content: space-around; margin-bottom: 25px"
     >
+      <img
+        style="width: calc(30vw)"
+        @load="onImageLoad"
+        ref="image"
+        :src="getImage()"
+      />
+      <canvas
+        style="width: calc(30vw); border: 1px solid"
+        ref="js_canvas"
+      ></canvas>
+      <canvas
+        style="width: calc(30vw); border: 1px solid"
+        ref="ws_canvas"
+      ></canvas>
+    </div>
+    <div style="width: 100%; display: flex; justify-content: center">
       <ul
         style="
           margin-left: 5rem;
@@ -36,7 +50,10 @@
           justify-content: center;
         "
       >
-        <div v-if="shouldLoadWasm" style="display: flex; justify-content: center">
+        <div
+          v-if="shouldLoadWasm"
+          style="display: flex; justify-content: center"
+        >
           <suspense :timeout="0">
             <template #default>
               <BenchmarkTest
@@ -61,14 +78,14 @@ export default {
   data() {
     return {
       shouldLoadWasm: !this.getBenchmarkDataset().image,
-      toggleImagesString: "+ images",
+      toggleImagesString: '+ images',
       displayImages: false,
-    }
+    };
   },
   setup() {
-    const image = ref(null)
-    const js_canvas = ref(null)
-    const ws_canvas = ref(null)
+    const image = ref(null);
+    const js_canvas = ref(null);
+    const ws_canvas = ref(null);
     const testNames = [
       'collisionDetection',
       'fibonacci',
@@ -90,9 +107,9 @@ export default {
       const benchmarkName = this.$route.params.benchmark;
       if (benchmarkDatasets[benchmarkName]) {
         if (benchmarkDatasets[benchmarkName].image) {
-          benchmarkDatasets[benchmarkName].dom = this.image
-          benchmarkDatasets[benchmarkName].jsCanvas = this.js_canvas
-          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_canvas
+          benchmarkDatasets[benchmarkName].dom = this.image;
+          benchmarkDatasets[benchmarkName].jsCanvas = this.js_canvas;
+          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_canvas;
         }
         return benchmarkDatasets[benchmarkName];
       }
@@ -101,19 +118,19 @@ export default {
       return benchmarkDatasets.collisionDetection;
     },
     onImageLoad() {
-      this.shouldLoadWasm = true
+      this.shouldLoadWasm = true;
     },
     getImage() {
-      return this.getBenchmarkDataset().image
+      return this.getBenchmarkDataset().image;
     },
     toggleImages() {
-      this.displayImages = !this.displayImages
+      this.displayImages = !this.displayImages;
       if (this.displayImages) {
-        this.toggleImagesString = "- images"
+        this.toggleImagesString = '- images';
       } else {
-        this.toggleImagesString = "+ images"
+        this.toggleImagesString = '+ images';
       }
-    }
+    },
   },
 };
 </script>
