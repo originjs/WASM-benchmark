@@ -1,10 +1,11 @@
 <template>
   <div style="width: 100%">
     <h1 style="margin-top: 3rem">Benchmark : {{ $route.params.benchmark }}</h1>
-    <div v-if="getBenchmarkDataset().image">
-      <img @load="onImageLoad" ref="image" :src="getImage()"/>
-      <canvas ref="js_canvas"></canvas>
-      <canvas ref="ws_canvas"></canvas>
+    <button style="font-size: 15px;margin-bottom: 25px;" @click="toggleImages">{{ toggleImagesString }}</button>
+    <div v-show="displayImages" style="display: flex; justify-content: space-around;margin-bottom: 25px;">
+      <img style="width: calc(30vw);" @load="onImageLoad" ref="image" :src="getImage()"/>
+      <canvas style="width: calc(30vw); border: 1px solid;" ref="js_canvas"></canvas>
+      <canvas style="width: calc(30vw); border: 1px solid;" ref="ws_canvas"></canvas>
     </div>
     <div
       style="width: 100%; display: flex; justify-content: center;"
@@ -60,6 +61,8 @@ export default {
   data() {
     return {
       shouldLoadWasm: !this.getBenchmarkDataset().image,
+      toggleImagesString: "+ images",
+      displayImages: false,
     }
   },
   setup() {
@@ -102,6 +105,14 @@ export default {
     getImage() {
       return this.getBenchmarkDataset().image
     },
+    toggleImages() {
+      this.displayImages = !this.displayImages
+      if (this.displayImages) {
+        this.toggleImagesString = "- images"
+      } else {
+        this.toggleImagesString = "+ images"
+      }
+    }
   },
 };
 </script>
