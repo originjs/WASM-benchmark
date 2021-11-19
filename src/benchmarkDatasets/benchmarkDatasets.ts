@@ -17,8 +17,11 @@ import multiplyIntVecWasmTest from '@/benchmarkTests/multiplyIntVecWasmTest';
 import multiplyDoubleVecModule from '~/browser_benchmark/multiplyDoubleVec';
 import multiplyDoubleVecWasmTest from '@/benchmarkTests/multiplyDoubleVecWasmTest';
 // @ts-ignore
-import quickSortIntModule from '~/browser_benchmark/quicksortInt';
-import quickSortIntWasmTest from '@/benchmarkTests/quicksortIntWasmTest';
+import quicksortIntModule from '~/browser_benchmark/quicksortInt';
+import quicksortIntWasmTest from '@/benchmarkTests/quicksortIntWasmTest';
+// @ts-ignore
+import quicksortDoubleModule from '~/browser_benchmark/quicksortDouble';
+import quicksortDoubleWasmTest from '@/benchmarkTests/quicksortDoubleWasmTest';
 // @ts-ignore
 import sumIntModule from '~/browser_benchmark/sumInt';
 import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
@@ -64,9 +67,15 @@ const benchmarkDatasets = {
     dataSize: 0x2000000,
   },
   quicksortInt: {
-    Module: quickSortIntModule,
-    testbench: quickSortIntWasmTest,
+    Module: quicksortIntModule,
+    testbench: quicksortIntWasmTest,
     url: '/browser_benchmark/quicksortInt.wasm',
+    dataSize: 0x200000,
+  },
+  quicksortDouble: {
+    Module: quicksortDoubleModule,
+    testbench: quicksortDoubleWasmTest,
+    url: '/browser_benchmark/quicksortDouble.wasm',
     dataSize: 0x200000,
   },
   sumInt: {

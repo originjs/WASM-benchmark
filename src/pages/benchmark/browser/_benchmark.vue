@@ -94,6 +94,7 @@ export default {
       'multiplyIntVec',
       'multiplyDoubleVec',
       'quicksortInt',
+      'quicksortDouble',
       'sumInt',
       'sumDouble',
     ];
