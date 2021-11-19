@@ -58,6 +58,7 @@ export default {
       'fibonacci',
       'sumInt',
       'sumDouble',
+      'multiplyDouble',
     ];
     return { testNames, benchmarkDatasets };
   },

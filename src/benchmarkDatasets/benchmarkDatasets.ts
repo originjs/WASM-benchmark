@@ -10,6 +10,9 @@ import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
 import sumDoubleModule from '~/browser_benchmark/sumDouble';
 import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
+// @ts-ignore
+import multiplyDoubleModule from '~/browser_benchmark/multiplyDouble';
+import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -35,6 +38,12 @@ const benchmarkDatasets = {
     testbench: sumDoubleWasmTest,
     url: '/browser_benchmark/sumDouble.wasm',
     dataSize: 0x4000000,
+  },
+  multiplyDouble: {
+    Module: multiplyDoubleModule,
+    testbench: multiplyDoubleWasmTest,
+    url: '/browser_benchmark/multiplyDouble.wasm',
+    dataSize: 0x10000000,
   },
 };
 
