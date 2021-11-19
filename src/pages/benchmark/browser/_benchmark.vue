@@ -59,6 +59,7 @@ export default {
       'sumInt',
       'sumDouble',
       'multiplyDouble',
+      'multiplyIntVec',
     ];
     return { testNames, benchmarkDatasets };
   },
