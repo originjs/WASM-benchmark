@@ -100,6 +100,7 @@ export default {
       'fibonacci',
       'imageConvolute',
       'imageGrayscale',
+      'imageThreshold',
       'multiplyDouble',
       'multiplyIntVec',
       'multiplyDoubleVec',

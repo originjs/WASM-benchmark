@@ -7,8 +7,12 @@ import fibWasmTest from '@/benchmarkTests/fibWasmTest';
 // @ts-ignore
 import imageConvoluteModule from '~/browser_benchmark/imageConvolute';
 import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
+// @ts-ignore
 import imageGrayscaleModule from '~/browser_benchmark/imageGrayscale';
 import imageGrayscaleWasmTest from '@/benchmarkTests/imageGrayscaleWasmTest';
+// @ts-ignore
+import imageThresholdModule from '~/browser_benchmark/imageThreshold';
+import imageThresholdWasmTest from '@/benchmarkTests/imageThresholdWasmTest';
 // @ts-ignore
 import multiplyDoubleModule from '~/browser_benchmark/multiplyDouble';
 import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
@@ -54,6 +58,12 @@ const benchmarkDatasets = {
     Module: imageGrayscaleModule,
     testbench: imageGrayscaleWasmTest,
     url: '/browser_benchmark/imageGrayscale.wasm',
+    image: '/src/assets/image.jpg',
+  },
+  imageThreshold: {
+    Module: imageThresholdModule,
+    testbench: imageThresholdWasmTest,
+    url: '/browser_benchmark/imageThreshold.wasm',
     image: '/src/assets/image.jpg',
   },
   multiplyDouble: {
