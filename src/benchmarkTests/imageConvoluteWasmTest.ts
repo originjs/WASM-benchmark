@@ -1,6 +1,4 @@
 import { WasmTestAbstractBaseClass } from './index';
-// @ts-ignore
-import image from '@/assets/image.jpg';
 
 export default class ImageConvoluteWasmTest extends WasmTestAbstractBaseClass {
   image: any;
