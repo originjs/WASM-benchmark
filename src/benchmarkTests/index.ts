@@ -29,35 +29,6 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     throw this.shouldOverrideError;
   }
 
-  initCanvasData() {
-    this.canvas = document.createElement('canvas');
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-    const context = this.canvas.getContext('2d');
-    context.drawImage(this.image, 0, 0);
-    this.imageData = context.getImageData(0, 0, this.width, this.height);
-
-    this.jsCanvas.width = this.width;
-    this.jsCanvas.height = this.height;
-    this.jsContext = this.jsCanvas.getContext('2d');
-    this.jsImageData = this.jsContext.getImageData(
-      0,
-      0,
-      this.width,
-      this.height,
-    );
-
-    this.wsCanvas.width = this.width;
-    this.wsCanvas.height = this.height;
-    this.wsContext = this.wsCanvas.getContext('2d');
-    this.wsImageData = this.wsContext.getImageData(
-      0,
-      0,
-      this.width,
-      this.height,
-    );
-  }
-
   checkFunctionality(): boolean {
     throw this.shouldOverrideError;
   }
@@ -110,5 +81,68 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     for (let i = 0, il = src.length; i < il; i++) {
       res[i] = src[i];
     }
+  }
+}
+
+export class WasmTestImageAbstractBaseClass
+  extends WasmTestAbstractBaseClass
+  implements WasmTestInterface
+{
+  image: any;
+  canvas: any;
+  jsCanvas: any;
+  wsCanvas: any;
+  jsContext: any;
+  wsContext: any;
+  width: number;
+  height: number;
+  imageData: any;
+  jsImageData: any;
+  wsImageData: any;
+
+  constructor(
+    dataSize: number,
+    warmUpRunLoops: number,
+    benchmarkRunLoops: number,
+    module: Object,
+    dom: any,
+    jsCanvas: any,
+    wsCanvas: any,
+  ) {
+    super(warmUpRunLoops, benchmarkRunLoops, module);
+    this.image = dom;
+    this.width = this.image.width;
+    this.height = this.image.height;
+    this.jsCanvas = jsCanvas;
+    this.wsCanvas = wsCanvas;
+  }
+
+  initImageCanvasData() {
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    const context = this.canvas.getContext('2d');
+    context.drawImage(this.image, 0, 0);
+    this.imageData = context.getImageData(0, 0, this.width, this.height);
+
+    this.jsCanvas.width = this.width;
+    this.jsCanvas.height = this.height;
+    this.jsContext = this.jsCanvas.getContext('2d');
+    this.jsImageData = this.jsContext.getImageData(
+      0,
+      0,
+      this.width,
+      this.height,
+    );
+
+    this.wsCanvas.width = this.width;
+    this.wsCanvas.height = this.height;
+    this.wsContext = this.wsCanvas.getContext('2d');
+    this.wsImageData = this.wsContext.getImageData(
+      0,
+      0,
+      this.width,
+      this.height,
+    );
   }
 }

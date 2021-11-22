@@ -1,17 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { WasmTestImageAbstractBaseClass } from './index';
 
-export default class ImageConvoluteWasmTest extends WasmTestAbstractBaseClass {
-  image: any;
-  canvas: any;
-  jsCanvas: any;
-  wsCanvas: any;
-  jsContext: any;
-  wsContext: any;
-  imageData: any;
-  jsImageData: any;
-  wsImageData: any;
-  width: number;
-  height: number;
+export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseClass {
   weights: Float64Array = new Float64Array([
     1 / 25,
     1 / 25,
@@ -51,13 +40,16 @@ export default class ImageConvoluteWasmTest extends WasmTestAbstractBaseClass {
     jsCanvas: any,
     wsCanvas: any,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
-    this.image = dom;
-    this.width = this.image.width;
-    this.height = this.image.height;
-    this.jsCanvas = jsCanvas;
-    this.wsCanvas = wsCanvas;
-    this.initCanvasData();
+    super(
+      dataSize,
+      warmUpRunLoops,
+      benchmarkRunLoops,
+      module,
+      dom,
+      jsCanvas,
+      wsCanvas,
+    );
+    this.initImageCanvasData();
   }
 
   checkFunctionality(): boolean {
