@@ -7,6 +7,7 @@ declare module 'vue' {
     BenchmarkTest: typeof import('./src/components/benchmarkTest.vue')['default']
     README: typeof import('./src/components/README.md')['default']
     Sources: typeof import('./src/components/Sources.vue')['default']
+    VideoBenchmarkTest: typeof import('./src/components/videoBenchmarkTest.vue')['default']
   }
 }
 

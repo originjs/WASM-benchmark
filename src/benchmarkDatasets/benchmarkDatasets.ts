@@ -34,6 +34,7 @@ import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
 import sumDoubleModule from '~/browser_benchmark/sumDouble';
 import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
+import videoConvoluteWasmTest from '@/benchmarkTests/videoConvoluteWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -107,6 +108,12 @@ const benchmarkDatasets = {
     testbench: sumDoubleWasmTest,
     url: '/browser_benchmark/sumDouble.wasm',
     dataSize: 0x4000000,
+  },
+  videoConvolute: {
+    Module: imageConvoluteModule,
+    testbench: videoConvoluteWasmTest,
+    url: '/browser_benchmark/imageConvolute.wasm',
+    video: '/src/assets/marker.mp4',
   },
 };
 

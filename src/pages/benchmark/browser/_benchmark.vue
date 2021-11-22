@@ -18,18 +18,48 @@
       >
         <img
           style="width: calc(30vw)"
-          @load="onImageLoad"
+          @load="onDomLoad"
           ref="image"
           :src="getImage()"
         />
         <canvas
           style="width: calc(30vw); border: 1px solid"
-          ref="js_canvas"
+          ref="js_image_canvas"
         ></canvas>
         <canvas
           style="width: calc(30vw); border: 1px solid"
-          ref="ws_canvas"
+          ref="ws_image_canvas"
         ></canvas>
+      </div>
+    </div>
+    <div v-if="getVideo()">
+      <button
+        style="font-size: 15px; margin-bottom: 25px"
+        @click="toggleVideos"
+      >
+        {{ toggleVideosString }}
+      </button>
+      <div
+        v-show="displayVideos"
+        style="
+          display: flex;
+          justify-content: space-around;
+          margin-bottom: 25px;
+        "
+      >
+        <video
+          loop
+          autoplay
+          muted
+          @playing="onDomLoad"
+          ref="video"
+          :src="getVideo()"
+        />
+        <canvas
+          style="width: 482px; height: 296px; border: 1px solid"
+          ref="js_video_canvas"
+        ></canvas>
+        <canvas style="border: 1px solid" ref="ws_video_canvas"></canvas>
       </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center">
@@ -65,7 +95,13 @@
         >
           <suspense :timeout="0">
             <template #default>
+              <VideoBenchmarkTest
+                v-if="getVideo()"
+                :key="$route.params.benchmark"
+                :benchmarkDataset="getBenchmarkDataset()"
+              />
               <BenchmarkTest
+                v-else
                 :key="$route.params.benchmark"
                 :benchmarkDataset="getBenchmarkDataset()"
               />
@@ -86,15 +122,21 @@ export default {
   name: 'benchmark',
   data() {
     return {
-      shouldLoadWasm: !this.getBenchmarkDataset().image,
+      shouldLoadWasm:
+        !this.getBenchmarkDataset().image && !this.getBenchmarkDataset().video,
       toggleImagesString: '- images',
       displayImages: true,
+      toggleVideosString: '- videos',
+      displayVideos: true,
     };
   },
   setup() {
     const image = ref(null);
-    const js_canvas = ref(null);
-    const ws_canvas = ref(null);
+    const video = ref(null);
+    const js_image_canvas = ref(null);
+    const ws_image_canvas = ref(null);
+    const js_video_canvas = ref(null);
+    const ws_video_canvas = ref(null);
     const testNames = [
       'collisionDetection',
       'fibonacci',
@@ -108,9 +150,19 @@ export default {
       'quicksortDouble',
       'sumInt',
       'sumDouble',
+      'videoConvolute',
     ];
 
-    return { testNames, benchmarkDatasets, image, js_canvas, ws_canvas };
+    return {
+      testNames,
+      benchmarkDatasets,
+      image,
+      video,
+      js_image_canvas,
+      ws_image_canvas,
+      js_video_canvas,
+      ws_video_canvas,
+    };
   },
   components: {
     Suspense,
@@ -121,8 +173,14 @@ export default {
       if (benchmarkDatasets[benchmarkName]) {
         if (benchmarkDatasets[benchmarkName].image) {
           benchmarkDatasets[benchmarkName].dom = this.image;
-          benchmarkDatasets[benchmarkName].jsCanvas = this.js_canvas;
-          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_canvas;
+          benchmarkDatasets[benchmarkName].jsCanvas = this.js_image_canvas;
+          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_image_canvas;
+        }
+
+        if (benchmarkDatasets[benchmarkName].video) {
+          benchmarkDatasets[benchmarkName].dom = this.video;
+          benchmarkDatasets[benchmarkName].jsCanvas = this.js_video_canvas;
+          benchmarkDatasets[benchmarkName].wsCanvas = this.ws_video_canvas;
         }
         return benchmarkDatasets[benchmarkName];
       }
@@ -130,11 +188,14 @@ export default {
       // default benchmark
       return benchmarkDatasets.collisionDetection;
     },
-    onImageLoad() {
+    onDomLoad() {
       this.shouldLoadWasm = true;
     },
     getImage() {
       return this.getBenchmarkDataset().image;
+    },
+    getVideo() {
+      return this.getBenchmarkDataset().video;
     },
     toggleImages() {
       this.displayImages = !this.displayImages;
@@ -142,6 +203,14 @@ export default {
         this.toggleImagesString = '- images';
       } else {
         this.toggleImagesString = '+ images';
+      }
+    },
+    toggleVideos() {
+      this.displayVideos = !this.displayVideos;
+      if (this.displayVideos) {
+        this.toggleVideoString = '- videos';
+      } else {
+        this.toggleVideoString = '+ videos';
       }
     },
   },
