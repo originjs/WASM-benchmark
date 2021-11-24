@@ -1,40 +1,40 @@
 // @ts-ignore
-import collisionDetectionModule from '~/browser_benchmark/collisionDetection';
-import collisionDetectionWasmTest from '@/benchmarkTests/collisionDetectionWasmTest';
+import collisionDetectionModule from '../../browser_benchmark/collisionDetection';
+import collisionDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/collisionDetectionWasmTest';
 // @ts-ignore
-import fibModule from '~/browser_benchmark/fib';
-import fibWasmTest from '@/benchmarkTests/fibWasmTest';
+import fibModule from '../../browser_benchmark/fib';
+import fibWasmTest from '../../../benchmark_base/src/benchmarkTests/fibWasmTest';
 // @ts-ignore
-import imageConvoluteModule from '~/browser_benchmark/imageConvolute';
-import imageConvoluteWasmTest from '@/benchmarkTests/imageConvoluteWasmTest';
+import imageConvoluteModule from '../../browser_benchmark/imageConvolute';
+import imageConvoluteWasmTest from '../../../benchmark_base/src/benchmarkTests/imageConvoluteWasmTest';
 // @ts-ignore
-import imageGrayscaleModule from '~/browser_benchmark/imageGrayscale';
-import imageGrayscaleWasmTest from '@/benchmarkTests/imageGrayscaleWasmTest';
+import imageGrayscaleModule from '../../browser_benchmark/imageGrayscale';
+import imageGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/imageGrayscaleWasmTest';
 // @ts-ignore
-import imageThresholdModule from '~/browser_benchmark/imageThreshold';
-import imageThresholdWasmTest from '@/benchmarkTests/imageThresholdWasmTest';
+import imageThresholdModule from '../../browser_benchmark/imageThreshold';
+import imageThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/imageThresholdWasmTest';
 // @ts-ignore
-import multiplyDoubleModule from '~/browser_benchmark/multiplyDouble';
-import multiplyDoubleWasmTest from '@/benchmarkTests/multiplyDoubleWasmTest';
+import multiplyDoubleModule from '../../browser_benchmark/multiplyDouble';
+import multiplyDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleWasmTest';
 // @ts-ignore
-import multiplyIntVecModule from '~/browser_benchmark/multiplyIntVec';
-import multiplyIntVecWasmTest from '@/benchmarkTests/multiplyIntVecWasmTest';
+import multiplyIntVecModule from '../../browser_benchmark/multiplyIntVec';
+import multiplyIntVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyIntVecWasmTest';
 // @ts-ignore
-import multiplyDoubleVecModule from '~/browser_benchmark/multiplyDoubleVec';
-import multiplyDoubleVecWasmTest from '@/benchmarkTests/multiplyDoubleVecWasmTest';
+import multiplyDoubleVecModule from '../../browser_benchmark/multiplyDoubleVec';
+import multiplyDoubleVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleVecWasmTest';
 // @ts-ignore
-import quicksortIntModule from '~/browser_benchmark/quicksortInt';
-import quicksortIntWasmTest from '@/benchmarkTests/quicksortIntWasmTest';
+import quicksortIntModule from '../../browser_benchmark/quicksortInt';
+import quicksortIntWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortIntWasmTest';
 // @ts-ignore
-import quicksortDoubleModule from '~/browser_benchmark/quicksortDouble';
-import quicksortDoubleWasmTest from '@/benchmarkTests/quicksortDoubleWasmTest';
+import quicksortDoubleModule from '../../browser_benchmark/quicksortDouble';
+import quicksortDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortDoubleWasmTest';
 // @ts-ignore
-import sumIntModule from '~/browser_benchmark/sumInt';
-import sumIntWasmTest from '@/benchmarkTests/sumIntWasmTest';
+import sumIntModule from '../../browser_benchmark/sumInt';
+import sumIntWasmTest from '../../../benchmark_base/src/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
-import sumDoubleModule from '~/browser_benchmark/sumDouble';
-import sumDoubleWasmTest from '@/benchmarkTests/sumDoubleWasmTest';
-import videoConvoluteWasmTest from '@/benchmarkTests/videoConvoluteWasmTest';
+import sumDoubleModule from '../../browser_benchmark/sumDouble';
+import sumDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/sumDoubleWasmTest';
+import videoConvoluteWasmTest from '../../../benchmark_base/src/benchmarkTests/videoConvoluteWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {

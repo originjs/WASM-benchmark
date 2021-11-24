@@ -33,8 +33,8 @@
   </div>
 </template>
 <script>
-import { reactive, ref } from 'vue';
-import { loadEmccCompiledWasm } from '@/utils/loadWasmUtils';
+import { ref } from 'vue';
+import { loadEmccCompiledWasm } from '../utils/loadWasmUtils';
 
 export default {
   name: 'benchmarkTest',
