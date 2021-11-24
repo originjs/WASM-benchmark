@@ -12,6 +12,8 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
   benchmarkRunLoops: number;
   module: any;
   shouldOverrideError: Error;
+  performance: any;
+
   constructor(
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
@@ -23,6 +25,11 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     this.shouldOverrideError = Error(
       'Should override this function in sub class',
     );
+    if (typeof window === 'undefined' && typeof global === 'object') {
+      this.performance = require('perf_hooks').performance;
+    } else {
+      this.performance = performance;
+    }
   }
 
   initTestData() {
@@ -47,9 +54,9 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     }
     let elapsedTime = 0.0;
     for (let i = 0; i < this.benchmarkRunLoops; i++) {
-      let startTime = performance.now();
+      let startTime = this.performance.now();
       this.runWasm();
-      let endTime = performance.now();
+      let endTime = this.performance.now();
       elapsedTime += endTime - startTime;
     }
     return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
@@ -61,9 +68,9 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     }
     let elapsedTime = 0.0;
     for (let i = 0; i < this.benchmarkRunLoops; i++) {
-      let startTime = performance.now();
+      let startTime = this.performance.now();
       this.runJavaScript();
-      let endTime = performance.now();
+      let endTime = this.performance.now();
       elapsedTime += endTime - startTime;
     }
     return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
