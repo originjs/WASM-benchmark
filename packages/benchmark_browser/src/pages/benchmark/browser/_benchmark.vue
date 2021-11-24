@@ -117,7 +117,7 @@
 </template>
 <script>
 import { ref, Suspense } from 'vue';
-import benchmarkDatasets from '@/benchmarkDatasets/benchmarkDatasets';
+import benchmarkDatasets from '../../../benchmarkDatasets/benchmarkDatasets';
 export default {
   name: 'benchmark',
   data() {

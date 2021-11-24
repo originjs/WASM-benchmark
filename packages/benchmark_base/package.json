@@ -1,0 +1,12 @@
+{
+  "name": "benchmark_base",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MulanPSL2",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "three": "^0.85.0"
+  }
+}

@@ -48,7 +48,7 @@
 </template>
 <script>
 import { ref } from 'vue';
-import { loadEmccCompiledWasm } from '@/utils/loadWasmUtils';
+import { loadEmccCompiledWasm } from '../utils/loadWasmUtils';
 
 export default {
   name: 'benchmarkTest',
