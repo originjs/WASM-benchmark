@@ -16,20 +16,29 @@
           margin-bottom: 25px;
         "
       >
-        <img
-          style="width: calc(30vw)"
-          @load="onDomLoad"
-          ref="image"
-          :src="getImage()"
-        />
-        <canvas
-          style="width: calc(30vw); border: 1px solid"
-          ref="js_image_canvas"
-        ></canvas>
-        <canvas
-          style="width: calc(30vw); border: 1px solid"
-          ref="ws_image_canvas"
-        ></canvas>
+        <div>
+          <p>Original Image:</p>
+          <img
+              style="width: calc(30vw)"
+              @load="onDomLoad"
+              ref="image"
+              :src="getImage()"
+          />
+        </div>
+        <div>
+          <p>JavaScript Result:</p>
+          <canvas
+              style="width: calc(30vw); border: 1px solid"
+              ref="js_image_canvas"
+          ></canvas>
+        </div>
+        <div>
+          <p>WASM Result:</p>
+          <canvas
+              style="width: calc(30vw); border: 1px solid"
+              ref="ws_image_canvas"
+          ></canvas>
+        </div>
       </div>
     </div>
     <div v-if="getVideo()">
@@ -47,19 +56,28 @@
           margin-bottom: 25px;
         "
       >
-        <video
-          loop
-          autoplay
-          muted
-          @playing="onDomLoad"
-          ref="video"
-          :src="getVideo()"
-        />
-        <canvas
-          style="width: 482px; height: 296px; border: 1px solid"
-          ref="js_video_canvas"
-        ></canvas>
-        <canvas style="border: 1px solid" ref="ws_video_canvas"></canvas>
+        <div>
+          <p>Original Video:</p>
+          <video
+              loop
+              autoplay
+              muted
+              @playing="onDomLoad"
+              ref="video"
+              :src="getVideo()"
+          />
+        </div>
+        <div>
+          <p>JavaScript Result:</p>
+          <canvas
+              style="width: 482px; height: 296px; border: 1px solid"
+              ref="js_video_canvas"
+          ></canvas>
+        </div>
+        <div>
+          <p>WASM Result:</p>
+          <canvas style="border: 1px solid" ref="ws_video_canvas"></canvas>
+        </div>
       </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center">

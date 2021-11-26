@@ -199,6 +199,10 @@ export class WasmTestVideoAbstractBaseClass
     this.length = this.width * this.height * 4;
     this.jsCanvas = jsCanvas;
     this.wsCanvas = wsCanvas;
+    this.jsCanvas.width = this.width;
+    this.jsCanvas.height = this.height;
+    this.wsCanvas.width = this.width;
+    this.wsCanvas.height = this.height;
     this.initThreeData();
   }
 
