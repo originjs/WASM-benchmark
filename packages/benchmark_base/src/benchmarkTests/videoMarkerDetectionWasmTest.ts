@@ -1,4 +1,6 @@
 import { WasmTestVideoAbstractBaseClass } from './index';
+// Using cv.js and aruco.js of https://github.com/jcmellado/js-aruco
+// They're edited a little bit
 // @ts-ignore
 import AR from '../markerDetection/aruco.js';
 // @ts-ignore
