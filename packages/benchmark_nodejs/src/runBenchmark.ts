@@ -1,19 +1,25 @@
 import fs from 'fs';
 
-export async function runBenchmark(benchmarkDataset: any) {
+export async function runBenchmark(
+  benchmarkDataset: any,
+  result: any,
+  testName: string,
+  warnUpRunLoops: number = 1,
+  benchmarkRunLoops: number = 10,
+) {
   const wasmBinary = fs.readFileSync(benchmarkDataset.url);
   let module = {};
   const onRuntimeInitialized = () => {
     const wasmTest = new benchmarkDataset.testbench(
       benchmarkDataset.dataSize,
-      1,
-      10,
+      warnUpRunLoops,
+      benchmarkRunLoops,
       module,
     );
 
     setTimeout(() => {
       if (!wasmTest.checkFunctionality()) {
-        console.log('Two functions seem not equal');
+        console.log(`test ${testName}: Two functions seem not equal`);
         return;
       }
 
@@ -23,14 +29,17 @@ export async function runBenchmark(benchmarkDataset: any) {
           const wsPerformance = wasmTest.runWasmBenchmark();
           // @ts-ignore
           const comparison = (jsPerformance / wsPerformance).toFixed(4);
-          console.log(comparison);
-          console.log('Done');
+          result[testName] = { warnUpRunLoops, benchmarkRunLoops, comparison };
+          console.log(
+            `test ${testName}: jsPerformance / wsPerformance = ${comparison}`,
+          );
+          console.log(`test ${testName}: Done`);
         });
-        console.log('Running WebAssembly');
+        console.log(`test ${testName}: Running WebAssembly`);
       });
-      console.log('Running JavaScript');
+      console.log(`test ${testName}: Running JavaScript`);
     });
-    console.log('Checking equality');
+    console.log(`test ${testName}: Checking equality`);
   };
 
   await Promise.resolve().then(() => {
