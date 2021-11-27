@@ -43,13 +43,18 @@ export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseCla
     jsCanvas: any,
     wsCanvas: any,
   ) {
-    super(dataSize, warmUpRunLoops, benchmarkRunLoops, module, dom, jsCanvas, wsCanvas);
+    super(
+      dataSize,
+      warmUpRunLoops,
+      benchmarkRunLoops,
+      module,
+      dom,
+      jsCanvas,
+      wsCanvas,
+    );
   }
 
   initVideoCanvasData(): void {
-    this.jsContext = this.jsCanvas.getContext('2d');
-    this.wsContext = this.wsCanvas.getContext('2d');
-
     const uint8Array = new Uint8Array(this.module.HEAPU8.buffer);
 
     // for Original

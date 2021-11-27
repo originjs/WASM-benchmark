@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 export interface WasmTestInterface {
   initTestData(): void;
@@ -157,8 +157,9 @@ export class WasmTestImageAbstractBaseClass
 }
 
 export class WasmTestVideoAbstractBaseClass
-    extends WasmTestAbstractBaseClass
-    implements WasmTestInterface {
+  extends WasmTestAbstractBaseClass
+  implements WasmTestInterface
+{
   video: any;
   renderer: any;
   gl: any;
@@ -184,13 +185,13 @@ export class WasmTestVideoAbstractBaseClass
   videoCanvasDataInited = false;
 
   constructor(
-      dataSize: number,
-      warmUpRunLoops: number,
-      benchmarkRunLoops: number,
-      module: Object,
-      dom: any,
-      jsCanvas: any,
-      wsCanvas: any,
+    dataSize: number,
+    warmUpRunLoops: number,
+    benchmarkRunLoops: number,
+    module: Object,
+    dom: any,
+    jsCanvas: any,
+    wsCanvas: any,
   ) {
     super(warmUpRunLoops, benchmarkRunLoops, module);
     this.video = dom;
@@ -201,8 +202,10 @@ export class WasmTestVideoAbstractBaseClass
     this.wsCanvas = wsCanvas;
     this.jsCanvas.width = this.width;
     this.jsCanvas.height = this.height;
+    this.jsContext = this.jsCanvas.getContext('2d');
     this.wsCanvas.width = this.width;
     this.wsCanvas.height = this.height;
+    this.wsContext = this.wsCanvas.getContext('2d');
     this.initThreeData();
   }
 
@@ -254,13 +257,13 @@ export class WasmTestVideoAbstractBaseClass
     this.texture.needsUpdate = true;
     this.renderer.render(this.scene, this.camera, this.renderTarget);
     this.gl.readPixels(
-        0,
-        0,
-        this.width,
-        this.height,
-        this.gl.RGBA,
-        this.gl.UNSIGNED_BYTE,
-        this.videoDataArray,
+      0,
+      0,
+      this.width,
+      this.height,
+      this.gl.RGBA,
+      this.gl.UNSIGNED_BYTE,
+      this.videoDataArray,
     );
   }
 

@@ -35,6 +35,7 @@ import sumIntWasmTest from '../../../benchmark_base/src/benchmarkTests/sumIntWas
 import sumDoubleModule from '../../browser_benchmark/sumDouble';
 import sumDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/sumDoubleWasmTest';
 import videoConvoluteWasmTest from '../../../benchmark_base/src/benchmarkTests/videoConvoluteWasmTest';
+import videoGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/videoGrayscaleWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -113,6 +114,12 @@ const benchmarkDatasets = {
     Module: imageConvoluteModule,
     testbench: videoConvoluteWasmTest,
     url: '/browser_benchmark/imageConvolute.wasm',
+    video: '/src/assets/marker.mp4',
+  },
+  videoGrayscale: {
+    Module: imageGrayscaleModule,
+    testbench: videoGrayscaleWasmTest,
+    url: '/browser_benchmark/imageGrayscale.wasm',
     video: '/src/assets/marker.mp4',
   },
 };
