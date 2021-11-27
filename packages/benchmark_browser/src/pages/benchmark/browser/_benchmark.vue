@@ -171,6 +171,7 @@ export default {
       'videoConvolute',
       'videoGrayscale',
       'videoMarkerDetection',
+      'videoThreshold',
     ];
 
     return {

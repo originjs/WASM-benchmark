@@ -39,6 +39,7 @@ import videoGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/v
 // @ts-ignore
 import videoMarkerDetectionModule from '../../browser_benchmark/markerDetection';
 import videoMarkerDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/videoMarkerDetectionWasmTest';
+import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/videoThresholdWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -129,6 +130,12 @@ const benchmarkDatasets = {
     Module: videoMarkerDetectionModule,
     testbench: videoMarkerDetectionWasmTest,
     url: '/browser_benchmark/markerDetection.wasm',
+    video: '/src/assets/marker.mp4',
+  },
+  videoThreshold: {
+    Module: imageThresholdModule,
+    testbench: videoThresholdWasmTest,
+    url: '/browser_benchmark/imageThreshold.wasm',
     video: '/src/assets/marker.mp4',
   },
 };
