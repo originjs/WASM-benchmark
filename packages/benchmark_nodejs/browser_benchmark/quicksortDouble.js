@@ -2368,4 +2368,4 @@ var Module = function (Module) {
   return Module;
 };
 
-export default Module;
+module.exports = Module;
