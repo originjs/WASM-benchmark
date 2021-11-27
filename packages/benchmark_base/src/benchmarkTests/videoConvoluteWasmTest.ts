@@ -1,7 +1,6 @@
 import { WasmTestVideoAbstractBaseClass } from './index';
 
 export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseClass {
-  pointer1: any;
   pointer2: any;
   pointer3: any;
   weights: Float64Array = new Float64Array([

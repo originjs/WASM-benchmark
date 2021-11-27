@@ -170,6 +170,7 @@ export default {
       'sumDouble',
       'videoConvolute',
       'videoGrayscale',
+      'videoMarkerDetection',
     ];
 
     return {

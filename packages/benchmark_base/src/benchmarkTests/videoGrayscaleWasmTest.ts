@@ -1,8 +1,6 @@
 import { WasmTestVideoAbstractBaseClass } from './index';
 
 export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseClass {
-  pointer1: any;
-
   constructor(
     dataSize: number,
     warmUpRunLoops: number,
@@ -20,34 +18,6 @@ export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseCla
       dom,
       jsCanvas,
       wsCanvas,
-    );
-  }
-
-  initVideoCanvasData(): void {
-    // for Original
-    this.videoDataArray = new Uint8Array(this.length);
-    this.updateOriginalImageData();
-
-    // for JavaScript
-    this.jsImageDataArray = new Uint8ClampedArray(this.length);
-    this.jsImageData = new ImageData(
-      this.jsImageDataArray,
-      this.width,
-      this.height,
-    );
-
-    // for WebAssembly
-    this.pointer1 = this.module._malloc(this.length);
-    const offset1 = this.pointer1;
-    const uint8ClampedArray = new Uint8ClampedArray(this.module.HEAPU8.buffer);
-    this.wsImageDataArray = uint8ClampedArray.subarray(
-      offset1,
-      offset1 + this.length,
-    );
-    this.wsImageData = new ImageData(
-      this.wsImageDataArray,
-      this.width,
-      this.height,
     );
   }
 
@@ -98,9 +68,9 @@ export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseCla
 
   runJavaScript(): void {
     for (let i = 0, il = this.width * this.height; i < il; i++) {
-      var r = this.jsImageDataArray[i * 4 + 0];
-      var g = this.jsImageDataArray[i * 4 + 1];
-      var b = this.jsImageDataArray[i * 4 + 2];
+      let r = this.jsImageDataArray[i * 4 + 0];
+      let g = this.jsImageDataArray[i * 4 + 1];
+      let b = this.jsImageDataArray[i * 4 + 2];
       this.jsImageDataArray[i * 4 + 0] =
         this.jsImageDataArray[i * 4 + 1] =
         this.jsImageDataArray[i * 4 + 2] =

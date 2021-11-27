@@ -183,6 +183,7 @@ export class WasmTestVideoAbstractBaseClass
   wsElapsedTime: number = 0.0;
   count: number = 0;
   videoCanvasDataInited = false;
+  pointer1: any;
 
   constructor(
     dataSize: number,
@@ -289,5 +290,33 @@ export class WasmTestVideoAbstractBaseClass
       elapsedTime += endTime - startTime;
     }
     return elapsedTime / loop;
+  }
+
+  initVideoCanvasData(): void {
+    // for Original
+    this.videoDataArray = new Uint8Array(this.length);
+    this.updateOriginalImageData();
+
+    // for JavaScript
+    this.jsImageDataArray = new Uint8ClampedArray(this.length);
+    this.jsImageData = new ImageData(
+      this.jsImageDataArray,
+      this.width,
+      this.height,
+    );
+
+    // for WebAssembly
+    this.pointer1 = this.module._malloc(this.length);
+    const offset1 = this.pointer1;
+    const uint8ClampedArray = new Uint8ClampedArray(this.module.HEAPU8.buffer);
+    this.wsImageDataArray = uint8ClampedArray.subarray(
+      offset1,
+      offset1 + this.length,
+    );
+    this.wsImageData = new ImageData(
+      this.wsImageDataArray,
+      this.width,
+      this.height,
+    );
   }
 }
