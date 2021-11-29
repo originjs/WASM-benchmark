@@ -17,15 +17,15 @@ export async function runBenchmark(
       module,
     );
 
-    setTimeout(() => {
+    Promise.resolve(1).then(() => {
       if (!wasmTest.checkFunctionality()) {
         console.log(`test ${testName}: Two functions seem not equal`);
         return;
       }
 
-      setTimeout(() => {
+      Promise.resolve(1).then(() => {
         const jsPerformance = wasmTest.runJavaScriptBenchmark();
-        setTimeout(() => {
+        Promise.resolve(1).then(() => {
           const wsPerformance = wasmTest.runWasmBenchmark();
           // @ts-ignore
           const comparison = (jsPerformance / wsPerformance).toFixed(4);
