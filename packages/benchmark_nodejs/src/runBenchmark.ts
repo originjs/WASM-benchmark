@@ -10,6 +10,7 @@ export async function runBenchmark(
   const wasmBinary = fs.readFileSync(benchmarkDataset.url);
   let module = {};
   const onRuntimeInitialized = () => {
+    console.log(`${benchmarkDataset.url} is loaded`);
     const wasmTest = new benchmarkDataset.testbench(
       benchmarkDataset.dataSize,
       warnUpRunLoops,
@@ -23,8 +24,10 @@ export async function runBenchmark(
         return;
       }
 
+      console.log(`test ${testName}: Running JavaScript`);
       Promise.resolve(1).then(() => {
         const jsPerformance = wasmTest.runJavaScriptBenchmark();
+        console.log(`test ${testName}: Running WebAssembly`);
         Promise.resolve(1).then(() => {
           const wsPerformance = wasmTest.runWasmBenchmark();
           // @ts-ignore
@@ -35,9 +38,7 @@ export async function runBenchmark(
           );
           console.log(`test ${testName}: Done`);
         });
-        console.log(`test ${testName}: Running WebAssembly`);
       });
-      console.log(`test ${testName}: Running JavaScript`);
     });
     console.log(`test ${testName}: Checking equality`);
   };

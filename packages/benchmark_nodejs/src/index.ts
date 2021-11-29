@@ -4,9 +4,12 @@ import { question } from 'readline-sync';
 
 (async () => {
   let result = {};
+  const startIndex = 2;
 
   console.log('\n=== javascript webassembly benchmark in nodejs ===\n');
-  let [index, map] = [1, {}];
+  let [index, map] = [startIndex, {}];
+
+  console.log(`1: all tests`);
   for (let testName in benchmarkDatasets) {
     console.log(`${index}: ${testName}`);
     // @ts-ignore
@@ -19,6 +22,26 @@ import { question } from 'readline-sync';
     console.log(`\nwrong index !! index should range from 1 to ${index - 1}.`);
     return;
   }
-  // @ts-ignore
-  await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
+
+  if (testIndex > 1) {
+    // @ts-ignore
+    await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
+    return;
+  }
+
+  function recursiveTest(i: number) {
+    if (i < index - 1) {
+      // @ts-ignore
+      return runBenchmark(benchmarkDatasets[map[i]], result, map[i]).then(
+        () => {
+          recursiveTest(i + 1);
+        },
+      );
+    }
+
+    // @ts-ignore
+    return runBenchmark(benchmarkDatasets[map[i]], result, map[i]);
+  }
+
+  recursiveTest(startIndex);
 })();
