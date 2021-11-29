@@ -18,30 +18,23 @@ import { question } from 'readline-sync';
 
   const answer: string = question('Please a choose a test(input its index): ');
   const testIndex = Number.parseInt(answer);
+  // check input valid
   if (testIndex >= index) {
     console.log(`\nwrong index !! index should range from 1 to ${index - 1}.`);
     return;
   }
 
-  if (testIndex > 1) {
-    // @ts-ignore
-    await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
+  // run all test
+  if (testIndex === 1) {
+    for (let i = 2; i < index; i++) {
+      // @ts-ignore
+      await runBenchmark(benchmarkDatasets[map[i]], result, map[i]);
+    }
     return;
   }
 
-  function recursiveTest(i: number) {
-    if (i < index - 1) {
-      // @ts-ignore
-      return runBenchmark(benchmarkDatasets[map[i]], result, map[i]).then(
-        () => {
-          recursiveTest(i + 1);
-        },
-      );
-    }
-
-    // @ts-ignore
-    return runBenchmark(benchmarkDatasets[map[i]], result, map[i]);
-  }
-
-  recursiveTest(startIndex);
+  // run specific test
+  // @ts-ignore
+  await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
+  return;
 })();
