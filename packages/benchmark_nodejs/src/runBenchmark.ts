@@ -3,10 +3,25 @@ import fs from 'fs';
 export async function runBenchmark(
   benchmarkDataset: any,
   result: any,
+  jsonPath: string | null,
   testName: string,
   warnUpRunLoops: number = 1,
   benchmarkRunLoops: number = 10,
 ) {
+  function updateResAndWriteJson(comparison: number) {
+    if (!result || !jsonPath) {
+      return;
+    }
+
+    result.testResults.push({
+      testName,
+      warnUpRunLoops,
+      benchmarkRunLoops,
+      comparison,
+    });
+    fs.writeFileSync(jsonPath, JSON.stringify(result, null, 2));
+  }
+
   const wasmBinary = fs.readFileSync(benchmarkDataset.url);
   let module = {};
   const onRuntimeInitialized = () => {
@@ -32,7 +47,7 @@ export async function runBenchmark(
           const wsPerformance = wasmTest.runWasmBenchmark();
           // @ts-ignore
           const comparison = (jsPerformance / wsPerformance).toFixed(4);
-          result[testName] = { warnUpRunLoops, benchmarkRunLoops, comparison };
+          updateResAndWriteJson(Number.parseFloat(comparison));
           console.log(
             `test ${testName}: jsPerformance / wsPerformance = ${comparison}`,
           );

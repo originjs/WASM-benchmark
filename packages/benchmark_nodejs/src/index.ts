@@ -3,7 +3,8 @@ import { runBenchmark } from './runBenchmark';
 import { question } from 'readline-sync';
 
 (async () => {
-  let result = {};
+  let result = { testResults: [] };
+  const jsonPath = './benchmark_nodejs_result.json';
   const startIndex = 2;
 
   console.log('\n=== javascript webassembly benchmark in nodejs ===\n');
@@ -28,13 +29,19 @@ import { question } from 'readline-sync';
   if (testIndex === 1) {
     for (let i = 2; i < index; i++) {
       // @ts-ignore
-      await runBenchmark(benchmarkDatasets[map[i]], result, map[i]);
+      await runBenchmark(benchmarkDatasets[map[i]], result, jsonPath, map[i]);
     }
     return;
   }
 
   // run specific test
-  // @ts-ignore
-  await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
+  await runBenchmark(
+    // @ts-ignore
+    benchmarkDatasets[map[testIndex]],
+    null,
+    null,
+    // @ts-ignore
+    map[testIndex],
+  );
   return;
 })();

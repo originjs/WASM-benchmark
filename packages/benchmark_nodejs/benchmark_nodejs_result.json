@@ -1,0 +1,58 @@
+{
+  "testResults": [
+    {
+      "testName": "collisionDetection",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 1.6314
+    },
+    {
+      "testName": "fibonacci",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 11.4649
+    },
+    {
+      "testName": "multiplyDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 1.0025
+    },
+    {
+      "testName": "multiplyIntVec",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 0.7562
+    },
+    {
+      "testName": "multiplyDoubleVec",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 0.3834
+    },
+    {
+      "testName": "quicksortInt",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 1.0264
+    },
+    {
+      "testName": "quicksortDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 1.1419
+    },
+    {
+      "testName": "sumInt",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 0.8291
+    },
+    {
+      "testName": "sumDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparison": 0.5439
+    }
+  ]
+}
