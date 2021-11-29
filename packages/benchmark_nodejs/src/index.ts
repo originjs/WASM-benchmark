@@ -16,7 +16,8 @@ import { question } from 'readline-sync';
   const answer: string = question('Please a choose a test(input its index): ');
   const testIndex = Number.parseInt(answer);
   if (testIndex >= index) {
-    console.log('wrong index !!');
+    console.log(`\nwrong index !! index should range from 1 to ${index-1}.`);
+    return;
   }
   // @ts-ignore
   await runBenchmark(benchmarkDatasets[map[testIndex]], result, map[testIndex]);
