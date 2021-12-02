@@ -62,6 +62,12 @@ importers:
     dependencies:
       readline-sync: 1.4.10
 
+  packages/benchmark_rust_nodejs:
+    specifiers:
+      readline-sync: ^1.4.10
+    dependencies:
+      readline-sync: 1.4.10
+
 packages:
 
   /@antfu/utils/0.3.0:
