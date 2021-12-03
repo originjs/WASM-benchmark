@@ -26,7 +26,11 @@ import sumIntWasmTest from '../../../benchmark_base/src/benchmarkTests/sumIntWas
 import sumDoubleModule from '../../browser_benchmark/sumDouble';
 import sumDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/sumDoubleWasmTest';
 
-const benchmarkDatasets = {
+export type BenchmarkDatasets = {
+  [testName: string]: any;
+};
+
+const benchmarkDatasets: BenchmarkDatasets = {
   collisionDetection: {
     Module: collisionDetectionModule,
     testbench: collisionDetectionWasmTest,
