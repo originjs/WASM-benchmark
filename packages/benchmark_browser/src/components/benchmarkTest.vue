@@ -88,16 +88,16 @@ export default {
   },
   methods: {
     start() {
-      Promise.resolve(1).then(() => {
+      setTimeout(() => {
         if (!this.wasmTest.checkFunctionality()) {
           this.message = 'Two functions seem not equal';
           this.btnDisabled = false;
           return;
         }
 
-        Promise.resolve(1).then(() => {
+        setTimeout(() => {
           this.jsPerformance = this.wasmTest.runJavaScriptBenchmark();
-          Promise.resolve(1).then(() => {
+          setTimeout(() => {
             this.wsPerformance = this.wasmTest.runWasmBenchmark();
             this.comparison = (this.jsPerformance / this.wsPerformance).toFixed(
               4,
