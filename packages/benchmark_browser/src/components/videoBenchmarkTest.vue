@@ -91,7 +91,7 @@ export default {
 
       this.btnMessage = 'Stop Benchmark';
       const that = this;
-      Promise.resolve(1).then(function () {
+      setTimeout(function () {
         if (!that.wasmTest.checkFunctionality()) {
           that.message = 'Two functions seem not equal';
           that.btnDisabled = false;
