@@ -19,6 +19,7 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     this.src2 = new Float64Array(this.dataSize);
     this.res1 = new Float64Array(this.dataSize);
     this.res2 = new Float64Array(this.dataSize);
+    this.initTestData();
   }
 
   initTestData() {

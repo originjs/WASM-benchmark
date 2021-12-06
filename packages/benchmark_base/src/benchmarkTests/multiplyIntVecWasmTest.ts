@@ -19,6 +19,7 @@ export default class MultiplyIntVecWasmTest extends WasmTestAbstractBaseClass {
     this.src2 = new Int32Array(this.dataSize);
     this.res1 = new Int32Array(this.dataSize);
     this.res2 = new Int32Array(this.dataSize);
+    this.initTestData();
   }
 
   initTestData() {
