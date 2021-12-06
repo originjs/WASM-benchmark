@@ -41,7 +41,9 @@ export async function runBenchmark(
 
       console.log(`test ${testName}: Running JavaScript`);
       Promise.resolve(1).then(() => {
-        const jsPerformance = Number.parseFloat(wasmTest.runJavaScriptBenchmark());
+        const jsPerformance = Number.parseFloat(
+          wasmTest.runJavaScriptBenchmark(),
+        );
         console.log(`test ${testName}: Running WebAssembly`);
         Promise.resolve(1).then(() => {
           const wsPerformance = Number.parseFloat(wasmTest.runWasmBenchmark());
