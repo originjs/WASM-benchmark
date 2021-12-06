@@ -138,6 +138,12 @@ const benchmarkDatasets = {
     url: '/browser_benchmark/imageThreshold.wasm',
     video: '/src/assets/marker.mp4',
   },
+  multiplyDoubleRust: {
+    testbench: multiplyDoubleWasmTest,
+    rustWasmFilePath: '/rust_wasm_files/multiplyDoubleRust.wasm',
+    testFuncName: 'multiply_double',
+    dataSize: 0x10000000,
+  },
 };
 
 export default benchmarkDatasets;

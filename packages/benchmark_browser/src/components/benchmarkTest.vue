@@ -47,7 +47,6 @@
   </div>
 </template>
 <script>
-import { ref } from 'vue';
 import { loadEmccCompiledWasm } from '../utils/loadWasmUtils';
 
 export default {
@@ -68,13 +67,22 @@ export default {
   async setup(props) {
     const warmUpRunLoops = 1;
     const benchmarkRunLoops = 10;
-    let module = ref({});
-    let wasmTest = {};
 
-    module = await loadEmccCompiledWasm(
-      props.benchmarkDataset.url,
-      props.benchmarkDataset.Module,
-    );
+    let module = {};
+    let wasmTest = {};
+    if (props.benchmarkDataset.rustWasmFilePath) {
+      await import(/* @vite-ignore */ props.benchmarkDataset.rustWasmFilePath)
+        .then(value => value.default())
+        .then(exports => {
+          module.testFunc = exports[props.benchmarkDataset.testFuncName];
+        });
+    } else {
+      module = await loadEmccCompiledWasm(
+        props.benchmarkDataset.url,
+        props.benchmarkDataset.Module,
+      );
+    }
+
     wasmTest = new props.benchmarkDataset.testbench(
       props.benchmarkDataset.dataSize,
       warmUpRunLoops,
