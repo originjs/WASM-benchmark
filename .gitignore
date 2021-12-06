@@ -5,3 +5,10 @@ dist-ssr
 *.local
 .origin
 .idea
+
+packages/rust_code/target
+packages/rust_code/**/*.rs.bk
+packages/rust_code/Cargo.lock
+packages/rust_code/bin/
+packages/rust_code/pkg/
+packages/rust_code/wasm-pack.log
