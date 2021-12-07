@@ -3,9 +3,9 @@ import * as THREE from 'three';
 export interface WasmTestInterface {
   initTestData(): void;
   checkFunctionality(): boolean;
-  runWasm(): number | void;
+  runWasm(): number | Array<any> | any | void;
   runWasmBenchmark(): string;
-  runJavaScript(): number | void;
+  runJavaScript(): number | Array<any> | any | void;
   runJavaScriptBenchmark(): string;
 }
 
@@ -38,15 +38,11 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     throw this.shouldOverrideError;
   }
 
-  checkFunctionality(): boolean {
+  runWasm(): number | Array<any> | any | void {
     throw this.shouldOverrideError;
   }
 
-  runWasm(): number | void {
-    throw this.shouldOverrideError;
-  }
-
-  runJavaScript(): number | void {
+  runJavaScript(): number | Array<any> | any | void {
     throw this.shouldOverrideError;
   }
 
@@ -76,6 +72,26 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
       elapsedTime += endTime - startTime;
     }
     return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+  }
+
+  checkFunctionality(): boolean {
+    const jsRes = this.runJavaScript();
+    const wasmRes = this.runWasm();
+
+    // handle known return type.
+    // If subclass runJavaScript() don't return these following types,
+    // subclass should overwrite this function
+    if (typeof jsRes === 'number') {
+      return jsRes === wasmRes;
+    } else if (
+      Array.isArray(jsRes) || // array
+      (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
+    ) {
+      return this.equalArray(jsRes, wasmRes);
+    }
+
+    // return false by default;
+    return false;
   }
 
   equalArray(array1: any, array2: any): boolean {

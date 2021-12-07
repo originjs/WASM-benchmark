@@ -32,20 +32,7 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     initArray(this.src2);
   }
 
-  checkFunctionality(): boolean {
-    function equalArray(array1: Float64Array, array2: Float64Array) {
-      if (array1.length !== array2.length) return false;
-      for (let i = 0, il = array1.length; i < il; i++) {
-        if (array1[i] !== array2[i]) return false;
-      }
-      return true;
-    }
-    this.runWasm();
-    this.runJavaScript();
-    return equalArray(this.res1, this.res2);
-  }
-
-  runWasm(): void {
+  runWasm(): any {
     let pointer1 = this.module._malloc(this.src1.length * 8);
     let pointer2 = this.module._malloc(this.src2.length * 8);
     let pointer3 = this.module._malloc(this.res2.length * 8);
@@ -61,11 +48,13 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     this.module._free(pointer1);
     this.module._free(pointer2);
     this.module._free(pointer3);
+    return this.res2;
   }
 
-  runJavaScript(): void {
+  runJavaScript(): any {
     for (let i = 0; i < this.dataSize; i++) {
       this.res1[i] = this.src1[i] * this.src2[i];
     }
+    return this.res1;
   }
 }
