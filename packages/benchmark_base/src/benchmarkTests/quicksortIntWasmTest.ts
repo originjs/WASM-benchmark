@@ -27,14 +27,6 @@ export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
   }
 
   checkFunctionality(): boolean {
-    function equalArray(array1: Int32Array, array2: Int32Array) {
-      if (array1.length !== array2.length) return false;
-      for (let i = 0, il = array1.length; i < il; i++) {
-        if (array1[i] !== array2[i]) return false;
-      }
-      return true;
-    }
-
     function orderIsOk(array: Int32Array) {
       for (let i = 1, il = array.length; i < il; i++) {
         if (array[i - 1] > array[i]) return false;
@@ -45,7 +37,7 @@ export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
     this.runJavaScript();
     this.runWasm();
     if (!orderIsOk(this.array1)) return false;
-    return equalArray(this.array1, this.array2);
+    return this.equalArray(this.array1, this.array2);
   }
 
   runWasm(): void {

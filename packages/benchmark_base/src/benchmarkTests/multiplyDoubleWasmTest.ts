@@ -13,10 +13,6 @@ export default class MultiplyDoubleWasmTest extends WasmTestAbstractBaseClass {
     this.dataSize = dataSize;
   }
 
-  checkFunctionality(): boolean {
-    return this.runWasm() === this.runJavaScript();
-  }
-
   runWasm(): number {
     return this.module.testFunc
       ? this.module.testFunc(1.0, 1.0, this.dataSize)
