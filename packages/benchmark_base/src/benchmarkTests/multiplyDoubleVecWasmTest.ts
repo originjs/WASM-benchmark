@@ -32,7 +32,7 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     initArray(this.src2);
   }
 
-  runWasm(): any {
+  runWasm(): Float64Array {
     let pointer1 = this.module._malloc(this.src1.length * 8);
     let pointer2 = this.module._malloc(this.src2.length * 8);
     let pointer3 = this.module._malloc(this.res2.length * 8);
@@ -51,7 +51,7 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     return this.res2;
   }
 
-  runJavaScript(): any {
+  runJavaScript(): Float64Array {
     for (let i = 0; i < this.dataSize; i++) {
       this.res1[i] = this.src1[i] * this.src2[i];
     }
