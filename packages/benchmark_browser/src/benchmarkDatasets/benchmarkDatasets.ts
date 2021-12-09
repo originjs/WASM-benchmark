@@ -73,9 +73,10 @@ const benchmarkDatasets = {
     image: '/src/assets/image.jpg',
   },
   multiplyDouble: {
-    Module: multiplyDoubleModule,
+    cGlueFunc: multiplyDoubleModule,
+    cWasmUrl: '/browser_benchmark/multiplyDouble.wasm',
+    rustWasmUrl: '/rust_wasm_files/multiplyDoubleRust.wasm',
     testbench: multiplyDoubleWasmTest,
-    url: '/browser_benchmark/multiplyDouble.wasm',
     dataSize: 0x10000000,
   },
   multiplyIntVec: {
@@ -137,12 +138,6 @@ const benchmarkDatasets = {
     testbench: videoThresholdWasmTest,
     url: '/browser_benchmark/imageThreshold.wasm',
     video: '/src/assets/marker.mp4',
-  },
-  multiplyDoubleRust: {
-    testbench: multiplyDoubleWasmTest,
-    rustWasmFilePath: '/rust_wasm_files/multiplyDoubleRust.wasm',
-    testFuncName: 'multiply_double',
-    dataSize: 0x10000000,
   },
 };
 

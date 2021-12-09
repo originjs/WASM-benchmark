@@ -15,3 +15,11 @@ export async function loadEmccCompiledWasm(
     });
   return module;
 }
+
+export async function loadRustCompiledWasm(rustWasmUrl: string) {
+  let rustModule: any = {};
+  await import(/* @vite-ignore */ rustWasmUrl)
+    .then(value => value.default())
+    .then(exports => (rustModule = exports));
+  return rustModule;
+}

@@ -3,7 +3,7 @@
     <div>
       <router-link
         class="text-router-link"
-        to="/benchmark/browser/collisionDetection"
+        to="/benchmark/browser/multiplyDouble"
         >WASM in Browser Benchmark</router-link
       >
     </div>
