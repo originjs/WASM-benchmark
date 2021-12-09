@@ -43,9 +43,9 @@ import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/v
 
 const benchmarkDatasets = {
   collisionDetection: {
-    Module: collisionDetectionModule,
+    cGlueFunc: collisionDetectionModule,
+    cWasmUrl: '/browser_benchmark/collisionDetection.wasm',
     testbench: collisionDetectionWasmTest,
-    url: '/browser_benchmark/collisionDetection.wasm',
     dataSize: 0x4000,
   },
   fibonacci: {

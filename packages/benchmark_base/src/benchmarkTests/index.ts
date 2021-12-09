@@ -55,7 +55,7 @@ export class WasmTestBaseClass {
     throw this.shouldOverrideError;
   }
 
-  checkFunc(a: any, b: any): boolean {
+  check(jsRes: any, wasmRes: any): boolean {
     throw this.shouldOverrideError;
   }
 
@@ -101,17 +101,18 @@ export class WasmTestBaseClass {
     // If subclass runJavaScript() don't return these following types,
     // overwrite this.checkFunc, otherwise will throw a Error
     if (typeof jsRes === 'number') {
-      this.checkFunc = (a: any, b: any) => a === b;
+      this.check = (jsRes: any, wasmRes: any) => jsRes === wasmRes;
     } else if (
       Array.isArray(jsRes) || // array
       (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
     ) {
-      this.checkFunc = (arr1: any, arr2: any) => this.equalArray(arr1, arr2);
+      this.check = (jsRes: any, wasmRes: any) =>
+        this.equalArray(jsRes, wasmRes);
     }
 
     // run wasm functions and check equal
     for (const runWasm of this.getAllRunWasmFunc()) {
-      if (!this.checkFunc(jsRes, runWasm())) {
+      if (!this.check(jsRes, runWasm())) {
         return false;
       }
     }
