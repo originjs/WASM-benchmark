@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { Modules } from '../../benchmark_base/src/benchmarkTests';
 
 export async function runBenchmark(
   benchmarkDataset: any,
@@ -8,7 +9,7 @@ export async function runBenchmark(
   warnUpRunLoops: number = 1,
   benchmarkRunLoops: number = 10,
 ) {
-  function updateResAndWriteJson(comparison: number) {
+  function updateResAndWriteJson(comparisons: number) {
     if (!result || !jsonPath) {
       return;
     }
@@ -17,20 +18,20 @@ export async function runBenchmark(
       testName,
       warnUpRunLoops,
       benchmarkRunLoops,
-      comparison,
+      comparisons,
     });
     fs.writeFileSync(jsonPath, JSON.stringify(result, null, 2));
   }
 
-  const wasmBinary = fs.readFileSync(benchmarkDataset.url);
-  let module = {};
+  const wasmBinary = fs.readFileSync(benchmarkDataset.cWasmUrl);
+  let modules: Modules = {};
   const onRuntimeInitialized = () => {
-    console.log(`${benchmarkDataset.url} is loaded`);
+    console.log(`${benchmarkDataset.cWasmUrl} is loaded`);
     const wasmTest = new benchmarkDataset.testbench(
       benchmarkDataset.dataSize,
       warnUpRunLoops,
       benchmarkRunLoops,
-      module,
+      modules,
     );
 
     Promise.resolve(1).then(() => {
@@ -46,12 +47,19 @@ export async function runBenchmark(
         );
         console.log(`test ${testName}: Running WebAssembly`);
         Promise.resolve(1).then(() => {
-          const wsPerformance = Number.parseFloat(wasmTest.runWasmBenchmark());
-          const comparison = (jsPerformance / wsPerformance).toFixed(4);
-          updateResAndWriteJson(Number.parseFloat(comparison));
-          console.log(
-            `test ${testName}: jsPerformance / wsPerformance = ${comparison}`,
-          );
+          const wsPerformances = wasmTest.runWasmBenchmark();
+          const comparisons: any = {};
+          for (const runWasmFuncName in wsPerformances) {
+            const comparison = (
+              jsPerformance / wsPerformances[runWasmFuncName]
+            ).toFixed(4);
+            comparisons[runWasmFuncName] = Number.parseFloat(comparison);
+            console.log(
+              `test ${testName} ${runWasmFuncName}: jsPerformance / wsPerformance = ${comparison}`,
+            );
+          }
+          updateResAndWriteJson(comparisons);
+
           console.log(`test ${testName}: Done`);
         });
       });
@@ -60,7 +68,7 @@ export async function runBenchmark(
   };
 
   await Promise.resolve().then(() => {
-    let moduleArgs = { wasmBinary, onRuntimeInitialized };
-    module = benchmarkDataset.Module(moduleArgs);
+    let cModuleArgs = { wasmBinary, onRuntimeInitialized };
+    modules.cModule = benchmarkDataset.cGlueFunc(cModuleArgs);
   });
 }

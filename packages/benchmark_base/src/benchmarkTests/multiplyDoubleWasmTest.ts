@@ -14,11 +14,21 @@ export default class MultiplyDoubleWasmTest extends WasmTestBaseClass {
   }
 
   getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () =>
-      this.modules.cModule._multiplyDouble(1.0, 1.0, this.dataSize);
-    const runRustWasm = () =>
-      this.modules.rustModule.multiply_double(1.0, 1.0, this.dataSize);
-    return [runCWasm, runRustWasm];
+    const allFunc = [];
+
+    if (!!this.modules.cModule) {
+      const runCWasm = () =>
+        this.modules.cModule._multiplyDouble(1.0, 1.0, this.dataSize);
+      allFunc.push(runCWasm);
+    }
+
+    if (!!this.modules.rustModule) {
+      const runRustWasm = () =>
+        this.modules.rustModule.multiply_double(1.0, 1.0, this.dataSize);
+      allFunc.push(runRustWasm);
+    }
+
+    return allFunc;
   }
 
   runJavaScript(): number {
