@@ -68,7 +68,7 @@ export default class CollisionDetectionWasmTest extends WasmTestBaseClass {
     }
   }
 
-  getAllRunWasmFunc() {
+  getAllRunWasmFunc(): Array<Function> {
     const runCWasm = () => {
       this.clearArray(this.wasmtResult);
       const module = this.modules.cModule;

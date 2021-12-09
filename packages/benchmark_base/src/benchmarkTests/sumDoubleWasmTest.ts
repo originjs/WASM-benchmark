@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { WasmTestBaseClass } from './index';
 
-export default class SumDoubleWasmTest extends WasmTestAbstractBaseClass {
+export default class SumDoubleWasmTest extends WasmTestBaseClass {
   array: Float64Array;
   dataSize: number;
 
@@ -22,13 +22,18 @@ export default class SumDoubleWasmTest extends WasmTestAbstractBaseClass {
     }
   }
 
-  runWasm(): number {
-    const pointer = this.module._malloc(this.array.length * 8);
-    const offset = pointer / 8;
-    this.module.HEAPF64.set(this.array, offset);
-    const result = this.module._sumDouble(pointer, this.dataSize);
-    this.module._free(pointer);
-    return result;
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      const pointer = module._malloc(this.array.length * 8);
+      const offset = pointer / 8;
+      module.HEAPF64.set(this.array, offset);
+      const result = module._sumDouble(pointer, this.dataSize);
+      module._free(pointer);
+      return result;
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): number {

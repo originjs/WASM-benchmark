@@ -234,10 +234,7 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
   }
 }
 
-export class WasmTestImageAbstractBaseClass
-  extends WasmTestAbstractBaseClass
-  implements WasmTestInterface
-{
+export class WasmTestImageBaseClass extends WasmTestBaseClass {
   image: any;
   canvas: any;
   jsCanvas: any;
@@ -254,12 +251,12 @@ export class WasmTestImageAbstractBaseClass
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Object,
     dom: any,
     jsCanvas: any,
     wsCanvas: any,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.image = dom;
     this.width = this.image.width;
     this.height = this.image.height;

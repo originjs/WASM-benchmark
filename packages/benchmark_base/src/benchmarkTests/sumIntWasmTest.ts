@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class SumIntWasmTest extends WasmTestAbstractBaseClass {
+export default class SumIntWasmTest extends WasmTestBaseClass {
   array: Int32Array;
   dataSize: number;
 
@@ -8,9 +8,9 @@ export default class SumIntWasmTest extends WasmTestAbstractBaseClass {
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
     this.array = new Int32Array(this.dataSize);
     this.initTestData();
@@ -22,13 +22,18 @@ export default class SumIntWasmTest extends WasmTestAbstractBaseClass {
     }
   }
 
-  runWasm(): number {
-    const pointer = this.module._malloc(this.array.length * 4);
-    const offset = pointer / 4;
-    this.module.HEAP32.set(this.array, offset);
-    const result = this.module._sumInt(pointer, this.dataSize);
-    this.module._free(pointer);
-    return result;
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      const pointer = module._malloc(this.array.length * 4);
+      const offset = pointer / 4;
+      module.HEAP32.set(this.array, offset);
+      const result = module._sumInt(pointer, this.dataSize);
+      module._free(pointer);
+      return result;
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): number {

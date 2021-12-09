@@ -13,7 +13,7 @@ export default class MultiplyDoubleWasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
   }
 
-  getAllRunWasmFunc() {
+  getAllRunWasmFunc(): Array<Function> {
     const runCWasm = () =>
       this.modules.cModule._multiplyDouble(1.0, 1.0, this.dataSize);
     const runRustWasm = () =>

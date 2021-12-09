@@ -1,6 +1,6 @@
-import { WasmTestImageAbstractBaseClass } from './index';
+import { Modules, WasmTestImageBaseClass } from './index';
 
-export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseClass {
+export default class ImageConvoluteWasmTest extends WasmTestImageBaseClass {
   weights: Float64Array = new Float64Array([
     1 / 25,
     1 / 25,
@@ -35,7 +35,7 @@ export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseCla
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
     dom: any,
     jsCanvas: any,
     wsCanvas: any,
@@ -44,7 +44,7 @@ export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseCla
       dataSize,
       warmUpRunLoops,
       benchmarkRunLoops,
-      module,
+      modules,
       dom,
       jsCanvas,
       wsCanvas,
@@ -52,41 +52,41 @@ export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseCla
     this.initImageCanvasData();
   }
 
-  checkFunctionality(): boolean {
-    this.runWasm();
-    this.runJavaScript();
+  check(jsRes: any, wasmRes: any): boolean {
     this.jsContext.putImageData(this.jsImageData, 0, 0);
     this.wsContext.putImageData(this.wsImageData, 0, 0);
     return this.equalArray(this.jsImageData.data, this.wsImageData.data);
   }
 
-  runWasm(): void {
-    let pointer1 = this.module._malloc(this.imageData.data.length);
-    let pointer2 = this.module._malloc(this.wsImageData.data.length);
-    let pointer3 = this.module._malloc(this.weights.length * 8);
-    let offset1 = pointer1;
-    let offset2 = pointer2;
-    let offset3 = pointer3 / 8;
-    this.module.HEAPU8.set(this.imageData.data, offset1);
-    this.module.HEAPF64.set(this.weights, offset3);
-    this.module._imageConvolute(
-      pointer1,
-      pointer2,
-      this.width,
-      this.height,
-      pointer3,
-      this.wWidth,
-      this.wHeight,
-    );
-    this.wsImageData.data.set(
-      this.module.HEAPU8.subarray(
-        offset2,
-        offset2 + this.wsImageData.data.length,
-      ),
-    );
-    this.module._free(pointer1);
-    this.module._free(pointer2);
-    this.module._free(pointer3);
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      let pointer1 = module._malloc(this.imageData.data.length);
+      let pointer2 = module._malloc(this.wsImageData.data.length);
+      let pointer3 = module._malloc(this.weights.length * 8);
+      let offset1 = pointer1;
+      let offset2 = pointer2;
+      let offset3 = pointer3 / 8;
+      module.HEAPU8.set(this.imageData.data, offset1);
+      module.HEAPF64.set(this.weights, offset3);
+      module._imageConvolute(
+        pointer1,
+        pointer2,
+        this.width,
+        this.height,
+        pointer3,
+        this.wWidth,
+        this.wHeight,
+      );
+      this.wsImageData.data.set(
+        module.HEAPU8.subarray(offset2, offset2 + this.wsImageData.data.length),
+      );
+      module._free(pointer1);
+      module._free(pointer2);
+      module._free(pointer3);
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): void {

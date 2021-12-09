@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
+export default class quicksortIntWasmTest extends WasmTestBaseClass {
   dataSize: number;
   array0: Int32Array;
   array1: Int32Array;
@@ -10,9 +10,9 @@ export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
     this.array0 = new Int32Array(this.dataSize); // master
     this.array1 = new Int32Array(this.dataSize); // for JavaScript
@@ -26,30 +26,32 @@ export default class quicksortIntWasmTest extends WasmTestAbstractBaseClass {
     }
   }
 
-  checkFunctionality(): boolean {
+  check(jsRes: any, wasmRes: any): boolean {
     function orderIsOk(array: Int32Array) {
       for (let i = 1, il = array.length; i < il; i++) {
         if (array[i - 1] > array[i]) return false;
       }
       return true;
     }
-
-    this.runJavaScript();
-    this.runWasm();
     if (!orderIsOk(this.array1)) return false;
     return this.equalArray(this.array1, this.array2);
   }
 
-  runWasm(): void {
-    this.copyArray(this.array0, this.array2);
-    let pointer = this.module._malloc(this.array2.length * 4);
-    let offset = pointer / 4;
-    this.module.HEAP32.set(this.array2, offset);
-    this.module._quicksortInt(pointer, 0, this.array2.length - 1);
-    this.array2.set(
-      this.module.HEAP32.subarray(offset, offset + this.array2.length),
-    );
-    this.module._free(pointer);
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      this.copyArray(this.array0, this.array2);
+      let pointer = module._malloc(this.array2.length * 4);
+      let offset = pointer / 4;
+      module.HEAP32.set(this.array2, offset);
+      module._quicksortInt(pointer, 0, this.array2.length - 1);
+      this.array2.set(
+        module.HEAP32.subarray(offset, offset + this.array2.length),
+      );
+      module._free(pointer);
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): void {
