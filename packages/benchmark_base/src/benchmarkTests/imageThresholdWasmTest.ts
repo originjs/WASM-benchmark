@@ -23,6 +23,7 @@ export default class ImageConvoluteWasmTest extends WasmTestImageBaseClass {
     );
     this._work = new Int32Array(this.width * this.height);
     this.initImageCanvasData();
+    this.initTestData()
   }
 
   initTestData() {
