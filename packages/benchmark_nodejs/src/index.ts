@@ -28,6 +28,7 @@ type TestNames = {
     console.log(`\nwrong index !! index should range from 1 to ${index - 1}.`);
     return;
   }
+  console.log('\n');
 
   // run all test
   if (testIndex === 1) {
