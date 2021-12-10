@@ -40,6 +40,7 @@ const benchmarkDatasets: BenchmarkDatasets = {
   fibonacci: {
     cGlueFunc: fibModule,
     cWasmUrl: './c_wasm_files/fib.wasm',
+    rustWasmUrl: './rust_wasm_files/fibRust.wasm',
     testbench: fibWasmTest,
     dataSize: 0x28,
   },
