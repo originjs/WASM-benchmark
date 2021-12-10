@@ -47,6 +47,18 @@ export class WasmTestBaseClass {
   }
 
   check(jsRes: any, wasmRes: any): boolean {
+    // handle known return type.
+    // If subclass runJavaScript() don't return these following types,
+    // overwrite this.check, otherwise will throw a Error
+    if (typeof jsRes === 'number') {
+      return jsRes === wasmRes;
+    } else if (
+      Array.isArray(jsRes) || // array
+      (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
+    ) {
+      return this.equalArray(jsRes, wasmRes);
+    }
+
     throw this.shouldOverrideError;
   }
 
@@ -87,19 +99,6 @@ export class WasmTestBaseClass {
   checkFunctionality(): boolean {
     // run js
     const jsRes = this.runJavaScript();
-
-    // init check function to handle known return type.
-    // If subclass runJavaScript() don't return these following types,
-    // overwrite this.checkFunc, otherwise will throw a Error
-    if (typeof jsRes === 'number') {
-      this.check = (jsRes: any, wasmRes: any) => jsRes === wasmRes;
-    } else if (
-      Array.isArray(jsRes) || // array
-      (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
-    ) {
-      this.check = (jsRes: any, wasmRes: any) =>
-        this.equalArray(jsRes, wasmRes);
-    }
 
     // run wasm functions and check equal
     for (const runWasm of this.getAllRunWasmFunc()) {
