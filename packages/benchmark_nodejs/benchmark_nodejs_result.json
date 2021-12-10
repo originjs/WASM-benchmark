@@ -5,55 +5,7 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 1.6853
-      }
-    },
-    {
-      "testName": "multiplyIntVec",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 0.7306
-      }
-    },
-    {
-      "testName": "quicksortInt",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 1.0254
-      }
-    },
-    {
-      "testName": "multiplyDoubleVec",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 0.3846
-      }
-    },
-    {
-      "testName": "quicksortDouble",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 1.1602
-      }
-    },
-    {
-      "testName": "multiplyDouble",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 0.9991
-      }
-    },
-    {
-      "testName": "sumDouble",
-      "warnUpRunLoops": 1,
-      "benchmarkRunLoops": 10,
-      "comparisons": {
-        "runCWasm": 0.5453
+        "runCWasm": 1.5885
       }
     },
     {
@@ -61,7 +13,48 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 11.8656
+        "runCWasm": 3.0837
+      }
+    },
+    {
+      "testName": "multiplyDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 1.007,
+        "runRustWasm": 1.0069
+      }
+    },
+    {
+      "testName": "multiplyIntVec",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 0.7373
+      }
+    },
+    {
+      "testName": "multiplyDoubleVec",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 0.3776
+      }
+    },
+    {
+      "testName": "quicksortInt",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 0.9399
+      }
+    },
+    {
+      "testName": "quicksortDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 1.0509
       }
     },
     {
@@ -69,7 +62,15 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 0.7043
+        "runCWasm": 0.7826
+      }
+    },
+    {
+      "testName": "sumDouble",
+      "warnUpRunLoops": 1,
+      "benchmarkRunLoops": 10,
+      "comparisons": {
+        "runCWasm": 0.5239
       }
     }
   ]

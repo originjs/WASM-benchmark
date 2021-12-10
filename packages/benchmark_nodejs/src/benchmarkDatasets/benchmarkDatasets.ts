@@ -46,6 +46,7 @@ const benchmarkDatasets: BenchmarkDatasets = {
   multiplyDouble: {
     cGlueFunc: multiplyDoubleModule,
     cWasmUrl: './c_wasm_files/multiplyDouble.wasm',
+    rustWasmUrl: './rust_wasm_files/multiplyDoubleRust.wasm',
     testbench: multiplyDoubleWasmTest,
     dataSize: 0x10000000,
   },

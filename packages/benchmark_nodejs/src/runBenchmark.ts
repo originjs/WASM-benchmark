@@ -23,9 +23,7 @@ export async function runBenchmark(
     fs.writeFileSync(jsonPath, JSON.stringify(result, null, 2));
   }
 
-  const wasmBinary = fs.readFileSync(benchmarkDataset.cWasmUrl);
-  let modules: Modules = {};
-  const onRuntimeInitialized = () => {
+  function run() {
     console.log(`${benchmarkDataset.cWasmUrl} is loaded`);
     const wasmTest = new benchmarkDataset.testbench(
       benchmarkDataset.dataSize,
@@ -65,10 +63,23 @@ export async function runBenchmark(
       });
     });
     console.log(`test ${testName}: Checking equality`);
-  };
+  }
+
+  let modules: Modules = {};
+
+  // init modules.rustModule
+  if (!!benchmarkDataset.rustWasmUrl) {
+    const rustWasmBinary = fs.readFileSync(benchmarkDataset.rustWasmUrl);
+    const wasmModule = new WebAssembly.Module(rustWasmBinary);
+    const wasmInstance = new WebAssembly.Instance(wasmModule, {});
+    modules.rustModule = wasmInstance.exports;
+  }
+
+  // init cModule and run test
+  const cWasmBinary = fs.readFileSync(benchmarkDataset.cWasmUrl);
 
   await Promise.resolve().then(() => {
-    let cModuleArgs = { wasmBinary, onRuntimeInitialized };
+    let cModuleArgs = { wasmBinary: cWasmBinary, onRuntimeInitialized: run };
     modules.cModule = benchmarkDataset.cGlueFunc(cModuleArgs);
   });
 }
