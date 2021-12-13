@@ -90,6 +90,7 @@ const benchmarkDatasets = {
   multiplyDoubleVec: {
     cGlueFunc: multiplyDoubleVecModule,
     cWasmUrl: '/c_wasm_files/multiplyDoubleVec.wasm',
+    rustWasmUrl: '/rust_wasm_files/multiplyDoubleVecRust.wasm',
     testbench: multiplyDoubleVecWasmTest,
     dataSize: 0x2000000,
   },
