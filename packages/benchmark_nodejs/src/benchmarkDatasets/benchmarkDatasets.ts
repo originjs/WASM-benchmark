@@ -54,6 +54,7 @@ const benchmarkDatasets: BenchmarkDatasets = {
   multiplyIntVec: {
     cGlueFunc: multiplyIntVecModule,
     cWasmUrl: './c_wasm_files/multiplyIntVec.wasm',
+    rustWasmUrl: './rust_wasm_files/multiplyIntVecRust.wasm',
     testbench: multiplyIntVecWasmTest,
     dataSize: 0x2000000,
   },
