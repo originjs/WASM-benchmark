@@ -1,11 +1,11 @@
-import { WasmTestImageAbstractBaseClass } from './index';
+import { Modules, WasmTestImageBaseClass } from './index';
 
-export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseClass {
+export default class ImageConvoluteWasmTest extends WasmTestImageBaseClass {
   constructor(
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
     dom: any,
     jsCanvas: any,
     wsCanvas: any,
@@ -14,36 +14,40 @@ export default class ImageConvoluteWasmTest extends WasmTestImageAbstractBaseCla
       dataSize,
       warmUpRunLoops,
       benchmarkRunLoops,
-      module,
+      modules,
       dom,
       jsCanvas,
       wsCanvas,
     );
     this.initImageCanvasData();
+    this.initTestData();
   }
 
-  checkFunctionality(): boolean {
+  initTestData() {
     this.copyArray(this.imageData.data, this.jsImageData.data);
     this.copyArray(this.imageData.data, this.wsImageData.data);
-    this.runWasm();
-    this.runJavaScript();
+  }
+
+  check(jsRes: any, wasmRes: any): boolean {
     this.jsContext.putImageData(this.jsImageData, 0, 0);
     this.wsContext.putImageData(this.wsImageData, 0, 0);
     return this.equalArray(this.jsImageData.data, this.wsImageData.data);
   }
 
-  runWasm(): void {
-    const pointer = this.module._malloc(this.wsImageData.data.length);
-    const offset = pointer;
-    this.module.HEAPU8.set(this.wsImageData.data, offset);
-    this.module._imageGrayscale(pointer, this.width, this.height);
-    this.wsImageData.data.set(
-      this.module.HEAPU8.subarray(
-        offset,
-        offset + this.wsImageData.data.length,
-      ),
-    );
-    this.module._free(pointer);
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      const pointer = module._malloc(this.wsImageData.data.length);
+      const offset = pointer;
+      module.HEAPU8.set(this.wsImageData.data, offset);
+      module._imageGrayscale(pointer, this.width, this.height);
+      this.wsImageData.data.set(
+        module.HEAPU8.subarray(offset, offset + this.wsImageData.data.length),
+      );
+      module._free(pointer);
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): void {

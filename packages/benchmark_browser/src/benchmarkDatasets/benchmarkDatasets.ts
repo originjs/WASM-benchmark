@@ -1,148 +1,144 @@
 // @ts-ignore
-import collisionDetectionModule from '../../browser_benchmark/collisionDetection';
+import collisionDetectionModule from '../../c_glue_files/collisionDetection';
 import collisionDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/collisionDetectionWasmTest';
 // @ts-ignore
-import fibModule from '../../browser_benchmark/fib';
+import fibModule from '../../c_glue_files/fib';
 import fibWasmTest from '../../../benchmark_base/src/benchmarkTests/fibWasmTest';
 // @ts-ignore
-import imageConvoluteModule from '../../browser_benchmark/imageConvolute';
+import imageConvoluteModule from '../../c_glue_files/imageConvolute';
 import imageConvoluteWasmTest from '../../../benchmark_base/src/benchmarkTests/imageConvoluteWasmTest';
 // @ts-ignore
-import imageGrayscaleModule from '../../browser_benchmark/imageGrayscale';
+import imageGrayscaleModule from '../../c_glue_files/imageGrayscale';
 import imageGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/imageGrayscaleWasmTest';
 // @ts-ignore
-import imageThresholdModule from '../../browser_benchmark/imageThreshold';
+import imageThresholdModule from '../../c_glue_files/imageThreshold';
 import imageThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/imageThresholdWasmTest';
 // @ts-ignore
-import multiplyDoubleModule from '../../browser_benchmark/multiplyDouble';
+import multiplyDoubleModule from '../../c_glue_files/multiplyDouble';
 import multiplyDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleWasmTest';
 // @ts-ignore
-import multiplyIntVecModule from '../../browser_benchmark/multiplyIntVec';
+import multiplyIntVecModule from '../../c_glue_files/multiplyIntVec';
 import multiplyIntVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyIntVecWasmTest';
 // @ts-ignore
-import multiplyDoubleVecModule from '../../browser_benchmark/multiplyDoubleVec';
+import multiplyDoubleVecModule from '../../c_glue_files/multiplyDoubleVec';
 import multiplyDoubleVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleVecWasmTest';
 // @ts-ignore
-import quicksortIntModule from '../../browser_benchmark/quicksortInt';
+import quicksortIntModule from '../../c_glue_files/quicksortInt';
 import quicksortIntWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortIntWasmTest';
 // @ts-ignore
-import quicksortDoubleModule from '../../browser_benchmark/quicksortDouble';
+import quicksortDoubleModule from '../../c_glue_files/quicksortDouble';
 import quicksortDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortDoubleWasmTest';
 // @ts-ignore
-import sumIntModule from '../../browser_benchmark/sumInt';
+import sumIntModule from '../../c_glue_files/sumInt';
 import sumIntWasmTest from '../../../benchmark_base/src/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
-import sumDoubleModule from '../../browser_benchmark/sumDouble';
+import sumDoubleModule from '../../c_glue_files/sumDouble';
 import sumDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/sumDoubleWasmTest';
 import videoConvoluteWasmTest from '../../../benchmark_base/src/benchmarkTests/videoConvoluteWasmTest';
 import videoGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/videoGrayscaleWasmTest';
 // @ts-ignore
-import videoMarkerDetectionModule from '../../browser_benchmark/markerDetection';
+import videoMarkerDetectionModule from '../../c_glue_files/markerDetection';
 import videoMarkerDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/videoMarkerDetectionWasmTest';
 import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/videoThresholdWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
-    Module: collisionDetectionModule,
+    cGlueFunc: collisionDetectionModule,
+    cWasmUrl: '/c_wasm_files/collisionDetection.wasm',
     testbench: collisionDetectionWasmTest,
-    url: '/browser_benchmark/collisionDetection.wasm',
     dataSize: 0x4000,
   },
   fibonacci: {
-    Module: fibModule,
+    cGlueFunc: fibModule,
+    cWasmUrl: '/c_wasm_files/fib.wasm',
+    rustWasmUrl: '/rust_wasm_files/fibRust.wasm',
     testbench: fibWasmTest,
-    url: '/browser_benchmark/fib.wasm',
     dataSize: 0x28,
   },
   imageConvolute: {
-    Module: imageConvoluteModule,
+    cGlueFunc: imageConvoluteModule,
+    cWasmUrl: '/c_wasm_files/imageConvolute.wasm',
     testbench: imageConvoluteWasmTest,
-    url: '/browser_benchmark/imageConvolute.wasm',
     image: '/src/assets/image.jpg',
   },
   imageGrayscale: {
-    Module: imageGrayscaleModule,
+    cGlueFunc: imageGrayscaleModule,
+    cWasmUrl: '/c_wasm_files/imageGrayscale.wasm',
     testbench: imageGrayscaleWasmTest,
-    url: '/browser_benchmark/imageGrayscale.wasm',
     image: '/src/assets/image.jpg',
   },
   imageThreshold: {
-    Module: imageThresholdModule,
+    cGlueFunc: imageThresholdModule,
+    cWasmUrl: '/c_wasm_files/imageThreshold.wasm',
     testbench: imageThresholdWasmTest,
-    url: '/browser_benchmark/imageThreshold.wasm',
     image: '/src/assets/image.jpg',
   },
   multiplyDouble: {
-    Module: multiplyDoubleModule,
+    cGlueFunc: multiplyDoubleModule,
+    cWasmUrl: '/c_wasm_files/multiplyDouble.wasm',
+    rustWasmUrl: '/rust_wasm_files/multiplyDoubleRust.wasm',
     testbench: multiplyDoubleWasmTest,
-    url: '/browser_benchmark/multiplyDouble.wasm',
     dataSize: 0x10000000,
   },
   multiplyIntVec: {
-    Module: multiplyIntVecModule,
+    cGlueFunc: multiplyIntVecModule,
+    cWasmUrl: '/c_wasm_files/multiplyIntVec.wasm',
     testbench: multiplyIntVecWasmTest,
-    url: '/browser_benchmark/multiplyIntVec.wasm',
     dataSize: 0x2000000,
   },
   multiplyDoubleVec: {
-    Module: multiplyDoubleVecModule,
+    cGlueFunc: multiplyDoubleVecModule,
+    cWasmUrl: '/c_wasm_files/multiplyDoubleVec.wasm',
     testbench: multiplyDoubleVecWasmTest,
-    url: '/browser_benchmark/multiplyDoubleVec.wasm',
     dataSize: 0x2000000,
   },
   quicksortInt: {
-    Module: quicksortIntModule,
+    cGlueFunc: quicksortIntModule,
+    cWasmUrl: '/c_wasm_files/quicksortInt.wasm',
     testbench: quicksortIntWasmTest,
-    url: '/browser_benchmark/quicksortInt.wasm',
     dataSize: 0x200000,
   },
   quicksortDouble: {
-    Module: quicksortDoubleModule,
+    cGlueFunc: quicksortDoubleModule,
+    cWasmUrl: '/c_wasm_files/quicksortDouble.wasm',
     testbench: quicksortDoubleWasmTest,
-    url: '/browser_benchmark/quicksortDouble.wasm',
     dataSize: 0x200000,
   },
   sumInt: {
-    Module: sumIntModule,
+    cGlueFunc: sumIntModule,
+    cWasmUrl: '/c_wasm_files/sumInt.wasm',
     testbench: sumIntWasmTest,
-    url: '/browser_benchmark/sumInt.wasm',
     dataSize: 0x8000000,
   },
   sumDouble: {
-    Module: sumDoubleModule,
+    cGlueFunc: sumDoubleModule,
+    cWasmUrl: '/c_wasm_files/sumDouble.wasm',
     testbench: sumDoubleWasmTest,
-    url: '/browser_benchmark/sumDouble.wasm',
     dataSize: 0x4000000,
   },
   videoConvolute: {
     Module: imageConvoluteModule,
     testbench: videoConvoluteWasmTest,
-    url: '/browser_benchmark/imageConvolute.wasm',
+    url: '/c_wasm_files/imageConvolute.wasm',
     video: '/src/assets/marker.mp4',
   },
   videoGrayscale: {
     Module: imageGrayscaleModule,
     testbench: videoGrayscaleWasmTest,
-    url: '/browser_benchmark/imageGrayscale.wasm',
+    url: '/c_wasm_files/imageGrayscale.wasm',
     video: '/src/assets/marker.mp4',
   },
   videoMarkerDetection: {
     Module: videoMarkerDetectionModule,
     testbench: videoMarkerDetectionWasmTest,
-    url: '/browser_benchmark/markerDetection.wasm',
+    url: '/c_wasm_files/markerDetection.wasm',
     video: '/src/assets/marker.mp4',
   },
   videoThreshold: {
     Module: imageThresholdModule,
     testbench: videoThresholdWasmTest,
-    url: '/browser_benchmark/imageThreshold.wasm',
+    url: '/c_wasm_files/imageThreshold.wasm',
     video: '/src/assets/marker.mp4',
-  },
-  multiplyDoubleRust: {
-    testbench: multiplyDoubleWasmTest,
-    rustWasmFilePath: '/rust_wasm_files/multiplyDoubleRust.wasm',
-    testFuncName: 'multiply_double',
-    dataSize: 0x10000000,
   },
 };
 

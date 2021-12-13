@@ -4,55 +4,75 @@
       "testName": "collisionDetection",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 1.6314
+      "comparisons": {
+        "runCWasm": 1.5071
+      }
     },
     {
       "testName": "fibonacci",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 11.4649
+      "comparisons": {
+        "runCWasm": 9.1218,
+        "runRustWasm": 10.4591
+      }
     },
     {
       "testName": "multiplyDouble",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 1.0025
+      "comparisons": {
+        "runCWasm": 1.0018,
+        "runRustWasm": 1.0022
+      }
     },
     {
       "testName": "multiplyIntVec",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 0.7562
+      "comparisons": {
+        "runCWasm": 0.721
+      }
     },
     {
       "testName": "multiplyDoubleVec",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 0.3834
+      "comparisons": {
+        "runCWasm": 0.3666
+      }
     },
     {
       "testName": "quicksortInt",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 1.0264
+      "comparisons": {
+        "runCWasm": 1.029
+      }
     },
     {
       "testName": "quicksortDouble",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 1.1419
+      "comparisons": {
+        "runCWasm": 1.1624
+      }
     },
     {
       "testName": "sumInt",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 0.8291
+      "comparisons": {
+        "runCWasm": 0.8276
+      }
     },
     {
       "testName": "sumDouble",
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
-      "comparison": 0.5439
+      "comparisons": {
+        "runCWasm": 0.5593
+      }
     }
   ]
 }

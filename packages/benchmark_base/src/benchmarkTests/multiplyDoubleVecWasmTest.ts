@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass {
+export default class MultiplyDoubleVecWasmTest extends WasmTestBaseClass {
   dataSize: number;
   src1: Float64Array;
   src2: Float64Array;
@@ -11,9 +11,9 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
     this.src1 = new Float64Array(this.dataSize);
     this.src2 = new Float64Array(this.dataSize);
@@ -32,23 +32,26 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestAbstractBaseClass
     initArray(this.src2);
   }
 
-  runWasm(): Float64Array {
-    let pointer1 = this.module._malloc(this.src1.length * 8);
-    let pointer2 = this.module._malloc(this.src2.length * 8);
-    let pointer3 = this.module._malloc(this.res2.length * 8);
-    let offset1 = pointer1 / 8;
-    let offset2 = pointer2 / 8;
-    let offset3 = pointer3 / 8;
-    this.module.HEAPF64.set(this.src1, offset1);
-    this.module.HEAPF64.set(this.src2, offset2);
-    this.module._multiplyDoubleVec(pointer1, pointer2, pointer3, this.dataSize);
-    this.res2.set(
-      this.module.HEAPF64.subarray(offset3, offset3 + this.dataSize),
-    );
-    this.module._free(pointer1);
-    this.module._free(pointer2);
-    this.module._free(pointer3);
-    return this.res2;
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      let pointer1 = module._malloc(this.src1.length * 8);
+      let pointer2 = module._malloc(this.src2.length * 8);
+      let pointer3 = module._malloc(this.res2.length * 8);
+      let offset1 = pointer1 / 8;
+      let offset2 = pointer2 / 8;
+      let offset3 = pointer3 / 8;
+      module.HEAPF64.set(this.src1, offset1);
+      module.HEAPF64.set(this.src2, offset2);
+      module._multiplyDoubleVec(pointer1, pointer2, pointer3, this.dataSize);
+      this.res2.set(module.HEAPF64.subarray(offset3, offset3 + this.dataSize));
+      module._free(pointer1);
+      module._free(pointer2);
+      module._free(pointer3);
+      return this.res2;
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): Float64Array {

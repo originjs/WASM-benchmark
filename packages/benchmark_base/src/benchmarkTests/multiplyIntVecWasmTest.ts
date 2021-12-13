@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class MultiplyIntVecWasmTest extends WasmTestAbstractBaseClass {
+export default class MultiplyIntVecWasmTest extends WasmTestBaseClass {
   dataSize: number;
   src1: Int32Array;
   src2: Int32Array;
@@ -11,9 +11,9 @@ export default class MultiplyIntVecWasmTest extends WasmTestAbstractBaseClass {
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
     this.src1 = new Int32Array(this.dataSize);
     this.src2 = new Int32Array(this.dataSize);
@@ -32,23 +32,26 @@ export default class MultiplyIntVecWasmTest extends WasmTestAbstractBaseClass {
     initArray(this.src2);
   }
 
-  runWasm(): Int32Array {
-    let pointer1 = this.module._malloc(this.src1.length * 4);
-    let pointer2 = this.module._malloc(this.src2.length * 4);
-    let pointer3 = this.module._malloc(this.dataSize * 4);
-    let offset1 = pointer1 / 4;
-    let offset2 = pointer2 / 4;
-    let offset3 = pointer3 / 4;
-    this.module.HEAP32.set(this.src1, offset1);
-    this.module.HEAP32.set(this.src2, offset2);
-    this.module._multiplyIntVec(pointer1, pointer2, pointer3, this.dataSize);
-    this.res2.set(
-      this.module.HEAP32.subarray(offset3, offset3 + this.dataSize),
-    );
-    this.module._free(pointer1);
-    this.module._free(pointer2);
-    this.module._free(pointer3);
-    return this.res2;
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      const module = this.modules.cModule;
+
+      let pointer1 = module._malloc(this.src1.length * 4);
+      let pointer2 = module._malloc(this.src2.length * 4);
+      let pointer3 = module._malloc(this.dataSize * 4);
+      let offset1 = pointer1 / 4;
+      let offset2 = pointer2 / 4;
+      let offset3 = pointer3 / 4;
+      module.HEAP32.set(this.src1, offset1);
+      module.HEAP32.set(this.src2, offset2);
+      module._multiplyIntVec(pointer1, pointer2, pointer3, this.dataSize);
+      this.res2.set(module.HEAP32.subarray(offset3, offset3 + this.dataSize));
+      module._free(pointer1);
+      module._free(pointer2);
+      module._free(pointer3);
+      return this.res2;
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): Int32Array {

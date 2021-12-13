@@ -1,6 +1,6 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClass {
+export default class CollisionDetectionWasmTest extends WasmTestBaseClass {
   array: Int32Array;
   dataSize: number;
   positions: any;
@@ -11,9 +11,9 @@ export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClas
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
     this.array = new Int32Array(this.dataSize);
     this.radiuses = new Float64Array(dataSize);
@@ -55,13 +55,9 @@ export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClas
     }
   }
 
-  checkFunctionality(): boolean {
-    this.clearArray(this.javascriptResult);
-    this.clearArray(this.wasmtResult);
-    let count1 = this.runJavaScript();
-    let count2 = this.runWasm();
+  check(jsRes: any, wasmRes: any) {
     return (
-      count1 === count2 &&
+      jsRes === wasmRes &&
       this.equalArray(this.javascriptResult, this.wasmtResult)
     );
   }
@@ -72,35 +68,39 @@ export default class CollisionDetectionWasmTest extends WasmTestAbstractBaseClas
     }
   }
 
-  runWasm(): number {
-    let pointer1 = this.module._malloc(this.positions.length * 3 * 8);
-    let pointer2 = this.module._malloc(this.radiuses.length * 8);
-    let pointer3 = this.module._malloc(this.wasmtResult.length);
-    let offset1 = pointer1 / 8;
-    let offset2 = pointer2 / 8;
-    let offset3 = pointer3;
-    this.setPositionsToFloat64Array(
-      this.positions,
-      this.module.HEAPF64,
-      offset1,
-    );
-    this.module.HEAPF64.set(this.radiuses, offset2);
-    let result = this.module._collisionDetection(
-      pointer1,
-      pointer2,
-      pointer3,
-      this.dataSize,
-    );
-    this.wasmtResult.set(
-      this.module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length),
-    );
-    this.module._free(pointer1);
-    this.module._free(pointer2);
-    this.module._free(pointer3);
-    return result;
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => {
+      this.clearArray(this.wasmtResult);
+      const module = this.modules.cModule;
+
+      let pointer1 = module._malloc(this.positions.length * 3 * 8);
+      let pointer2 = module._malloc(this.radiuses.length * 8);
+      let pointer3 = module._malloc(this.wasmtResult.length);
+      let offset1 = pointer1 / 8;
+      let offset2 = pointer2 / 8;
+      let offset3 = pointer3;
+      this.setPositionsToFloat64Array(this.positions, module.HEAPF64, offset1);
+      module.HEAPF64.set(this.radiuses, offset2);
+      let result = module._collisionDetection(
+        pointer1,
+        pointer2,
+        pointer3,
+        this.dataSize,
+      );
+      this.wasmtResult.set(
+        module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length),
+      );
+      module._free(pointer1);
+      module._free(pointer2);
+      module._free(pointer3);
+      return result;
+    };
+    return [runCWasm];
   }
 
   runJavaScript(): number {
+    this.clearArray(this.javascriptResult);
+
     let count = 0;
     for (let i = 0; i < this.dataSize; i++) {
       let p = this.positions[i];

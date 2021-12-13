@@ -1,29 +1,29 @@
 // @ts-ignore
-import collisionDetectionModule from '../../browser_benchmark/collisionDetection';
+import collisionDetectionModule from '../../c_glue_files/collisionDetection';
 import collisionDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/collisionDetectionWasmTest';
 // @ts-ignore
-import fibModule from '../../browser_benchmark/fib';
+import fibModule from '../../c_glue_files/fib';
 import fibWasmTest from '../../../benchmark_base/src/benchmarkTests/fibWasmTest';
 // @ts-ignore
-import multiplyDoubleModule from '../../browser_benchmark/multiplyDouble';
+import multiplyDoubleModule from '../../c_glue_files/multiplyDouble';
 import multiplyDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleWasmTest';
 // @ts-ignore
-import multiplyIntVecModule from '../../browser_benchmark/multiplyIntVec';
+import multiplyIntVecModule from '../../c_glue_files/multiplyIntVec';
 import multiplyIntVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyIntVecWasmTest';
 // @ts-ignore
-import multiplyDoubleVecModule from '../../browser_benchmark/multiplyDoubleVec';
+import multiplyDoubleVecModule from '../../c_glue_files/multiplyDoubleVec';
 import multiplyDoubleVecWasmTest from '../../../benchmark_base/src/benchmarkTests/multiplyDoubleVecWasmTest';
 // @ts-ignore
-import quicksortIntModule from '../../browser_benchmark/quicksortInt';
+import quicksortIntModule from '../../c_glue_files/quicksortInt';
 import quicksortIntWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortIntWasmTest';
 // @ts-ignore
-import quicksortDoubleModule from '../../browser_benchmark/quicksortDouble';
+import quicksortDoubleModule from '../../c_glue_files/quicksortDouble';
 import quicksortDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/quicksortDoubleWasmTest';
 // @ts-ignore
-import sumIntModule from '../../browser_benchmark/sumInt';
+import sumIntModule from '../../c_glue_files/sumInt';
 import sumIntWasmTest from '../../../benchmark_base/src/benchmarkTests/sumIntWasmTest';
 // @ts-ignore
-import sumDoubleModule from '../../browser_benchmark/sumDouble';
+import sumDoubleModule from '../../c_glue_files/sumDouble';
 import sumDoubleWasmTest from '../../../benchmark_base/src/benchmarkTests/sumDoubleWasmTest';
 
 export type BenchmarkDatasets = {
@@ -32,57 +32,59 @@ export type BenchmarkDatasets = {
 
 const benchmarkDatasets: BenchmarkDatasets = {
   collisionDetection: {
-    Module: collisionDetectionModule,
+    cGlueFunc: collisionDetectionModule,
+    cWasmUrl: './c_wasm_files/collisionDetection.wasm',
     testbench: collisionDetectionWasmTest,
-    url: './browser_benchmark/collisionDetection.wasm',
     dataSize: 0x4000,
   },
   fibonacci: {
-    Module: fibModule,
+    cGlueFunc: fibModule,
+    cWasmUrl: './c_wasm_files/fib.wasm',
+    rustWasmUrl: './rust_wasm_files/fibRust.wasm',
     testbench: fibWasmTest,
-    url: './browser_benchmark/fib.wasm',
     dataSize: 0x28,
   },
   multiplyDouble: {
-    Module: multiplyDoubleModule,
+    cGlueFunc: multiplyDoubleModule,
+    cWasmUrl: './c_wasm_files/multiplyDouble.wasm',
+    rustWasmUrl: './rust_wasm_files/multiplyDoubleRust.wasm',
     testbench: multiplyDoubleWasmTest,
-    url: './browser_benchmark/multiplyDouble.wasm',
     dataSize: 0x10000000,
   },
   multiplyIntVec: {
-    Module: multiplyIntVecModule,
+    cGlueFunc: multiplyIntVecModule,
+    cWasmUrl: './c_wasm_files/multiplyIntVec.wasm',
     testbench: multiplyIntVecWasmTest,
-    url: './browser_benchmark/multiplyIntVec.wasm',
     dataSize: 0x2000000,
   },
   multiplyDoubleVec: {
-    Module: multiplyDoubleVecModule,
+    cGlueFunc: multiplyDoubleVecModule,
+    cWasmUrl: './c_wasm_files/multiplyDoubleVec.wasm',
     testbench: multiplyDoubleVecWasmTest,
-    url: './browser_benchmark/multiplyDoubleVec.wasm',
     dataSize: 0x2000000,
   },
   quicksortInt: {
-    Module: quicksortIntModule,
+    cGlueFunc: quicksortIntModule,
+    cWasmUrl: './c_wasm_files/quicksortInt.wasm',
     testbench: quicksortIntWasmTest,
-    url: './browser_benchmark/quicksortInt.wasm',
     dataSize: 0x200000,
   },
   quicksortDouble: {
-    Module: quicksortDoubleModule,
+    cGlueFunc: quicksortDoubleModule,
+    cWasmUrl: './c_wasm_files/quicksortDouble.wasm',
     testbench: quicksortDoubleWasmTest,
-    url: './browser_benchmark/quicksortDouble.wasm',
     dataSize: 0x200000,
   },
   sumInt: {
-    Module: sumIntModule,
+    cGlueFunc: sumIntModule,
+    cWasmUrl: './c_wasm_files/sumInt.wasm',
     testbench: sumIntWasmTest,
-    url: './browser_benchmark/sumInt.wasm',
     dataSize: 0x8000000,
   },
   sumDouble: {
-    Module: sumDoubleModule,
+    cGlueFunc: sumDoubleModule,
+    cWasmUrl: './c_wasm_files/sumDouble.wasm',
     testbench: sumDoubleWasmTest,
-    url: './browser_benchmark/sumDouble.wasm',
     dataSize: 0x4000000,
   },
 };

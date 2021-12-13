@@ -37,17 +37,22 @@
       <p>
         JavaScript(average [ms]): <span>{{ jsPerformance }}</span>
       </p>
-      <p>
-        WebAssembly(average [ms]): <span>{{ wsPerformance }}</span>
+      <p v-for="(wsPerformance, runWasmFuncName) in wsPerformances">
+        {{ runWasmFuncName }} WebAssembly(average [ms]):
+        <span>{{ wsPerformance }}</span>
       </p>
-      <p>
-        JavaScript/WebAssembly: <span>{{ comparison }}</span>
+      <p v-for="(comparison, runWasmFuncName) in comparisons">
+        {{ runWasmFuncName }} JavaScript/WebAssembly:
+        <span>{{ comparison }}</span>
       </p>
     </div>
   </div>
 </template>
 <script>
-import { loadEmccCompiledWasm } from '../utils/loadWasmUtils';
+import {
+  loadEmccCompiledWasm,
+  loadRustCompiledWasm,
+} from '../utils/loadWasmUtils';
 
 export default {
   name: 'benchmarkTest',
@@ -59,40 +64,38 @@ export default {
       message: 'Ready',
       btnDisabled: false,
       jsPerformance: '',
-      wsPerformance: '',
-      comparison: '',
+      wsPerformances: { '': '' },
+      comparisons: { '': '' },
       benchmarkName: 'JavaScript ',
     };
   },
   async setup(props) {
     const warmUpRunLoops = 1;
     const benchmarkRunLoops = 10;
+    const benchmarkDataset = props.benchmarkDataset;
 
-    let module = {};
-    let wasmTest = {};
-    if (props.benchmarkDataset.rustWasmFilePath) {
-      await import(/* @vite-ignore */ props.benchmarkDataset.rustWasmFilePath)
-        .then(value => value.default())
-        .then(exports => {
-          module.testFunc = exports[props.benchmarkDataset.testFuncName];
-        });
-    } else {
-      module = await loadEmccCompiledWasm(
-        props.benchmarkDataset.url,
-        props.benchmarkDataset.Module,
-      );
+    // init modules
+    const { cGlueFunc, cWasmUrl, rustWasmUrl } = benchmarkDataset;
+    const modules = {};
+    if (!!cGlueFunc && !!cWasmUrl) {
+      modules.cModule = await loadEmccCompiledWasm(cWasmUrl, cGlueFunc);
+    }
+    if (!!rustWasmUrl) {
+      modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
     }
 
-    wasmTest = new props.benchmarkDataset.testbench(
-      props.benchmarkDataset.dataSize,
+    // init wasmTest class
+    const { testbench, dataSize } = benchmarkDataset;
+    const wasmTest = new testbench(
+      dataSize,
       warmUpRunLoops,
       benchmarkRunLoops,
-      module,
+      modules,
       props.benchmarkDataset.dom,
       props.benchmarkDataset.jsCanvas,
       props.benchmarkDataset.wsCanvas,
     );
-    return { module, wasmTest };
+    return { wasmTest };
   },
   methods: {
     start() {
@@ -106,10 +109,14 @@ export default {
         setTimeout(() => {
           this.jsPerformance = this.wasmTest.runJavaScriptBenchmark();
           setTimeout(() => {
-            this.wsPerformance = this.wasmTest.runWasmBenchmark();
-            this.comparison = (this.jsPerformance / this.wsPerformance).toFixed(
-              4,
-            );
+            this.wsPerformances = this.wasmTest.runWasmBenchmark();
+            const comparisons = {};
+            for (const runWasmFuncName in this.wsPerformances) {
+              comparisons[runWasmFuncName] = (
+                this.jsPerformance / this.wsPerformances[runWasmFuncName]
+              ).toFixed(4);
+            }
+            this.comparisons = comparisons;
             this.message = 'Done';
           });
           this.message = 'Running WebAssembly';

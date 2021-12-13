@@ -1,22 +1,34 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class MultiplyDoubleWasmTest extends WasmTestAbstractBaseClass {
+export default class MultiplyDoubleWasmTest extends WasmTestBaseClass {
   dataSize: number;
 
   constructor(
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
   }
 
-  runWasm(): number {
-    return this.module.testFunc
-      ? this.module.testFunc(1.0, 1.0, this.dataSize)
-      : this.module._multiplyDouble(1.0, 1.0, this.dataSize);
+  getAllRunWasmFunc(): Array<Function> {
+    const allFunc = [];
+
+    if (!!this.modules.cModule) {
+      const runCWasm = () =>
+        this.modules.cModule._multiplyDouble(1.0, 1.0, this.dataSize);
+      allFunc.push(runCWasm);
+    }
+
+    if (!!this.modules.rustModule) {
+      const runRustWasm = () =>
+        this.modules.rustModule.multiply_double(1.0, 1.0, this.dataSize);
+      allFunc.push(runRustWasm);
+    }
+
+    return allFunc;
   }
 
   runJavaScript(): number {

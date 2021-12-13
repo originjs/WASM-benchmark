@@ -1,20 +1,30 @@
-import { WasmTestAbstractBaseClass } from './index';
+import { Modules, WasmTestBaseClass } from './index';
 
-export default class FibWasmTest extends WasmTestAbstractBaseClass {
+export default class FibWasmTest extends WasmTestBaseClass {
   dataSize: number;
 
   constructor(
     dataSize: number,
     warmUpRunLoops: number,
     benchmarkRunLoops: number,
-    module: Object,
+    modules: Modules,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
   }
 
-  runWasm(): number {
-    return this.module._fib(this.dataSize);
+  getAllRunWasmFunc(): Array<Function> {
+    const runCWasm = () => this.modules.cModule._fib(this.dataSize);
+    const runRustWasm = () => this.modules.rustModule.fib(this.dataSize);
+
+    const allFunc: Array<Function> = [];
+    if (this.modules.cModule) {
+      allFunc.push(runCWasm);
+    }
+    if (this.modules.rustModule) {
+      allFunc.push(runRustWasm);
+    }
+    return allFunc;
   }
 
   runJavaScript(): number {

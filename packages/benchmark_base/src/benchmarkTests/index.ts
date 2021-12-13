@@ -1,5 +1,189 @@
 import * as THREE from 'three';
 
+export type Modules = {
+  cModule?: any;
+  rustModule?: any;
+};
+
+export type WasmBenchResults = {
+  [wasmFuncName: string]: string;
+};
+
+export class WasmTestBaseClass {
+  warmUpRunLoops: number;
+  benchmarkRunLoops: number;
+  modules: Modules;
+  shouldOverrideError: Error;
+  performance: any;
+
+  constructor(
+    warmUpRunLoops: number,
+    benchmarkRunLoops: number,
+    modules: Modules,
+  ) {
+    this.warmUpRunLoops = warmUpRunLoops;
+    this.benchmarkRunLoops = benchmarkRunLoops;
+    this.modules = modules;
+    this.shouldOverrideError = Error(
+      'Should override this function in sub class',
+    );
+    if (typeof window === 'undefined' && typeof global === 'object') {
+      this.performance = require('perf_hooks').performance;
+    } else {
+      this.performance = performance;
+    }
+  }
+
+  initTestData() {
+    throw this.shouldOverrideError;
+  }
+
+  getAllRunWasmFunc(): Array<Function> {
+    throw this.shouldOverrideError;
+  }
+
+  runJavaScript(): number | Array<any> | any | void {
+    throw this.shouldOverrideError;
+  }
+
+  check(jsRes: any, wasmRes: any): boolean {
+    // handle known return type.
+    // If subclass runJavaScript() don't return these following types,
+    // overwrite this.check, otherwise will throw a Error
+    if (typeof jsRes === 'number') {
+      return jsRes === wasmRes;
+    } else if (
+      Array.isArray(jsRes) || // array
+      (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
+    ) {
+      return this.equalArray(jsRes, wasmRes);
+    }
+
+    throw this.shouldOverrideError;
+  }
+
+  runWasmBenchmark(): WasmBenchResults {
+    const result: WasmBenchResults = {};
+
+    for (const runWasm of this.getAllRunWasmFunc()) {
+      for (let i = 0; i < this.warmUpRunLoops; i++) {
+        runWasm(); // warm-up
+      }
+      let elapsedTime = 0.0;
+      for (let i = 0; i < this.benchmarkRunLoops; i++) {
+        let startTime = this.performance.now();
+        runWasm();
+        let endTime = this.performance.now();
+        elapsedTime += endTime - startTime;
+      }
+      result[runWasm.name] = (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+    }
+
+    return result;
+  }
+
+  runJavaScriptBenchmark() {
+    for (let i = 0; i < this.warmUpRunLoops; i++) {
+      this.runJavaScript(); // warm-up
+    }
+    let elapsedTime = 0.0;
+    for (let i = 0; i < this.benchmarkRunLoops; i++) {
+      let startTime = this.performance.now();
+      this.runJavaScript();
+      let endTime = this.performance.now();
+      elapsedTime += endTime - startTime;
+    }
+    return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+  }
+
+  checkFunctionality(): boolean {
+    // run js
+    const jsRes = this.runJavaScript();
+
+    // run wasm functions and check equal
+    for (const runWasm of this.getAllRunWasmFunc()) {
+      if (!this.check(jsRes, runWasm())) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  equalArray(array1: any, array2: any): boolean {
+    if (array1.length !== array2.length) return false;
+    for (let i = 0, il = array1.length; i < il; i++) {
+      if (array1[i] !== array2[i]) return false;
+    }
+    return true;
+  }
+
+  copyArray(src: any, res: any) {
+    for (let i = 0, il = src.length; i < il; i++) {
+      res[i] = src[i];
+    }
+  }
+}
+
+export class WasmTestImageBaseClass extends WasmTestBaseClass {
+  image: any;
+  canvas: any;
+  jsCanvas: any;
+  wsCanvas: any;
+  jsContext: any;
+  wsContext: any;
+  width: number;
+  height: number;
+  imageData: any;
+  jsImageData: any;
+  wsImageData: any;
+
+  constructor(
+    dataSize: number,
+    warmUpRunLoops: number,
+    benchmarkRunLoops: number,
+    modules: Object,
+    dom: any,
+    jsCanvas: any,
+    wsCanvas: any,
+  ) {
+    super(warmUpRunLoops, benchmarkRunLoops, modules);
+    this.image = dom;
+    this.width = this.image.width;
+    this.height = this.image.height;
+    this.jsCanvas = jsCanvas;
+    this.wsCanvas = wsCanvas;
+  }
+
+  initImageCanvasData() {
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
+    const context = this.canvas.getContext('2d');
+    context.drawImage(this.image, 0, 0);
+    this.imageData = context.getImageData(0, 0, this.width, this.height);
+
+    this.jsCanvas.width = this.width;
+    this.jsCanvas.height = this.height;
+    this.jsContext = this.jsCanvas.getContext('2d');
+    this.jsImageData = this.jsContext.getImageData(
+      0,
+      0,
+      this.width,
+      this.height,
+    );
+
+    this.wsCanvas.width = this.width;
+    this.wsCanvas.height = this.height;
+    this.wsContext = this.wsCanvas.getContext('2d');
+    this.wsImageData = this.wsContext.getImageData(
+      0,
+      0,
+      this.width,
+      this.height,
+    );
+  }
+}
+
 export interface WasmTestInterface {
   initTestData(): void;
   checkFunctionality(): boolean;
@@ -106,69 +290,6 @@ export class WasmTestAbstractBaseClass implements WasmTestInterface {
     for (let i = 0, il = src.length; i < il; i++) {
       res[i] = src[i];
     }
-  }
-}
-
-export class WasmTestImageAbstractBaseClass
-  extends WasmTestAbstractBaseClass
-  implements WasmTestInterface
-{
-  image: any;
-  canvas: any;
-  jsCanvas: any;
-  wsCanvas: any;
-  jsContext: any;
-  wsContext: any;
-  width: number;
-  height: number;
-  imageData: any;
-  jsImageData: any;
-  wsImageData: any;
-
-  constructor(
-    dataSize: number,
-    warmUpRunLoops: number,
-    benchmarkRunLoops: number,
-    module: Object,
-    dom: any,
-    jsCanvas: any,
-    wsCanvas: any,
-  ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
-    this.image = dom;
-    this.width = this.image.width;
-    this.height = this.image.height;
-    this.jsCanvas = jsCanvas;
-    this.wsCanvas = wsCanvas;
-  }
-
-  initImageCanvasData() {
-    this.canvas = document.createElement('canvas');
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-    const context = this.canvas.getContext('2d');
-    context.drawImage(this.image, 0, 0);
-    this.imageData = context.getImageData(0, 0, this.width, this.height);
-
-    this.jsCanvas.width = this.width;
-    this.jsCanvas.height = this.height;
-    this.jsContext = this.jsCanvas.getContext('2d');
-    this.jsImageData = this.jsContext.getImageData(
-      0,
-      0,
-      this.width,
-      this.height,
-    );
-
-    this.wsCanvas.width = this.width;
-    this.wsCanvas.height = this.height;
-    this.wsContext = this.wsCanvas.getContext('2d');
-    this.wsImageData = this.wsContext.getImageData(
-      0,
-      0,
-      this.width,
-      this.height,
-    );
   }
 }
 
