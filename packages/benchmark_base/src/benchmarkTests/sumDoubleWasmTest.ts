@@ -33,7 +33,47 @@ export default class SumDoubleWasmTest extends WasmTestBaseClass {
       module._free(pointer);
       return result;
     };
-    return [runCWasm];
+    const runRustWasm = () => {
+      const module = this.modules.rustModule;
+
+      let cachegetFloat64Memory0: any = null;
+      function getFloat64Memory0() {
+        if (
+          cachegetFloat64Memory0 === null ||
+          cachegetFloat64Memory0.buffer !== module.memory.buffer
+        ) {
+          cachegetFloat64Memory0 = new Float64Array(module.memory.buffer);
+        }
+        return cachegetFloat64Memory0;
+      }
+
+      let WASM_VECTOR_LEN = 0;
+
+      function passArrayF64ToWasm0(arg: any, malloc: any) {
+        const ptr = malloc(arg.length * 8);
+        getFloat64Memory0().set(arg, ptr / 8);
+        WASM_VECTOR_LEN = arg.length;
+        return ptr;
+      }
+
+      function sum_double(array: any, n: any) {
+        const ptr0 = passArrayF64ToWasm0(array, module.__wbindgen_malloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = module.sum_double(ptr0, len0, n);
+        return ret;
+      }
+
+      return sum_double(this.array, this.dataSize);
+    };
+
+    const allFunc: Array<Function> = [];
+    if (this.modules.cModule) {
+      allFunc.push(runCWasm);
+    }
+    if (this.modules.rustModule) {
+      allFunc.push(runRustWasm);
+    }
+    return allFunc;
   }
 
   runJavaScript(): number {

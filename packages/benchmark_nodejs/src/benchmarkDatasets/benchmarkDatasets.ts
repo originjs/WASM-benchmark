@@ -80,12 +80,14 @@ const benchmarkDatasets: BenchmarkDatasets = {
   sumInt: {
     cGlueFunc: sumIntModule,
     cWasmUrl: './c_wasm_files/sumInt.wasm',
+    rustWasmUrl: './rust_wasm_files/sumIntRust.wasm',
     testbench: sumIntWasmTest,
     dataSize: 0x8000000,
   },
   sumDouble: {
     cGlueFunc: sumDoubleModule,
     cWasmUrl: './c_wasm_files/sumDouble.wasm',
+    rustWasmUrl: './rust_wasm_files/sumDoubleRust.wasm',
     testbench: sumDoubleWasmTest,
     dataSize: 0x4000000,
   },
