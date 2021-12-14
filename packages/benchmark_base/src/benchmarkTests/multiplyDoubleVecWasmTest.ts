@@ -33,34 +33,32 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestBaseClass {
   }
 
   getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () => {
-      const module = this.modules.cModule;
+    const { cModule, rustModule } = this.modules;
 
-      let pointer1 = module._malloc(this.src1.length * 8);
-      let pointer2 = module._malloc(this.src2.length * 8);
-      let pointer3 = module._malloc(this.res2.length * 8);
+    const runCWasm = () => {
+      let pointer1 = cModule._malloc(this.src1.length * 8);
+      let pointer2 = cModule._malloc(this.src2.length * 8);
+      let pointer3 = cModule._malloc(this.res2.length * 8);
       let offset1 = pointer1 / 8;
       let offset2 = pointer2 / 8;
       let offset3 = pointer3 / 8;
-      module.HEAPF64.set(this.src1, offset1);
-      module.HEAPF64.set(this.src2, offset2);
-      module._multiplyDoubleVec(pointer1, pointer2, pointer3, this.dataSize);
-      this.res2.set(module.HEAPF64.subarray(offset3, offset3 + this.dataSize));
-      module._free(pointer1);
-      module._free(pointer2);
-      module._free(pointer3);
+      cModule.HEAPF64.set(this.src1, offset1);
+      cModule.HEAPF64.set(this.src2, offset2);
+      cModule._multiplyDoubleVec(pointer1, pointer2, pointer3, this.dataSize);
+      this.res2.set(cModule.HEAPF64.subarray(offset3, offset3 + this.dataSize));
+      cModule._free(pointer1);
+      cModule._free(pointer2);
+      cModule._free(pointer3);
       return this.res2;
     };
     const runRustWasm = () => {
-      let module = this.modules.rustModule;
-
       let cachegetFloat64Memory0: any = null;
       function getFloat64Memory0() {
         if (
           cachegetFloat64Memory0 === null ||
-          cachegetFloat64Memory0.buffer !== module.memory.buffer
+          cachegetFloat64Memory0.buffer !== rustModule.memory.buffer
         ) {
-          cachegetFloat64Memory0 = new Float64Array(module.memory.buffer);
+          cachegetFloat64Memory0 = new Float64Array(rustModule.memory.buffer);
         }
         return cachegetFloat64Memory0;
       }
@@ -75,15 +73,15 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestBaseClass {
       }
 
       function multiply_double_vec(src1: any, src2: any, res: any, n: any) {
-        const ptr0 = passArrayF64ToWasm0(src1, module.__wbindgen_malloc);
+        const ptr0 = passArrayF64ToWasm0(src1, rustModule.__wbindgen_malloc);
         const len0 = WASM_VECTOR_LEN;
-        const ptr1 = passArrayF64ToWasm0(src2, module.__wbindgen_malloc);
+        const ptr1 = passArrayF64ToWasm0(src2, rustModule.__wbindgen_malloc);
         const len1 = WASM_VECTOR_LEN;
-        const ptr2 = passArrayF64ToWasm0(res, module.__wbindgen_malloc);
+        const ptr2 = passArrayF64ToWasm0(res, rustModule.__wbindgen_malloc);
         const len2 = WASM_VECTOR_LEN;
-        module.multiply_double_vec(ptr0, len0, ptr1, len1, ptr2, len2, n);
+        rustModule.multiply_double_vec(ptr0, len0, ptr1, len1, ptr2, len2, n);
         res.set(getFloat64Memory0().subarray(ptr2 / 8, ptr2 / 8 + len2));
-        module.__wbindgen_free(ptr2, len2 * 8);
+        rustModule.__wbindgen_free(ptr2, len2 * 8);
       }
 
       multiply_double_vec(this.src1, this.src2, this.res2, this.dataSize);
@@ -91,10 +89,10 @@ export default class MultiplyDoubleVecWasmTest extends WasmTestBaseClass {
     };
 
     const allFunc: Array<Function> = [];
-    if (this.modules.cModule) {
+    if (cModule) {
       allFunc.push(runCWasm);
     }
-    if (this.modules.rustModule) {
+    if (rustModule) {
       allFunc.push(runRustWasm);
     }
     return allFunc;

@@ -23,26 +23,24 @@ export default class SumDoubleWasmTest extends WasmTestBaseClass {
   }
 
   getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () => {
-      const module = this.modules.cModule;
+    const { cModule, rustModule } = this.modules;
 
-      const pointer = module._malloc(this.array.length * 8);
+    const runCWasm = () => {
+      const pointer = cModule._malloc(this.array.length * 8);
       const offset = pointer / 8;
-      module.HEAPF64.set(this.array, offset);
-      const result = module._sumDouble(pointer, this.dataSize);
-      module._free(pointer);
+      cModule.HEAPF64.set(this.array, offset);
+      const result = cModule._sumDouble(pointer, this.dataSize);
+      cModule._free(pointer);
       return result;
     };
     const runRustWasm = () => {
-      const module = this.modules.rustModule;
-
       let cachegetFloat64Memory0: any = null;
       function getFloat64Memory0() {
         if (
           cachegetFloat64Memory0 === null ||
-          cachegetFloat64Memory0.buffer !== module.memory.buffer
+          cachegetFloat64Memory0.buffer !== rustModule.memory.buffer
         ) {
-          cachegetFloat64Memory0 = new Float64Array(module.memory.buffer);
+          cachegetFloat64Memory0 = new Float64Array(rustModule.memory.buffer);
         }
         return cachegetFloat64Memory0;
       }
@@ -57,9 +55,9 @@ export default class SumDoubleWasmTest extends WasmTestBaseClass {
       }
 
       function sum_double(array: any, n: any) {
-        const ptr0 = passArrayF64ToWasm0(array, module.__wbindgen_malloc);
+        const ptr0 = passArrayF64ToWasm0(array, rustModule.__wbindgen_malloc);
         const len0 = WASM_VECTOR_LEN;
-        const ret = module.sum_double(ptr0, len0, n);
+        const ret = rustModule.sum_double(ptr0, len0, n);
         return ret;
       }
 
@@ -67,10 +65,10 @@ export default class SumDoubleWasmTest extends WasmTestBaseClass {
     };
 
     const allFunc: Array<Function> = [];
-    if (this.modules.cModule) {
+    if (cModule) {
       allFunc.push(runCWasm);
     }
-    if (this.modules.rustModule) {
+    if (rustModule) {
       allFunc.push(runRustWasm);
     }
     return allFunc;

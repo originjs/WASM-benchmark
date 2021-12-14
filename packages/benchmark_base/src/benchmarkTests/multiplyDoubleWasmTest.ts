@@ -14,20 +14,19 @@ export default class MultiplyDoubleWasmTest extends WasmTestBaseClass {
   }
 
   getAllRunWasmFunc(): Array<Function> {
-    const allFunc = [];
+    const { cModule, rustModule } = this.modules;
 
-    if (!!this.modules.cModule) {
-      const runCWasm = () =>
-        this.modules.cModule._multiplyDouble(1.0, 1.0, this.dataSize);
+    const runCWasm = () => cModule._multiplyDouble(1.0, 1.0, this.dataSize);
+    const runRustWasm = () =>
+      rustModule.multiply_double(1.0, 1.0, this.dataSize);
+
+    const allFunc: Array<Function> = [];
+    if (cModule) {
       allFunc.push(runCWasm);
     }
-
-    if (!!this.modules.rustModule) {
-      const runRustWasm = () =>
-        this.modules.rustModule.multiply_double(1.0, 1.0, this.dataSize);
+    if (rustModule) {
       allFunc.push(runRustWasm);
     }
-
     return allFunc;
   }
 
