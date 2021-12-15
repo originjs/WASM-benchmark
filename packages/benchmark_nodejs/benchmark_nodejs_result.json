@@ -5,7 +5,7 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 1.5071
+        "runCWasm": 1.5584
       }
     },
     {
@@ -13,8 +13,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 9.1218,
-        "runRustWasm": 10.4591
+        "runCWasm": 6.4085,
+        "runRustWasm": 6.9769
       }
     },
     {
@@ -22,8 +22,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 1.0018,
-        "runRustWasm": 1.0022
+        "runCWasm": 0.9998,
+        "runRustWasm": 1.0025
       }
     },
     {
@@ -31,7 +31,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 0.721
+        "runCWasm": 0.8252,
+        "runRustWasm": 0.6847
       }
     },
     {
@@ -39,7 +40,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 0.3666
+        "runCWasm": 0.3406,
+        "runRustWasm": 0.2912
       }
     },
     {
@@ -47,7 +49,7 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 1.029
+        "runCWasm": 1.0073
       }
     },
     {
@@ -55,7 +57,7 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 1.1624
+        "runCWasm": 1.1544
       }
     },
     {
@@ -63,7 +65,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 0.8276
+        "runCWasm": 0.7902,
+        "runRustWasm": 0.844
       }
     },
     {
@@ -71,7 +74,8 @@
       "warnUpRunLoops": 1,
       "benchmarkRunLoops": 10,
       "comparisons": {
-        "runCWasm": 0.5593
+        "runCWasm": 0.5231,
+        "runRustWasm": 0.5205
       }
     }
   ]
