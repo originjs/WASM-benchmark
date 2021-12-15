@@ -23,17 +23,55 @@ export default class SumIntWasmTest extends WasmTestBaseClass {
   }
 
   getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () => {
-      const module = this.modules.cModule;
+    const { cModule, rustModule } = this.modules;
 
-      const pointer = module._malloc(this.array.length * 4);
+    const runCWasm = () => {
+      const pointer = cModule._malloc(this.array.length * 4);
       const offset = pointer / 4;
-      module.HEAP32.set(this.array, offset);
-      const result = module._sumInt(pointer, this.dataSize);
-      module._free(pointer);
+      cModule.HEAP32.set(this.array, offset);
+      const result = cModule._sumInt(pointer, this.dataSize);
+      cModule._free(pointer);
       return result;
     };
-    return [runCWasm];
+    const runRustWasm = () => {
+      let cachegetUint32Memory0: any = null;
+      function getUint32Memory0() {
+        if (
+          cachegetUint32Memory0 === null ||
+          cachegetUint32Memory0.buffer !== rustModule.memory.buffer
+        ) {
+          cachegetUint32Memory0 = new Uint32Array(rustModule.memory.buffer);
+        }
+        return cachegetUint32Memory0;
+      }
+
+      let WASM_VECTOR_LEN = 0;
+
+      function passArray32ToWasm0(arg: any, malloc: any) {
+        const ptr = malloc(arg.length * 4);
+        getUint32Memory0().set(arg, ptr / 4);
+        WASM_VECTOR_LEN = arg.length;
+        return ptr;
+      }
+
+      function sum_int(array: any, n: any) {
+        const ptr0 = passArray32ToWasm0(array, rustModule.__wbindgen_malloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = rustModule.sum_int(ptr0, len0, n);
+        return ret;
+      }
+
+      return sum_int(this.array, this.dataSize);
+    };
+
+    const allFunc: Array<Function> = [];
+    if (cModule) {
+      allFunc.push(runCWasm);
+    }
+    if (rustModule) {
+      allFunc.push(runRustWasm);
+    }
+    return allFunc;
   }
 
   runJavaScript(): number {

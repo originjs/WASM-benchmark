@@ -61,6 +61,7 @@ const benchmarkDatasets: BenchmarkDatasets = {
   multiplyDoubleVec: {
     cGlueFunc: multiplyDoubleVecModule,
     cWasmUrl: './c_wasm_files/multiplyDoubleVec.wasm',
+    rustWasmUrl: './rust_wasm_files/multiplyDoubleVecRust.wasm',
     testbench: multiplyDoubleVecWasmTest,
     dataSize: 0x2000000,
   },
@@ -79,12 +80,14 @@ const benchmarkDatasets: BenchmarkDatasets = {
   sumInt: {
     cGlueFunc: sumIntModule,
     cWasmUrl: './c_wasm_files/sumInt.wasm',
+    rustWasmUrl: './rust_wasm_files/sumIntRust.wasm',
     testbench: sumIntWasmTest,
     dataSize: 0x8000000,
   },
   sumDouble: {
     cGlueFunc: sumDoubleModule,
     cWasmUrl: './c_wasm_files/sumDouble.wasm',
+    rustWasmUrl: './rust_wasm_files/sumDoubleRust.wasm',
     testbench: sumDoubleWasmTest,
     dataSize: 0x4000000,
   },
