@@ -184,119 +184,8 @@ export class WasmTestImageBaseClass extends WasmTestBaseClass {
   }
 }
 
-export interface WasmTestInterface {
-  initTestData(): void;
-  checkFunctionality(): boolean;
-  runWasm(): number | Array<any> | any | void;
-  runWasmBenchmark(): string;
-  runJavaScript(): number | Array<any> | any | void;
-  runJavaScriptBenchmark(): string;
-}
-
-export class WasmTestAbstractBaseClass implements WasmTestInterface {
-  warmUpRunLoops: number;
-  benchmarkRunLoops: number;
+export class WasmTestVideoAbstractBaseClass extends WasmTestBaseClass {
   module: any;
-  shouldOverrideError: Error;
-  performance: any;
-
-  constructor(
-    warmUpRunLoops: number,
-    benchmarkRunLoops: number,
-    module: Object,
-  ) {
-    this.warmUpRunLoops = warmUpRunLoops;
-    this.benchmarkRunLoops = benchmarkRunLoops;
-    this.module = module;
-    this.shouldOverrideError = Error(
-      'Should override this function in sub class',
-    );
-    if (typeof window === 'undefined' && typeof global === 'object') {
-      this.performance = require('perf_hooks').performance;
-    } else {
-      this.performance = performance;
-    }
-  }
-
-  initTestData() {
-    throw this.shouldOverrideError;
-  }
-
-  runWasm(): number | Array<any> | any | void {
-    throw this.shouldOverrideError;
-  }
-
-  runJavaScript(): number | Array<any> | any | void {
-    throw this.shouldOverrideError;
-  }
-
-  runWasmBenchmark(): string {
-    for (let i = 0; i < this.warmUpRunLoops; i++) {
-      this.runWasm(); // warm-up
-    }
-    let elapsedTime = 0.0;
-    for (let i = 0; i < this.benchmarkRunLoops; i++) {
-      let startTime = this.performance.now();
-      this.runWasm();
-      let endTime = this.performance.now();
-      elapsedTime += endTime - startTime;
-    }
-    return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
-  }
-
-  runJavaScriptBenchmark() {
-    for (let i = 0; i < this.warmUpRunLoops; i++) {
-      this.runJavaScript(); // warm-up
-    }
-    let elapsedTime = 0.0;
-    for (let i = 0; i < this.benchmarkRunLoops; i++) {
-      let startTime = this.performance.now();
-      this.runJavaScript();
-      let endTime = this.performance.now();
-      elapsedTime += endTime - startTime;
-    }
-    return (elapsedTime / this.benchmarkRunLoops).toFixed(4);
-  }
-
-  checkFunctionality(): boolean {
-    const jsRes = this.runJavaScript();
-    const wasmRes = this.runWasm();
-
-    // handle known return type.
-    // If subclass runJavaScript() don't return these following types,
-    // subclass should overwrite this function
-    if (typeof jsRes === 'number') {
-      return jsRes === wasmRes;
-    } else if (
-      Array.isArray(jsRes) || // array
-      (ArrayBuffer.isView(jsRes) && !(jsRes instanceof DataView)) // TypedArray
-    ) {
-      return this.equalArray(jsRes, wasmRes);
-    }
-
-    // return false by default;
-    return false;
-  }
-
-  equalArray(array1: any, array2: any): boolean {
-    if (array1.length !== array2.length) return false;
-    for (let i = 0, il = array1.length; i < il; i++) {
-      if (array1[i] !== array2[i]) return false;
-    }
-    return true;
-  }
-
-  copyArray(src: any, res: any) {
-    for (let i = 0, il = src.length; i < il; i++) {
-      res[i] = src[i];
-    }
-  }
-}
-
-export class WasmTestVideoAbstractBaseClass
-  extends WasmTestAbstractBaseClass
-  implements WasmTestInterface
-{
   video: any;
   renderer: any;
   gl: any;
@@ -331,7 +220,8 @@ export class WasmTestVideoAbstractBaseClass
     jsCanvas: any,
     wsCanvas: any,
   ) {
-    super(warmUpRunLoops, benchmarkRunLoops, module);
+    super(warmUpRunLoops, benchmarkRunLoops, { cModule: module });
+    this.module = module;
     this.video = dom;
     this.width = this.video.videoWidth;
     this.height = this.video.videoHeight;
@@ -345,6 +235,10 @@ export class WasmTestVideoAbstractBaseClass
     this.wsCanvas.height = this.height;
     this.wsContext = this.wsCanvas.getContext('2d');
     this.initThreeData();
+  }
+
+  runWasm(): number | Array<any> | any | void {
+    throw this.shouldOverrideError;
   }
 
   initThreeData(): void {
