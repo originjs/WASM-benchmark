@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev:browser": "cd packages/benchmark_browser && vite --force",
+    "dev:nodejs": "cd packages/benchmark_nodejs && pnpm run run",
     "build:browser": "cd packages/benchmark_browser vite build",
     "serve:browser": "cd packages/benchmark_browser vite preview",
     "fix": "prettier **/*.{js,ts,vue,json}  --write"
