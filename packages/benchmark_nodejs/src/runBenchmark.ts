@@ -1,29 +1,9 @@
 import fs from 'fs';
 import { Modules } from '../../benchmark_base/src/benchmarkTests';
-
-async function loadEmccCompiledWasm(cWasmUrl: string, cGlueFunc: Function) {
-  let module = {};
-  const cWasmBinary = fs.readFileSync(cWasmUrl);
-  await new Promise(resolve => {
-    let cModuleArgs = {
-      wasmBinary: cWasmBinary,
-      onRuntimeInitialized: () => {
-        console.log(`${cWasmUrl} is loaded`);
-        resolve(null);
-      },
-    };
-    module = cGlueFunc(cModuleArgs);
-  });
-  return module;
-}
-
-function loadRustCompiledWasm(rustWasmUrl: string, imports: any = {}) {
-  const rustWasmBinary = fs.readFileSync(rustWasmUrl);
-  const wasmModule = new WebAssembly.Module(rustWasmBinary);
-  const wasmInstance = new WebAssembly.Instance(wasmModule, imports);
-  console.log(`${rustWasmUrl} is loaded`);
-  return wasmInstance.exports;
-}
+import {
+  loadEmccCompiledWasm,
+  loadRustCompiledWasm,
+} from '../../benchmark_base/src/loadWasmUtils';
 
 export async function runBenchmark(
   benchmarkDataset: any,
@@ -56,7 +36,7 @@ export async function runBenchmark(
   }
   // init modules.rustModule
   if (!!rustWasmUrl) {
-    modules.rustModule = loadRustCompiledWasm(rustWasmUrl);
+    modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
   }
 
   // init test class

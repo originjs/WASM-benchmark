@@ -13,20 +13,12 @@ export default class FibWasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
   }
 
-  getAllRunWasmFunc(): Array<Function> {
-    const { cModule, rustModule } = this.modules;
+  runCWasm() {
+    return this.modules.cModule._fib(this.dataSize);
+  }
 
-    const runCWasm = () => cModule._fib(this.dataSize);
-    const runRustWasm = () => rustModule.fib(this.dataSize);
-
-    const allFunc: Array<Function> = [];
-    if (cModule) {
-      allFunc.push(runCWasm);
-    }
-    if (rustModule) {
-      allFunc.push(runRustWasm);
-    }
-    return allFunc;
+  runRustWasm() {
+    return this.modules.rustModule.fib(this.dataSize);
   }
 
   runJavaScript(): number {

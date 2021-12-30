@@ -7,6 +7,7 @@ import content from '@originjs/vite-plugin-content';
 // @ts-ignore
 import pages from '@originjs/vite-plugin-pages';
 import markdown from 'vite-plugin-md';
+import wasm from '@originjs/vite-plugin-load-wasm';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -37,6 +38,7 @@ export default defineConfig({
     content(),
     pages(),
     markdown(),
+    wasm(),
   ],
   define: {
     __VUE_I18N_FULL_INSTALL__: true,

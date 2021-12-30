@@ -52,7 +52,7 @@
 import {
   loadEmccCompiledWasm,
   loadRustCompiledWasm,
-} from '../utils/loadWasmUtils';
+} from '../../../benchmark_base/src/loadWasmUtils';
 
 export default {
   name: 'benchmarkTest',

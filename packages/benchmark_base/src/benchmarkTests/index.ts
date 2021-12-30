@@ -38,12 +38,30 @@ export class WasmTestBaseClass {
     throw this.shouldOverrideError;
   }
 
-  getAllRunWasmFunc(): Array<Function> {
+  runJavaScript(): number | Array<any> | any | void {
     throw this.shouldOverrideError;
   }
 
-  runJavaScript(): number | Array<any> | any | void {
+  runCWasm() {
     throw this.shouldOverrideError;
+  }
+
+  runRustWasm() {
+    throw this.shouldOverrideError;
+  }
+
+  getAllRunWasmFunc(): Array<Function> {
+    const { cModule, rustModule } = this.modules;
+    const { runCWasm, runRustWasm } = this;
+
+    const allFunc: Array<Function> = [];
+    if (cModule) {
+      allFunc.push(runCWasm.bind(this));
+    }
+    if (rustModule) {
+      allFunc.push(runRustWasm.bind(this));
+    }
+    return allFunc;
   }
 
   check(jsRes: any, wasmRes: any): boolean {
@@ -67,7 +85,7 @@ export class WasmTestBaseClass {
 
     for (const runWasm of this.getAllRunWasmFunc()) {
       for (let i = 0; i < this.warmUpRunLoops; i++) {
-        runWasm(); // warm-up
+        runWasm.call(this); // warm-up
       }
       let elapsedTime = 0.0;
       for (let i = 0; i < this.benchmarkRunLoops; i++) {
@@ -76,7 +94,8 @@ export class WasmTestBaseClass {
         let endTime = this.performance.now();
         elapsedTime += endTime - startTime;
       }
-      result[runWasm.name] = (elapsedTime / this.benchmarkRunLoops).toFixed(4);
+      const name = runWasm.name.replace('bound ', '');
+      result[name] = (elapsedTime / this.benchmarkRunLoops).toFixed(4);
     }
 
     return result;
