@@ -1,4 +1,4 @@
-import benchmarkDatasets from './benchmarkDatasets/benchmarkDatasets';
+import benchmarkDatasets from './benchmarkDatasets';
 import { runBenchmark } from './runBenchmark';
 import { question } from 'readline-sync';
 

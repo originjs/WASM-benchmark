@@ -22,57 +22,20 @@ export default class SumDoubleWasmTest extends WasmTestBaseClass {
     }
   }
 
-  getAllRunWasmFunc(): Array<Function> {
-    const { cModule, rustModule } = this.modules;
+  runCWasm() {
+    const { cModule } = this.modules;
 
-    const runCWasm = () => {
-      const pointer = cModule._malloc(this.array.length * 8);
-      const offset = pointer / 8;
-      cModule.HEAPF64.set(this.array, offset);
-      const result = cModule._sumDouble(pointer, this.dataSize);
-      cModule._free(pointer);
-      return result;
-    };
-    const runRustWasm = () => {
-      let cachegetFloat64Memory0: any = null;
-      function getFloat64Memory0() {
-        if (
-          cachegetFloat64Memory0 === null ||
-          cachegetFloat64Memory0.buffer !== rustModule.memory.buffer
-        ) {
-          cachegetFloat64Memory0 = new Float64Array(rustModule.memory.buffer);
-        }
-        return cachegetFloat64Memory0;
-      }
-
-      let WASM_VECTOR_LEN = 0;
-
-      function passArrayF64ToWasm0(arg: any, malloc: any) {
-        const ptr = malloc(arg.length * 8);
-        getFloat64Memory0().set(arg, ptr / 8);
-        WASM_VECTOR_LEN = arg.length;
-        return ptr;
-      }
-
-      function sum_double(array: any, n: any) {
-        const ptr0 = passArrayF64ToWasm0(array, rustModule.__wbindgen_malloc);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = rustModule.sum_double(ptr0, len0, n);
-        return ret;
-      }
-
-      return sum_double(this.array, this.dataSize);
-    };
-
-    const allFunc: Array<Function> = [];
-    if (cModule) {
-      allFunc.push(runCWasm);
-    }
-    if (rustModule) {
-      allFunc.push(runRustWasm);
-    }
-    return allFunc;
+    const pointer = cModule._malloc(this.array.length * 8);
+    const offset = pointer / 8;
+    cModule.HEAPF64.set(this.array, offset);
+    const result = cModule._sumDouble(pointer, this.dataSize);
+    cModule._free(pointer);
+    return result;
   }
+
+  runRustWasm = () => {
+    return this.modules.rustModule.sum_double(this.array, this.dataSize);
+  };
 
   runJavaScript(): number {
     let s = 0;
