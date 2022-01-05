@@ -4,7 +4,7 @@
   "license": "MulanPSL2",
   "private": true,
   "scripts": {
-    "dev:browser": "cd packages/benchmark_browser && vite",
+    "dev:browser": "cd packages/benchmark_browser && vite --force",
     "dev:nodejs": "cd packages/benchmark_nodejs && pnpm run run",
     "build:browser": "cd packages/benchmark_browser && vite build",
     "serve:browser": "cd packages/benchmark_browser && vite preview",

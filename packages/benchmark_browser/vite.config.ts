@@ -23,6 +23,9 @@ export default defineConfig({
       },
     ],
   },
+  optimizeDeps: {
+    include: ['three'],
+  },
   plugins: [
     vue({
       include: [/\.vue$/, /\.md$/],
