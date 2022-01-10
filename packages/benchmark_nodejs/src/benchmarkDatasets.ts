@@ -35,6 +35,7 @@ const benchmarkDatasets: BenchmarkDatasets = {
   collisionDetection: {
     cGlueFunc: collisionDetectionModule,
     cWasmUrl: join(__dirname, '../c_wasm_files/collisionDetection.wasm'),
+    rustWasmUrl: join(__dirname, '../rust_wasm_files/collisionDetectionRust.js'),
     testbench: collisionDetectionWasmTest,
     dataSize: 0x4000,
   },

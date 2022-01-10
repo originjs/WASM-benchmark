@@ -100,36 +100,6 @@ export default class CollisionDetectionWasmTest extends WasmTestBaseClass {
     return this.modules.rustModule.collision_detection(this.positions, this.radiuses, this.wasmtResult, this.dataSize);
   }
 
-  // getAllRunWasmFunc(): Array<Function> {
-  //   const runCWasm = () => {
-  //     this.clearArray(this.wasmtResult);
-  //     const module = this.modules.cModule;
-  //
-  //     let pointer1 = module._malloc(this.positions.length * 3 * 8);
-  //     let pointer2 = module._malloc(this.radiuses.length * 8);
-  //     let pointer3 = module._malloc(this.wasmtResult.length);
-  //     let offset1 = pointer1 / 8;
-  //     let offset2 = pointer2 / 8;
-  //     let offset3 = pointer3;
-  //     this.setPositionsToFloat64Array(this.positions, module.HEAPF64, offset1);
-  //     module.HEAPF64.set(this.radiuses, offset2);
-  //     let result = module._collisionDetection(
-  //       pointer1,
-  //       pointer2,
-  //       pointer3,
-  //       this.dataSize,
-  //     );
-  //     this.wasmtResult.set(
-  //       module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length),
-  //     );
-  //     module._free(pointer1);
-  //     module._free(pointer2);
-  //     module._free(pointer3);
-  //     return result;
-  //   };
-  //   return [runCWasm];
-  // }
-
   runJavaScript(): number {
     this.clearArray(this.javascriptResult);
 
