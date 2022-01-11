@@ -103,32 +103,16 @@ function passArrayF64ToWasm0(arg, malloc) {
     return ptr;
 }
 
-let cachegetUint64Memory0 = null;
-function getUint64Memory0() {
-    if (cachegetUint64Memory0 === null || cachegetUint64Memory0.buffer !== wasm.memory.buffer) {
-        cachegetUint64Memory0 = new BigUint64Array(wasm.memory.buffer);
-    }
-    return cachegetUint64Memory0;
-}
-
-function passArray64ToWasm0(arg, malloc) {
-    const ptr = malloc(arg.length * 8);
-    getUint64Memory0().set(arg, ptr / 8);
+function passArray8ToWasm0(arg, malloc) {
+    const ptr = malloc(arg.length * 1);
+    getUint8Memory0().set(arg, ptr / 1);
     WASM_VECTOR_LEN = arg.length;
     return ptr;
-}
-
-let cachegetInt64Memory0 = null;
-function getInt64Memory0() {
-    if (cachegetInt64Memory0 === null || cachegetInt64Memory0.buffer !== wasm.memory.buffer) {
-        cachegetInt64Memory0 = new BigInt64Array(wasm.memory.buffer);
-    }
-    return cachegetInt64Memory0;
 }
 /**
 * @param {any} js_positions
 * @param {Float64Array} radiuses
-* @param {BigInt64Array} res
+* @param {Uint8Array} res
 * @param {number} n
 * @returns {number}
 */
@@ -136,14 +120,14 @@ module.exports.collision_detection = function(js_positions, radiuses, res, n) {
     try {
         var ptr0 = passArrayF64ToWasm0(radiuses, wasm.__wbindgen_malloc);
         var len0 = WASM_VECTOR_LEN;
-        var ptr1 = passArray64ToWasm0(res, wasm.__wbindgen_malloc);
+        var ptr1 = passArray8ToWasm0(res, wasm.__wbindgen_malloc);
         var len1 = WASM_VECTOR_LEN;
         var ret = wasm.collision_detection(addBorrowedObject(js_positions), ptr0, len0, ptr1, len1, n);
         return ret;
     } finally {
         heap[stack_pointer++] = undefined;
-        res.set(getInt64Memory0().subarray(ptr1 / 8, ptr1 / 8 + len1));
-        wasm.__wbindgen_free(ptr1, len1 * 8);
+        res.set(getUint8Memory0().subarray(ptr1 / 1, ptr1 / 1 + len1));
+        wasm.__wbindgen_free(ptr1, len1 * 1);
     }
 };
 
