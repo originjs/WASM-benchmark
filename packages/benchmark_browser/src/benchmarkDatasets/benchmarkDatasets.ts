@@ -59,6 +59,7 @@ const benchmarkDatasets = {
   imageConvolute: {
     cGlueFunc: imageConvoluteModule,
     cWasmUrl: '/c_wasm_files/imageConvolute.wasm',
+    rustWasmUrl: '/rust_wasm_files/imageConvoluteRust_bg.js',
     testbench: imageConvoluteWasmTest,
     image: '/src/assets/image.jpg',
   },
