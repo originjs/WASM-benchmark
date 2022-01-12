@@ -30,6 +30,7 @@ export async function loadEmccCompiledWasm(
 export async function loadRustCompiledWasm(rustWasmUrl: string) {
   return import(/* @vite-ignore */ rustWasmUrl).then(exports => {
     console.log(`${rustWasmUrl} is loaded`);
+    console.log(exports)
     return exports;
   });
 }

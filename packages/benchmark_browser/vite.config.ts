@@ -7,7 +7,7 @@ import content from '@originjs/vite-plugin-content';
 // @ts-ignore
 import pages from '@originjs/vite-plugin-pages';
 import markdown from 'vite-plugin-md';
-import wasm from '@originjs/vite-plugin-load-wasm';
+import wasm from './wasm_plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({

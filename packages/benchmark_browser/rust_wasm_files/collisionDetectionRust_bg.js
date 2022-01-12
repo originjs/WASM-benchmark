@@ -1,9 +1,4 @@
-const bytes = await fetch('/rust_wasm_files/collisionDetectionRust_bg.wasm')
-  .then(res => res.arrayBuffer())
-let imports = {};
-imports['./collisionDetectionRust_bg.js'] = {__wbindgen_json_serialize};
-const result = await WebAssembly.instantiate(bytes, imports)
-const wasm = result.instance.exports
+import wasm from './collisionDetectionRust_bg.wasm'
 
 
 const heap = new Array(32).fill(undefined);
