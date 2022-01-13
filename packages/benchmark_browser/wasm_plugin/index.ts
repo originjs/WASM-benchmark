@@ -14,17 +14,28 @@ export default (options: PluginOptions = {}): Plugin => {
   }
 
   const overwriteResult = (id: string, loadRes: string) => {
-    const binary = readFileSync(id)
-    const info = getImportObjInfo(binary)
-    console.log(info)
-    let imports = 'let imports = {}\n'
-    let importStr = ''
-    for (let fileName of info.keys()) {
-      // @ts-ignore
-      const obj = info.get(fileName).join(', ')
-      importStr += `import { ${obj} } from '${fileName}'\n`
-      imports += `imports['${fileName}'] = { ${obj} }\n`
-    }
+    // const binary = readFileSync(id)
+    // const info = getImportObjInfo(binary)
+    // console.log(info)
+    // let imports = 'let imports = {}\n'
+    // let importStr = ''
+    // for (let fileName of info.keys()) {
+    //   // @ts-ignore
+    //   const obj = info.get(fileName).join(', ')
+    //   importStr += `import { ${obj} } from '${fileName}'\n`
+    //   imports += `imports['${fileName}'] = { ${obj} }\n`
+    // }
+
+    return `
+import initWasm from "/__vite-wasm-helper"
+const init = opts => initWasm(opts, "/rust_wasm_files/collisionDetectionRust_bg.wasm")
+import { __wbindgen_json_serialize } from './collisionDetectionRust_bg.js'
+let imports = {}
+imports['./collisionDetectionRust_bg.js'] = { __wbindgen_json_serialize }
+
+const exports = await init(imports)
+export default exports    
+`
 
     const str1 = loadRes.replace('export default', 'const init =')
     const str2 = importStr + imports
