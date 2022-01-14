@@ -41,7 +41,9 @@ export default defineConfig({
     content(),
     pages(),
     markdown(),
-    wasm(),
+    wasm({
+      include: [path.resolve(__dirname, './rust_wasm_files/*.js')],
+    }),
   ],
   define: {
     __VUE_I18N_FULL_INSTALL__: true,
