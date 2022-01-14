@@ -81,13 +81,13 @@ export default class CollisionDetectionWasmTest extends WasmTestBaseClass {
     this.setPositionsToFloat64Array(this.positions, module.HEAPF64, offset1);
     module.HEAPF64.set(this.radiuses, offset2);
     let result = module._collisionDetection(
-        pointer1,
-        pointer2,
-        pointer3,
-        this.dataSize,
+      pointer1,
+      pointer2,
+      pointer3,
+      this.dataSize,
     );
     this.wasmtResult.set(
-        module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length),
+      module.HEAPU8.subarray(offset3, offset3 + this.wasmtResult.length),
     );
     module._free(pointer1);
     module._free(pointer2);
@@ -97,7 +97,12 @@ export default class CollisionDetectionWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     this.clearArray(this.wasmtResult);
-    return this.modules.rustModule.collision_detection(this.positions, this.radiuses, this.wasmtResult, this.dataSize);
+    return this.modules.rustModule.collision_detection(
+      this.positions,
+      this.radiuses,
+      this.wasmtResult,
+      this.dataSize,
+    );
   }
 
   runJavaScript(): number {
