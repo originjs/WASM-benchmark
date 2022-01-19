@@ -172,6 +172,7 @@ export default {
       'videoGrayscale',
       'videoMarkerDetection',
       'videoThreshold',
+      'md5',
     ];
 
     return {

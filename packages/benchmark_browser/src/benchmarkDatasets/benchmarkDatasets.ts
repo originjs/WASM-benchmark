@@ -40,6 +40,7 @@ import videoGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/v
 import videoMarkerDetectionModule from '../../c_glue_files/markerDetection';
 import videoMarkerDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/videoMarkerDetectionWasmTest';
 import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/videoThresholdWasmTest';
+import md5WasmTest from '../../../benchmark_base/src/benchmarkTests/md5WasmTest'
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -146,6 +147,11 @@ const benchmarkDatasets = {
     url: '/c_wasm_files/imageThreshold.wasm',
     video: '/src/assets/marker.mp4',
   },
+  md5: {
+    testbench: md5WasmTest,
+    rustWasmUrl: '',
+    dataSize: 0x0001,
+  }
 };
 
 export default benchmarkDatasets;
