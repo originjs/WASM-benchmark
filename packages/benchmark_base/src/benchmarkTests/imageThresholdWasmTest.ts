@@ -1,6 +1,6 @@
 import { Modules, WasmTestImageBaseClass } from './index';
 
-export default class ImageConvoluteWasmTest extends WasmTestImageBaseClass {
+export default class ImageThresholdWasmTest extends WasmTestImageBaseClass {
   _work: Int32Array;
 
   constructor(

@@ -1,6 +1,6 @@
 import { WasmTestVideoAbstractBaseClass } from './index';
 
-export default class VideoConvoluteWasmTest extends WasmTestVideoAbstractBaseClass {
+export default class VideoGrayscaleWasmTest extends WasmTestVideoAbstractBaseClass {
   constructor(
     dataSize: number,
     warmUpRunLoops: number,
