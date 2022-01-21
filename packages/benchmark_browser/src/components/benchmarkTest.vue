@@ -80,12 +80,13 @@ export default {
     if (!!cGlueFunc && !!cWasmUrl) {
       modules.cModule = await loadEmccCompiledWasm(cWasmUrl, cGlueFunc);
     }
-    if (rustWasmUrl.length == 0) {
-      modules.rustModule = {}
-    }
 
     if (!!rustWasmUrl) {
-      modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
+      if (rustWasmUrl.length == 0) {
+        modules.rustModule = {}
+      } else {
+        modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
+      }
     }
 
     // init wasmTest class

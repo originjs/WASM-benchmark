@@ -149,7 +149,6 @@ const benchmarkDatasets = {
   },
   md5: {
     testbench: md5WasmTest,
-    rustWasmUrl: '',
     dataSize: 0x0001,
   }
 };
