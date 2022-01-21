@@ -82,11 +82,9 @@ export default {
     }
 
     if (!!rustWasmUrl) {
-      if (rustWasmUrl.length == 0) {
-        modules.rustModule = {}
-      } else {
-        modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
-      }
+      modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
+    } else {
+      modules.rustModule = {};
     }
 
     // init wasmTest class

@@ -40,7 +40,8 @@ import videoGrayscaleWasmTest from '../../../benchmark_base/src/benchmarkTests/v
 import videoMarkerDetectionModule from '../../c_glue_files/markerDetection';
 import videoMarkerDetectionWasmTest from '../../../benchmark_base/src/benchmarkTests/videoMarkerDetectionWasmTest';
 import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/videoThresholdWasmTest';
-import md5WasmTest from '../../../benchmark_base/src/benchmarkTests/md5WasmTest'
+import md5WasmTest from '../../../benchmark_base/src/benchmarkTests/md5WasmTest';
+import sha3WasmTest from '../../../benchmark_base/src/benchmarkTests/sha3WasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -149,6 +150,10 @@ const benchmarkDatasets = {
   },
   md5: {
     testbench: md5WasmTest,
+    dataSize: 0x0001,
+  },
+  sha3: {
+    testbench: sha3WasmTest,
     dataSize: 0x0001,
   }
 };
