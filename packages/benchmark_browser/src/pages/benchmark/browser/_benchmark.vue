@@ -173,6 +173,7 @@ export default {
       'videoMarkerDetection',
       'videoThreshold',
       'md5',
+      'sha1',
       'sha3'
     ];
 
