@@ -43,6 +43,7 @@ import videoThresholdWasmTest from '../../../benchmark_base/src/benchmarkTests/v
 import md5WasmTest from '../../../benchmark_base/src/benchmarkTests/md5WasmTest';
 import sha1WasmTest from '../../../benchmark_base/src/benchmarkTests/sha1WasmTest';
 import sha256WasmTest from '../../../benchmark_base/src/benchmarkTests/sha256WasmTest';
+import sha512WasmTest from '../../../benchmark_base/src/benchmarkTests/sha512WasmTest';
 import sha3WasmTest from '../../../benchmark_base/src/benchmarkTests/sha3WasmTest';
 
 const benchmarkDatasets = {
@@ -160,6 +161,10 @@ const benchmarkDatasets = {
   },
   sha256: {
     testbench: sha256WasmTest,
+    dataSize: 0x0001,
+  },
+  sha512: {
+    testbench: sha512WasmTest,
     dataSize: 0x0001,
   },
   sha3: {
