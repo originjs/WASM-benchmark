@@ -178,7 +178,7 @@ export default {
       'sha224',
       'sha512',
       'sha384',
-      'sha3'
+      'sha3',
     ];
 
     return {

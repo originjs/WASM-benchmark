@@ -2,3 +2,4 @@ node_modules
 components.d.ts
 packages/rust_code
 dist
+docs

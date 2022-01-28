@@ -180,7 +180,7 @@ const benchmarkDatasets = {
   sha3: {
     testbench: sha3WasmTest,
     dataSize: 0x0001,
-  }
+  },
 };
 
 export default benchmarkDatasets;
