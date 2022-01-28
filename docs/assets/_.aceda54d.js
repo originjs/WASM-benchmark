@@ -1,0 +1,1 @@
+import{_ as e}from"./index.8c519621.js";import{o,c as t}from"./vendor.36576d8b.js";const s={name:"404"},n={class:"text-p"};function r(c,a,p,_,d,f){return o(),t("p",n,"page not found...")}var l=e(s,[["render",r]]);export{l as default};

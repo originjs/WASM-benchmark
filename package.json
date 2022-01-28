@@ -7,7 +7,8 @@
     "dev:browser": "cd packages/benchmark_browser && vite --force",
     "dev:nodejs": "cd packages/benchmark_nodejs && pnpm run run",
     "build:browser": "cd packages/benchmark_browser && vite build",
-    "serve:browser": "cd packages/benchmark_browser && vite preview",
+    "preview:browser": "cd packages/benchmark_browser && vite preview",
+    "deploy:browser": "pnpm build:browser && rm -rf ./docs && cp -r ./packages/benchmark_browser/dist ./docs && touch ./docs/.nojekyll",
     "fix": "prettier **/*.{js,ts,vue,json}  --write"
   },
   "devDependencies": {
