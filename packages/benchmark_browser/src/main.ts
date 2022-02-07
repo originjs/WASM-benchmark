@@ -9,7 +9,7 @@ import store from './store';
 import routes from 'virtual:plugin-pages';
 
 const router = createRouter({
-  history: createWebHistory('/WASM-benchmark/'),
+  history: createWebHistory(import.meta.env.VITE_BASE_URL),
   routes,
 });
 
