@@ -7,7 +7,8 @@ export async function loadEmccCompiledWasm(
   if (typeof window === 'undefined' && typeof global === 'object') {
     cWasmBinary = require('fs').readFileSync(cWasmUrl);
   } else {
-    cWasmBinary = await fetch(cWasmUrl)
+    // @ts-ignore
+    cWasmBinary = await fetch(import.meta.env.VITE_BASE_URL + cWasmUrl)
       .then(response => response.arrayBuffer())
       .then(buffer => new Uint8Array(buffer));
   }
