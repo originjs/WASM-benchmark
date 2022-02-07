@@ -1,0 +1,1 @@
+import{_ as e}from"./index.db13baaf.js";import{o,c as t}from"./vendor.36576d8b.js";const s={name:"404"},a={class:"text-p"};function n(r,c,p,_,d,f){return o(),t("p",a,"page not found...")}var l=e(s,[["render",n]]);export{l as default};
