@@ -156,25 +156,29 @@ const benchmarkDatasets = {
     Module: imageConvoluteModule,
     testbench: videoConvoluteWasmTest,
     url: '/c_wasm_files/imageConvolute.wasm',
-    video: '/src/assets/marker.mp4',
+    // @ts-ignore
+    video: import.meta.env.VITE_BASE_URL + 'marker.mp4',
   },
   videoGrayscale: {
     Module: imageGrayscaleModule,
     testbench: videoGrayscaleWasmTest,
     url: '/c_wasm_files/imageGrayscale.wasm',
-    video: '/src/assets/marker.mp4',
+    // @ts-ignore
+    video: import.meta.env.VITE_BASE_URL + 'marker.mp4',
   },
   videoMarkerDetection: {
     Module: videoMarkerDetectionModule,
     testbench: videoMarkerDetectionWasmTest,
     url: '/c_wasm_files/markerDetection.wasm',
-    video: '/src/assets/marker.mp4',
+    // @ts-ignore
+    video: import.meta.env.VITE_BASE_URL + 'marker.mp4',
   },
   videoThreshold: {
     Module: imageThresholdModule,
     testbench: videoThresholdWasmTest,
     url: '/c_wasm_files/imageThreshold.wasm',
-    video: '/src/assets/marker.mp4',
+    // @ts-ignore
+    video: import.meta.env.VITE_BASE_URL + 'marker.mp4',
   },
   md5: {
     testbench: md5WasmTest,
