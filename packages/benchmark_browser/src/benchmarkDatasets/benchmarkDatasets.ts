@@ -52,21 +52,28 @@ const benchmarkDatasets = {
   collisionDetection: {
     cGlueFunc: collisionDetectionModule,
     cWasmUrl: '/c_wasm_files/collisionDetection.wasm',
-    rustWasmUrl: '/rust_wasm_files/collisionDetectionRust_bg.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/collisionDetectionRust_bg.js'
+    ),
     testbench: collisionDetectionWasmTest,
     dataSize: 0x4000,
   },
   fibonacci: {
     cGlueFunc: fibModule,
     cWasmUrl: '/c_wasm_files/fib.wasm',
-    rustWasmUrl: '/rust_wasm_files/fibRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(/* @vite-ignore */ '/rust_wasm_files/fibRust.js'),
     testbench: fibWasmTest,
     dataSize: 0x28,
   },
   imageConvolute: {
     cGlueFunc: imageConvoluteModule,
     cWasmUrl: '/c_wasm_files/imageConvolute.wasm',
-    rustWasmUrl: '/rust_wasm_files/imageConvoluteRust_bg.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/imageConvoluteRust_bg.js'
+    ),
     testbench: imageConvoluteWasmTest,
     image: '/src/assets/image.jpg',
   },
@@ -85,21 +92,30 @@ const benchmarkDatasets = {
   multiplyDouble: {
     cGlueFunc: multiplyDoubleModule,
     cWasmUrl: '/c_wasm_files/multiplyDouble.wasm',
-    rustWasmUrl: '/rust_wasm_files/multiplyDoubleRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/multiplyDoubleRust.js'
+    ),
     testbench: multiplyDoubleWasmTest,
     dataSize: 0x10000000,
   },
   multiplyIntVec: {
     cGlueFunc: multiplyIntVecModule,
     cWasmUrl: '/c_wasm_files/multiplyIntVec.wasm',
-    rustWasmUrl: '/rust_wasm_files/multiplyIntVecRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/multiplyIntVecRust.js'
+    ),
     testbench: multiplyIntVecWasmTest,
     dataSize: 0x2000000,
   },
   multiplyDoubleVec: {
     cGlueFunc: multiplyDoubleVecModule,
     cWasmUrl: '/c_wasm_files/multiplyDoubleVec.wasm',
-    rustWasmUrl: '/rust_wasm_files/multiplyDoubleVecRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/multiplyDoubleVecRust.js'
+    ),
     testbench: multiplyDoubleVecWasmTest,
     dataSize: 0x2000000,
   },
@@ -118,14 +134,18 @@ const benchmarkDatasets = {
   sumInt: {
     cGlueFunc: sumIntModule,
     cWasmUrl: '/c_wasm_files/sumInt.wasm',
-    rustWasmUrl: '/rust_wasm_files/sumIntRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(/* @vite-ignore */ '/rust_wasm_files/sumIntRust.js'),
     testbench: sumIntWasmTest,
     dataSize: 0x8000000,
   },
   sumDouble: {
     cGlueFunc: sumDoubleModule,
     cWasmUrl: '/c_wasm_files/sumDouble.wasm',
-    rustWasmUrl: '/rust_wasm_files/sumDoubleRust.js',
+    // @ts-ignore
+    rustWasmLoad: import(
+      /* @vite-ignore */ '/rust_wasm_files/sumDoubleRust.js'
+    ),
     testbench: sumDoubleWasmTest,
     dataSize: 0x4000000,
   },

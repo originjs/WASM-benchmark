@@ -15,6 +15,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: ENV.VITE_BASE_URL,
+    build: {
+      target: ['edge90', 'chrome90', 'firefox90', 'safari15'],
+    },
     resolve: {
       alias: [
         {

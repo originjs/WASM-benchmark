@@ -49,10 +49,7 @@
   </div>
 </template>
 <script>
-import {
-  loadEmccCompiledWasm,
-  loadRustCompiledWasm,
-} from '../../../benchmark_base/src/loadWasmUtils';
+import { loadEmccCompiledWasm } from '../../../benchmark_base/src/loadWasmUtils';
 
 export default {
   name: 'benchmarkTest',
@@ -75,16 +72,15 @@ export default {
     const benchmarkDataset = props.benchmarkDataset;
 
     // init modules
-    const { cGlueFunc, cWasmUrl, rustWasmUrl } = benchmarkDataset;
+    const { cGlueFunc, cWasmUrl, rustWasmLoad } = benchmarkDataset;
     const modules = {};
     if (!!cGlueFunc && !!cWasmUrl) {
       modules.cModule = await loadEmccCompiledWasm(cWasmUrl, cGlueFunc);
     }
 
-    if (!!rustWasmUrl) {
-      modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
-    } else {
-      modules.rustModule = {};
+    if (!!rustWasmLoad) {
+      modules.rustModule = await rustWasmLoad;
+      console.log('rust module is loaded');
     }
 
     // init wasmTest class
