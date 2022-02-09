@@ -31,7 +31,16 @@ export default defineConfig(({ mode }) => {
       ],
     },
     optimizeDeps: {
-      include: ['three'],
+      include: [
+        'three',
+        'crypto-js/md5',
+        'crypto-js/sha1',
+        'crypto-js/sha256',
+        'crypto-js/sha512',
+        'crypto-js/sha3',
+        'crypto-js/sha224',
+        'crypto-js/sha384',
+      ],
     },
     plugins: [
       vue({

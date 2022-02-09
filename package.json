@@ -28,6 +28,8 @@
     "unplugin-vue-components": "latest",
     "vite": "^2.4.4",
     "vite-plugin-md": "latest",
-    "vue-tsc": "^0.2.2"
+    "vue-tsc": "^0.2.2",
+    "three": "^0.85.0",
+    "crypto-js": "^4.1.1"
   }
 }

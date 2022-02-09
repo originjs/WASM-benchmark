@@ -14,7 +14,9 @@ importers:
       '@types/three': ^0.134.0
       '@vitejs/plugin-vue': ^1.3.0
       '@vue/compiler-sfc': ^3.0.5
+      crypto-js: ^4.1.1
       prettier: ^2.4.1
+      three: ^0.85.0
       ts-node: ^10.4.0
       typescript: ^4.3.2
       unplugin-vue-components: latest
@@ -32,12 +34,14 @@ importers:
       '@types/three': 0.134.0
       '@vitejs/plugin-vue': 1.10.0_vite@2.6.14
       '@vue/compiler-sfc': 3.2.22
+      crypto-js: 4.1.1
       prettier: 2.4.1
+      three: 0.85.2
       ts-node: 10.4.0_36929cccfdb926da0bb85cc291f27124
       typescript: 4.5.2
-      unplugin-vue-components: 0.17.15_vite@2.6.14
+      unplugin-vue-components: 0.17.18_vite@2.6.14
       vite: 2.6.14
-      vite-plugin-md: 0.11.7_vite@2.6.14
+      vite-plugin-md: 0.11.8_vite@2.6.14
       vue-tsc: 0.2.3_typescript@4.5.2
 
   packages/benchmark_base:
@@ -50,7 +54,6 @@ importers:
 
   packages/benchmark_browser:
     specifiers:
-      three: ^0.85.0
       vue: ^3.0.5
       vue-i18n: ^9.2.0-beta.9
       vue-router: ^4.0.11
@@ -60,8 +63,6 @@ importers:
       vue-i18n: 9.2.0-beta.21_vue@3.2.22
       vue-router: 4.0.12_vue@3.2.22
       vuex: 4.0.2_vue@3.2.22
-    devDependencies:
-      three: 0.85.2
 
   packages/benchmark_nodejs:
     specifiers:
@@ -71,16 +72,14 @@ importers:
 
 packages:
 
-  /@antfu/utils/0.3.0:
-    resolution: {integrity: sha512-UU8TLr/EoXdg7OjMp0h9oDoIAVr+Z/oW9cpOxQQyrsz6Qzd2ms/1CdWx8fl2OQdFpxGmq5Vc4TwfLHId6nAZjA==}
-    dependencies:
-      '@types/throttle-debounce': 2.1.0
-    dev: true
-
   /@antfu/utils/0.4.0:
     resolution: {integrity: sha512-gqkpvjkgFUu+s3kP+Ly33OKpo5zvVY3FDFhv5BIb98SncS3KD6DNxPfNDjwHIoyXbz1leWo1j8DtRLZ1D2Jv+Q==}
     dependencies:
       '@types/throttle-debounce': 2.1.0
+    dev: true
+
+  /@antfu/utils/0.5.0:
+    resolution: {integrity: sha512-MrAQ/MrPSxbh1bBrmwJjORfJymw4IqSHFBXqvxaga3ZdDM+/zokYF8DjyJpSjY2QmpmgQrajDUBJOWrYeARfzA==}
     dev: true
 
   /@babel/helper-validator-identifier/7.15.7:
@@ -750,7 +749,6 @@ packages:
 
   /crypto-js/4.1.1:
     resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
-    dev: false
 
   /csstype/2.6.19:
     resolution: {integrity: sha512-ZVxXaNy28/k3kJg0Fou5MiYpp88j7H9hLZp8PDC3jV0WFjfH5E9xHb56L0W59cPbKbcHXeP4qyT8PrHp8t6LcQ==}
@@ -1311,8 +1309,8 @@ packages:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
 
-  /markdown-it/12.3.0:
-    resolution: {integrity: sha512-T345UZZ6ejQWTjG6PSEHplzNy5m4kF6zvUpHVDv8Snl/pEU0OxIK0jGg8YLVNwJvT8E0YJC7/2UvssJDk/wQCQ==}
+  /markdown-it/12.3.2:
+    resolution: {integrity: sha512-TchMembfxfNVpHkbtriWltGWc+m3xszaRD0CZup7GFFhzIgQqxIfn3eGj1yZpfuflzPvfkt611B2Q/Bsk1YnGg==}
     hasBin: true
     dependencies:
       argparse: 2.0.1
@@ -1714,8 +1712,8 @@ packages:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==}
     dev: true
 
-  /unplugin-vue-components/0.17.15_vite@2.6.14:
-    resolution: {integrity: sha512-KpSlv7BaPRswwlCUy7gdpiqOAaHnMeMTmMOqJPmreYTGupt+6qXH3S3uLEmPmXUcuzRXlL+4eysuVunSAbsn0A==}
+  /unplugin-vue-components/0.17.18_vite@2.6.14:
+    resolution: {integrity: sha512-4wvJnSShTXCnZpO1G6h0DlHjBXap0JqzFyU84guMT6EH0shUZZ3TAta4pDa8nNeWAtcJVTF9uQswePq1elhpKQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@babel/parser': ^7.15.8
@@ -1771,16 +1769,16 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /vite-plugin-md/0.11.7_vite@2.6.14:
-    resolution: {integrity: sha512-RRdmadGpCxJLeeMXy93SWFz6kzh35NO7QjgHkvggC4BxoDXkVwNJRjSKgMvINWnJVPnkhiAs0o6k1QepazIwxw==}
+  /vite-plugin-md/0.11.8_vite@2.6.14:
+    resolution: {integrity: sha512-eFk4Ox8IKuT+7benAcwLvGcYt/T4We2UDmQmxvCrhABJpQSbh44MitD1Wu6w733VKgSZAO7wd8IuoA20yXkXVQ==}
     peerDependencies:
       vite: ^2.0.0
     dependencies:
-      '@antfu/utils': 0.3.0
+      '@antfu/utils': 0.5.0
       '@rollup/pluginutils': 4.1.2
       '@types/markdown-it': 12.2.3
       gray-matter: 4.0.3
-      markdown-it: 12.3.0
+      markdown-it: 12.3.2
       vite: 2.6.14
     dev: true
 
