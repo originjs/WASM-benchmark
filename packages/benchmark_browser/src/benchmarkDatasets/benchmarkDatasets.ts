@@ -181,30 +181,37 @@ const benchmarkDatasets = {
     video: import.meta.env.VITE_BASE_URL + 'marker.mp4',
   },
   md5: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: md5WasmTest,
     dataSize: 0x0001,
   },
   sha1: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha1WasmTest,
     dataSize: 0x0001,
   },
   sha256: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha256WasmTest,
     dataSize: 0x0001,
   },
   sha224: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha224WasmTest,
     dataSize: 0x0001,
   },
   sha512: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha512WasmTest,
     dataSize: 0x0001,
   },
   sha384: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha384WasmTest,
     dataSize: 0x0001,
   },
   sha3: {
+    rustWasmLoad: Promise.resolve({}),
     testbench: sha3WasmTest,
     dataSize: 0x0001,
   },
