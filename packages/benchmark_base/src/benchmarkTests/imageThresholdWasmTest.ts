@@ -37,20 +37,17 @@ export default class ImageThresholdWasmTest extends WasmTestImageBaseClass {
     return this.equalArray(this.jsImageData.data, this.wsImageData.data);
   }
 
-  getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () => {
-      const module = this.modules.cModule;
+  runCWasm() {
+    const module = this.modules.cModule;
 
-      const pointer = module._malloc(this.wsImageData.data.length);
-      const offset = pointer;
-      module.HEAPU8.set(this.wsImageData.data, offset);
-      module._imageThreshold(pointer, this.width, this.height);
-      this.wsImageData.data.set(
-        module.HEAPU8.subarray(offset, offset + this.wsImageData.data.length),
-      );
-      module._free(pointer);
-    };
-    return [runCWasm];
+    const pointer = module._malloc(this.wsImageData.data.length);
+    const offset = pointer;
+    module.HEAPU8.set(this.wsImageData.data, offset);
+    module._imageThreshold(pointer, this.width, this.height);
+    this.wsImageData.data.set(
+      module.HEAPU8.subarray(offset, offset + this.wsImageData.data.length),
+    );
+    module._free(pointer);
   }
 
   runJavaScript(): void {

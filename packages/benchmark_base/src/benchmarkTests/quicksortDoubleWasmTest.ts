@@ -37,21 +37,18 @@ export default class quicksortDoubleWasmTest extends WasmTestBaseClass {
     return this.equalArray(this.array1, this.array2);
   }
 
-  getAllRunWasmFunc(): Array<Function> {
-    const runCWasm = () => {
-      const module = this.modules.cModule;
+  runCWasm() {
+    const module = this.modules.cModule;
 
-      this.copyArray(this.array0, this.array2);
-      let pointer = module._malloc(this.array2.length * 8);
-      let offset = pointer / 8;
-      module.HEAPF64.set(this.array2, offset);
-      module._quicksortDouble(pointer, 0, this.array2.length - 1);
-      this.array2.set(
-        module.HEAPF64.subarray(offset, offset + this.array2.length),
-      );
-      module._free(pointer);
-    };
-    return [runCWasm];
+    this.copyArray(this.array0, this.array2);
+    let pointer = module._malloc(this.array2.length * 8);
+    let offset = pointer / 8;
+    module.HEAPF64.set(this.array2, offset);
+    module._quicksortDouble(pointer, 0, this.array2.length - 1);
+    this.array2.set(
+      module.HEAPF64.subarray(offset, offset + this.array2.length),
+    );
+    module._free(pointer);
   }
 
   runJavaScript(): void {
