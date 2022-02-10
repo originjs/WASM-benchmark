@@ -179,6 +179,7 @@ export default {
       'sha512',
       'sha384',
       'sha3',
+      'aes',
     ];
 
     return {

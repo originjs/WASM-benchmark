@@ -1,15 +1,20 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import rustSha1 from 'crypto-js-wasm-test/sha1-wasm';
+// import rustAes from 'crypto-js-wasm-test/aes-wasm';
 // @ts-ignore
-import jsSha1 from 'crypto-js/sha1';
+import jsAes from 'crypto-js/aes';
+// @ts-ignore
+import core from 'crypto-js/core';
 
-export default class Sha1WasmTest extends WasmTestBaseClass {
+export default class AesWasmTest extends WasmTestBaseClass {
   dataSize: number;
   testStrings: Array<string> = [];
-  testStringLength: number = 1024 * 1024 * 10;
-  javascriptResult: Array<String> = [];
-  wasmResult: Array<String> = [];
+  testStringLength: number = 1024 * 1024;
+  jsEncryptResult: Array<String> = [];
+  jsDecryptResult: Array<String> = [];
+  rustEncryptResult: Array<String> = [];
+  rustDecryptResult: Array<String> = [];
+  key: string;
 
   constructor(
     dataSize: number,
@@ -19,13 +24,14 @@ export default class Sha1WasmTest extends WasmTestBaseClass {
   ) {
     super(warmUpRunLoops, benchmarkRunLoops, modules);
     this.dataSize = dataSize;
+    this.key = "key";
 
     this.initTestData();
-    this.initRustSha1();
+    this.initRustAes();
   }
 
-  async initRustSha1() {
-    // rustSha1.loadWasm();
+  async initRustAes() {
+    // rustAes.loadWasm();
   }
 
   initTestData() {
@@ -47,17 +53,19 @@ export default class Sha1WasmTest extends WasmTestBaseClass {
 
   runJavaScript(): Array<any> {
     for (let i = 0; i < this.dataSize; i++) {
-      this.javascriptResult[i] = jsSha1(this.testStrings[i]).toString();
+      this.jsEncryptResult[i] = jsAes.encrypt(this.testStrings[i], this.key).toString();
+      this.jsDecryptResult[i] = jsAes.decrypt(this.jsEncryptResult[i], this.key).toString(core.enc.Utf8);
     }
 
-    return this.javascriptResult;
+    return this.jsDecryptResult;
   }
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.wasmResult[i] = rustSha1.process(this.testStrings[i]).toString();
+      // this.rustEncryptResult[i] = rustAes.encrypt(this.testStrings[i], this.key).toString();
+      // this.rustDecryptResult[i] = rustAes.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
     }
 
-    return this.wasmResult;
+    return this.rustDecryptResult;
   }
 }

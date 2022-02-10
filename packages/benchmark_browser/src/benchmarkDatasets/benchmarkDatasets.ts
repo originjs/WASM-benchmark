@@ -47,6 +47,7 @@ import sha224WasmTest from '../../../benchmark_base/src/benchmarkTests/sha224Was
 import sha512WasmTest from '../../../benchmark_base/src/benchmarkTests/sha512WasmTest';
 import sha384WasmTest from '../../../benchmark_base/src/benchmarkTests/sha384WasmTest';
 import sha3WasmTest from '../../../benchmark_base/src/benchmarkTests/sha3WasmTest';
+import aesWasmTest from '../../../benchmark_base/src/benchmarkTests/aesWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -213,6 +214,11 @@ const benchmarkDatasets = {
   sha3: {
     rustWasmLoad: Promise.resolve({}),
     testbench: sha3WasmTest,
+    dataSize: 0x0001,
+  },
+  aes: {
+    rustWasmLoad: Promise.resolve({}),
+    testbench: aesWasmTest,
     dataSize: 0x0001,
   },
 };

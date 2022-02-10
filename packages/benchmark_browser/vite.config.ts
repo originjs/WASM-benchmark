@@ -33,6 +33,7 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       include: [
         'three',
+        'crypto-js/core',
         'crypto-js/md5',
         'crypto-js/sha1',
         'crypto-js/sha256',
@@ -40,6 +41,7 @@ export default defineConfig(({ mode }) => {
         'crypto-js/sha3',
         'crypto-js/sha224',
         'crypto-js/sha384',
+        'crypto-js/aes',
       ],
     },
     plugins: [
