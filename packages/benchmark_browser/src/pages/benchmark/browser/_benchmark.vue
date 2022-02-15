@@ -180,6 +180,8 @@ export default {
       'sha384',
       'sha3',
       'aes',
+      'des',
+      'tripledes',
     ];
 
     return {
