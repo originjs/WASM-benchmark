@@ -75,7 +75,7 @@ export default {
     const { cGlueFunc, cWasmUrl, rustWasmLoad } = benchmarkDataset;
     const modules = {};
     if (!!cGlueFunc && !!cWasmUrl) {
-      modules.cModule = await loadEmccCompiledWasm(cWasmUrl, cGlueFunc);
+      modules.cModule = await loadEmccCompiledWasm(import.meta.env.VITE_BASE_URL + cWasmUrl, cGlueFunc);
     }
 
     if (!!rustWasmLoad) {

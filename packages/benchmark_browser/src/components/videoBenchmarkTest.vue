@@ -60,7 +60,7 @@ export default {
     let wasmTest = {};
 
     module = await loadEmccCompiledWasm(
-      props.benchmarkDataset.url,
+      import.meta.env.VITE_BASE_URL + props.benchmarkDataset.url,
       props.benchmarkDataset.Module,
     );
     wasmTest = new props.benchmarkDataset.testbench(
