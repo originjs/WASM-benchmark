@@ -8,6 +8,9 @@
     <h3 class="text-h3">
       A simple WebAssembly benchmark built with Vue3 & Vite
     </h3>
+    <h4 class="text-h4">
+      This benchmark is ported from  <a href="https://github.com/takahirox/WebAssembly-benchmark">takahirox's WebAssembly-benchmark</a>.
+    </h4>
     <router-view />
   </div>
 </template>
