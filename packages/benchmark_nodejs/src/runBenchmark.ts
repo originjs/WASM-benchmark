@@ -32,6 +32,7 @@ export async function runBenchmark(
   let modules: Modules = {};
   // init modules.cModule
   if (!!cWasmUrl && !!cGlueFunc) {
+    // @ts-ignore
     modules.cModule = await loadEmccCompiledWasm(cWasmUrl, cGlueFunc);
   }
   // init modules.rustModule
