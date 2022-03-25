@@ -50,6 +50,9 @@ import sha3WasmTest from '../../../benchmark_base/src/benchmarkTests/sha3WasmTes
 import aesWasmTest from '../../../benchmark_base/src/benchmarkTests/aesWasmTest';
 import desWasmTest from '../../../benchmark_base/src/benchmarkTests/desWasmTest';
 import tripleDesWasmTest from '../../../benchmark_base/src/benchmarkTests/tripleDesWasmTest';
+import rabbitWasmTest from '../../../benchmark_base/src/benchmarkTests/rabbitWasmTest';
+import rc4WasmTest from '../../../benchmark_base/src/benchmarkTests/rc4WasmTest';
+import ripemd160WasmTest from '../../../benchmark_base/src/benchmarkTests/ripemd160WasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -231,6 +234,21 @@ const benchmarkDatasets = {
   tripledes: {
     rustWasmLoad: Promise.resolve({}),
     testbench: tripleDesWasmTest,
+    dataSize: 0x0001,
+  },
+  rabbit: {
+    rustWasmLoad: Promise.resolve({}),
+    testbench: rabbitWasmTest,
+    dataSize: 0x0001,
+  },
+  rc4: {
+    rustWasmLoad: Promise.resolve({}),
+    testbench: rc4WasmTest,
+    dataSize: 0x0001,
+  },
+  ripemd160: {
+    rustWasmLoad: Promise.resolve({}),
+    testbench: ripemd160WasmTest,
     dataSize: 0x0001,
   },
 };

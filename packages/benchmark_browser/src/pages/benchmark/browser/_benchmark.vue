@@ -182,6 +182,9 @@ export default {
       'aes',
       'des',
       'tripledes',
+      'rabbit',
+      'rc4',
+      'ripemd160',
     ];
 
     return {
