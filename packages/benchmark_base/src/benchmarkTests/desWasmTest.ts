@@ -1,10 +1,8 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import rustCryptoJS from 'crypto-js-wasm-test/crypto-js';
+// import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
-import jsdesCryptoJS from 'crypto-js/crypto-js';
-// @ts-ignore
-import core from 'crypto-js/core';
+import jsCryptoJS from 'crypto-js/crypto-js';
 
 export default class DesWasmTest extends WasmTestBaseClass {
   dataSize: number;
@@ -31,7 +29,7 @@ export default class DesWasmTest extends WasmTestBaseClass {
   }
 
   async initRustdes() {
-    // rustCryptoJS.DES_WASM.loadWasm();
+    // wasmCryptoJS.DES.loadWasm();
   }
 
   initTestData() {
@@ -53,8 +51,8 @@ export default class DesWasmTest extends WasmTestBaseClass {
 
   runJavaScript(): Array<any> {
     for (let i = 0; i < this.dataSize; i++) {
-      this.jsEncryptResult[i] = jsdesCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
-      this.jsDecryptResult[i] = jsdesCryptoJS.DES.decrypt(this.jsEncryptResult[i], this.key).toString(core.enc.Utf8);
+      this.jsEncryptResult[i] = jsCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
+      this.jsDecryptResult[i] = jsCryptoJS.DES.decrypt(this.jsEncryptResult[i], this.key).toString(jsCryptoJS.enc.Utf8);
     }
 
     return this.jsDecryptResult;
@@ -62,8 +60,8 @@ export default class DesWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = rustCryptoJS.DES_WASM.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = rustCryptoJS.DES_WASM.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
+      // this.rustEncryptResult[i] = wasmCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
+      // this.rustDecryptResult[i] = wasmCryptoJS.DES.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
     }
 
     return this.rustDecryptResult;

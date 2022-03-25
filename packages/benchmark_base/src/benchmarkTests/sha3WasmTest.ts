@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import rustSha3 from 'crypto-js-wasm-test/sha3-wasm'
+// import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsSha3 from 'crypto-js/sha3';
 
@@ -25,7 +25,7 @@ export default class Sha3WasmTest extends WasmTestBaseClass {
   }
 
   async initRustSha3() {
-    // rustSha3.loadWasm()
+    // wasmCryptoJS.SHA3.loadWasm();
   }
 
   initTestData() {
@@ -55,7 +55,7 @@ export default class Sha3WasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.wasmResult[i] = rustSha3.process(this.testStrings[i]).toString();
+      // this.wasmResult[i] = wasmCryptoJS.SHA3(this.testStrings[i]).toString();
     }
 
     return this.wasmResult;

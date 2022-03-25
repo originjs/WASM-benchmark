@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import rustAes from 'crypto-js-wasm-test/aes-wasm';
+// import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsAes from 'crypto-js/aes';
 // @ts-ignore
@@ -31,7 +31,7 @@ export default class AesWasmTest extends WasmTestBaseClass {
   }
 
   async initRustAes() {
-    // rustAes.loadWasm();
+    // wasmCryptoJS.AES.loadWasm();
   }
 
   initTestData() {
@@ -62,8 +62,8 @@ export default class AesWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = rustAes.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = rustAes.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
+      // this.rustEncryptResult[i] = wasmCryptoJS.AES.encrypt(this.testStrings[i], this.key).toString();
+      // this.rustDecryptResult[i] = wasmCryptoJS.AES.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
     }
 
     return this.rustDecryptResult;
