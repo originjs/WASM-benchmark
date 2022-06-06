@@ -34,17 +34,6 @@ export default class Sha512WasmTest extends WasmTestBaseClass {
     }
   }
 
-  generateRandomString(length: number): string {
-    var result = '';
-    var characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
   runJavaScript(): Array<any> {
     for (let i = 0; i < this.dataSize; i++) {
       this.javascriptResult[i] = jsSha512(this.testStrings[i]).toString();

@@ -38,17 +38,6 @@ export default class DesWasmTest extends WasmTestBaseClass {
     }
   }
 
-  generateRandomString(length: number): string {
-    var result = '';
-    var characters =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
-
   runJavaScript(): Array<any> {
     for (let i = 0; i < this.dataSize; i++) {
       this.jsEncryptResult[i] = jsCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
