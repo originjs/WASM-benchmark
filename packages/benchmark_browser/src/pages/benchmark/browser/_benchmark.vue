@@ -81,16 +81,15 @@
       </div>
     </div>
     <div style="width: 100%; display: flex; justify-content: center">
-      <ul
+      <ul v-for="testNamesArray in testNames"
         style="
-          margin-left: 5rem;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           text-align: left;
         "
       >
-        <li v-for="testName in testNames">
+        <li v-for="testName in testNamesArray">
           <router-link
             class="text-router-link"
             :to="'/benchmark/browser/' + testName"
@@ -156,7 +155,7 @@ export default {
     const js_video_canvas = ref(null);
     const ws_video_canvas = ref(null);
     const testNames = [
-      'collisionDetection',
+      ['collisionDetection',
       'fibonacci',
       'imageConvolute',
       'imageGrayscale',
@@ -171,8 +170,8 @@ export default {
       'videoConvolute',
       'videoGrayscale',
       'videoMarkerDetection',
-      'videoThreshold',
-      'md5',
+      'videoThreshold'],
+      ['md5',
       'sha1',
       'sha256',
       'sha224',
@@ -184,7 +183,7 @@ export default {
       'tripledes',
       'rabbit',
       'rc4',
-      'ripemd160',
+      'ripemd160'],
     ];
 
     return {
