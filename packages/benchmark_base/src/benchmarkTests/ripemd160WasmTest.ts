@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsRipemd160 from 'crypto-js/ripemd160';
 
@@ -25,11 +25,15 @@ export default class Ripemd160WasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustdes();
+    this.initRustRipemd160();
   }
 
-  async initRustdes() {
-    // wasmCryptoJS.RIPEMD160.loadWasm();
+  async initRustRipemd160() {
+    return await wasmCryptoJS.RIPEMD160.loadWasm();
+  }
+
+  static async initRustRipemd160() {
+    return await wasmCryptoJS.RIPEMD160.loadWasm();
   }
 
   initTestData() {
@@ -48,7 +52,7 @@ export default class Ripemd160WasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = wasmCryptoJS.RIPEMD160(this.testStrings[i]).toString();
+      this.rustEncryptResult[i] = wasmCryptoJS.RIPEMD160(this.testStrings[i]).toString();
     }
 
     return this.rustEncryptResult;

@@ -5,6 +5,8 @@ dist-ssr
 *.local
 .origin
 .idea
+*.lock
+pnpm-lock.yaml
 
 packages/rust_code/target
 packages/rust_code/**/*.rs.bk

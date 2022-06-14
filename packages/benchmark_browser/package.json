@@ -8,6 +8,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "crypto-js-wasm": "file:/home/peterlee/code/crypto-js-wasm-originjs/crypto-js-wasm",
     "vue": "^3.0.5",
     "vue-i18n": "^9.2.0-beta.9",
     "vue-router": "^4.0.11",

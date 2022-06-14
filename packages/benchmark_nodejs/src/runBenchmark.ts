@@ -13,7 +13,7 @@ export async function runBenchmark(
   warnUpRunLoops: number = 1,
   benchmarkRunLoops: number = 10,
 ) {
-  function updateResAndWriteJson(comparisons: number) {
+  function updateResAndWriteJson(comparisons: any, performances: any) {
     if (!result || !jsonPath) {
       return;
     }
@@ -23,12 +23,13 @@ export async function runBenchmark(
       warnUpRunLoops,
       benchmarkRunLoops,
       comparisons,
+      performances,
     });
     fs.writeFileSync(jsonPath, JSON.stringify(result, null, 2));
   }
 
   // init modules
-  const { cWasmUrl, cGlueFunc, rustWasmUrl } = benchmarkDataset;
+  const { cWasmUrl, cGlueFunc, rustWasmUrl, rustWasmLoad } = benchmarkDataset;
   let modules: Modules = {};
   // init modules.cModule
   if (!!cWasmUrl && !!cGlueFunc) {
@@ -38,6 +39,13 @@ export async function runBenchmark(
   // init modules.rustModule
   if (!!rustWasmUrl) {
     modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
+  }
+
+  // modules.rustModule = {};
+  if (!!rustWasmLoad) {
+    await rustWasmLoad();
+    modules.rustModule = {};
+    console.log('rust module is loaded');
   }
 
   // init test class
@@ -57,8 +65,10 @@ export async function runBenchmark(
     }
     resolve(null);
   }).then(() => {
+    const performances: any = {};
     console.log(`test ${testName}: Running JavaScript`);
     const jsPerformance = Number.parseFloat(wasmTest.runJavaScriptBenchmark());
+    performances.runJavaScript = jsPerformance;
 
     console.log(`test ${testName}: Running WebAssembly`);
     const wsPerformances = wasmTest.runWasmBenchmark();
@@ -68,12 +78,13 @@ export async function runBenchmark(
       const wsPerformance = wsPerformances[runWasmFuncName];
       const comparison = (jsPerformance / wsPerformance).toFixed(4);
       comparisons[runWasmFuncName] = Number.parseFloat(comparison);
+      performances[runWasmFuncName] = Number.parseFloat(wsPerformance);
       console.log(
         `test ${testName} ${runWasmFuncName}: jsPerformance / wsPerformance = ${comparison}`,
       );
     }
 
-    updateResAndWriteJson(comparisons);
+    updateResAndWriteJson(comparisons, performances);
     console.log(`test ${testName}: Done\n`);
   });
 }

@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsCryptoJS from 'crypto-js/crypto-js';
 
@@ -25,11 +25,15 @@ export default class DesWasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustdes();
+    this.initRustDes();
   }
 
-  async initRustdes() {
-    // wasmCryptoJS.DES.loadWasm();
+  async initRustDes() {
+    return await wasmCryptoJS.DES.loadWasm();
+  }
+
+  static async initRustDes() {
+    return await wasmCryptoJS.DES.loadWasm();
   }
 
   initTestData() {
@@ -49,8 +53,8 @@ export default class DesWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = wasmCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = wasmCryptoJS.DES.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
+      this.rustEncryptResult[i] = wasmCryptoJS.DES.encrypt(this.testStrings[i], this.key).toString();
+      this.rustDecryptResult[i] = wasmCryptoJS.DES.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
     }
 
     return this.rustDecryptResult;

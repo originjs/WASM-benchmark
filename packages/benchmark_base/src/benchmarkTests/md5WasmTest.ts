@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsMd5 from 'crypto-js/md5';
 
@@ -26,7 +26,11 @@ export default class Md5WasmTest extends WasmTestBaseClass {
   }
 
   async initRustMd5() {
-    // wasmCryptoJS.MD5.loadWasm();
+    return await wasmCryptoJS.MD5.loadWasm();
+  }
+
+  static async initRustMd5() {
+    return await wasmCryptoJS.MD5.loadWasm();
   }
 
   initTestData() {
@@ -46,10 +50,8 @@ export default class Md5WasmTest extends WasmTestBaseClass {
   }
 
   async runRustWasm() {
-    this.clearArray(this.wasmResult);
-
     for (let i = 0; i < this.dataSize; i++) {
-      // this.wasmResult[i] = wasmCryptoJS.MD5(this.testStrings[i]).toString();
+      this.wasmResult[i] = wasmCryptoJS.MD5(this.testStrings[i]).toString();
     }
   }
 

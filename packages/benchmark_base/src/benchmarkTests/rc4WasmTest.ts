@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsRc4 from 'crypto-js/rc4';
 // @ts-ignore
@@ -27,11 +27,15 @@ export default class Rc4WasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustdes();
+    this.initRustRC4();
   }
 
-  async initRustdes() {
-    // wasmCryptoJS.RC4.loadWasm();
+  async initRustRC4() {
+    return await wasmCryptoJS.RC4.loadWasm();
+  }
+
+  static async initRustRC4() {
+    return await wasmCryptoJS.RC4.loadWasm();
   }
 
   initTestData() {
@@ -51,8 +55,8 @@ export default class Rc4WasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = wasmCryptoJS.RC4.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = wasmCryptoJS.RC4.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
+      this.rustEncryptResult[i] = wasmCryptoJS.RC4.encrypt(this.testStrings[i], this.key).toString();
+      this.rustDecryptResult[i] = wasmCryptoJS.RC4.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
     }
 
     return this.rustDecryptResult;

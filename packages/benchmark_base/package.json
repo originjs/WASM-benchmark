@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
+    "crypto-js-wasm": "file:/home/peterlee/code/crypto-js-wasm-originjs/crypto-js-wasm",
     "three": "^0.85.0"
   }
 }

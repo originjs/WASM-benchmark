@@ -44,6 +44,10 @@ export default defineConfig(({ mode }) => {
         'crypto-js/sha384',
         'crypto-js/aes',
         'crypto-js/tripledes',
+        'crypto-js/rabbit',
+        'crypto-js/ripemd160',
+        'crypto-js/rc4',
+        'crypto-js-wasm',
       ],
     },
     plugins: [

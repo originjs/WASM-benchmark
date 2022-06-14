@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsTripleDes from 'crypto-js/tripledes';
 // @ts-ignore
@@ -31,7 +31,11 @@ export default class TripleDesWasmTest extends WasmTestBaseClass {
   }
 
   async initRustTripleDes() {
-    // wasmCryptoJS.TripleDES.loadWasm();
+    return await wasmCryptoJS.TripleDES.loadWasm();
+  }
+
+  static async initRustTripleDes() {
+    return await wasmCryptoJS.TripleDES.loadWasm();
   }
 
   initTestData() {
@@ -51,8 +55,8 @@ export default class TripleDesWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = wasmCryptoJS.TripleDES.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = wasmCryptoJS.TripleDES.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
+      this.rustEncryptResult[i] = wasmCryptoJS.TripleDES.encrypt(this.testStrings[i], this.key).toString();
+      this.rustDecryptResult[i] = wasmCryptoJS.TripleDES.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
     }
 
     return this.rustDecryptResult;

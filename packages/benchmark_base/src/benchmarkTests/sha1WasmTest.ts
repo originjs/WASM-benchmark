@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsSha1 from 'crypto-js/sha1';
 
@@ -25,7 +25,11 @@ export default class Sha1WasmTest extends WasmTestBaseClass {
   }
 
   async initRustSha1() {
-    // wasmCryptoJS.SHA1.loadWasm();
+    return await wasmCryptoJS.SHA1.loadWasm();
+  }
+
+  static async initRustSha1() {
+    return await wasmCryptoJS.SHA1.loadWasm();
   }
 
   initTestData() {
@@ -44,7 +48,7 @@ export default class Sha1WasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.wasmResult[i] = wasmCryptoJS.SHA1(this.testStrings[i]).toString();
+      this.wasmResult[i] = wasmCryptoJS.SHA1(this.testStrings[i]).toString();
     }
 
     return this.wasmResult;

@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-// import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from 'crypto-js-wasm';
 // @ts-ignore
 import jsRabbit from 'crypto-js/rabbit';
 // @ts-ignore
@@ -27,11 +27,15 @@ export default class RabbitWasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustdes();
+    this.initRustRabbit();
   }
 
-  async initRustdes() {
-    // wasmCryptoJS.Rabbit.loadWasm();
+  async initRustRabbit() {
+    return await wasmCryptoJS.Rabbit.loadWasm();
+  }
+
+  static async initRustRabbit() {
+    return await wasmCryptoJS.Rabbit.loadWasm();
   }
 
   initTestData() {
@@ -51,8 +55,8 @@ export default class RabbitWasmTest extends WasmTestBaseClass {
 
   runRustWasm() {
     for (let i = 0; i < this.dataSize; i++) {
-      // this.rustEncryptResult[i] = wasmCryptoJS.Rabbit.encrypt(this.testStrings[i], this.key).toString();
-      // this.rustDecryptResult[i] = wasmCryptoJS.Rabbit.decrypt(this.rustEncryptResult[i], this.key).toString(core.enc.Utf8);
+      this.rustEncryptResult[i] = wasmCryptoJS.Rabbit.encrypt(this.testStrings[i], this.key).toString();
+      this.rustDecryptResult[i] = wasmCryptoJS.Rabbit.decrypt(this.rustEncryptResult[i], this.key).toString(wasmCryptoJS.enc.Utf8);
     }
 
     return this.rustDecryptResult;
