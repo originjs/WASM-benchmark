@@ -79,8 +79,12 @@ export default {
     }
 
     if (!!rustWasmLoad) {
-      await rustWasmLoad();
-      modules.rustModule = {};
+      if (typeof rustWasmLoad == "function") {
+        await rustWasmLoad();
+        modules.rustModule = {};
+      } else {
+        modules.rustModule = await rustWasmLoad;
+      }
       console.log('rust module is loaded');
     }
 

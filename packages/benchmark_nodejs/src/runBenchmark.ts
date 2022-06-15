@@ -41,7 +41,6 @@ export async function runBenchmark(
     modules.rustModule = await loadRustCompiledWasm(rustWasmUrl);
   }
 
-  // modules.rustModule = {};
   if (!!rustWasmLoad) {
     await rustWasmLoad();
     modules.rustModule = {};
