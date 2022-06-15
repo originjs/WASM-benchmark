@@ -47,7 +47,7 @@ export default defineConfig(({ mode }) => {
         'crypto-js/rabbit',
         'crypto-js/ripemd160',
         'crypto-js/rc4',
-        'crypto-js-wasm',
+        '@originjs/crypto-js-wasm',
       ],
     },
     plugins: [

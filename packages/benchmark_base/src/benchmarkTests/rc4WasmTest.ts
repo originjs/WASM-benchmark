@@ -1,6 +1,6 @@
 import { Modules, WasmTestBaseClass } from './index';
 // @ts-ignore
-import wasmCryptoJS from 'crypto-js-wasm';
+import wasmCryptoJS from '@originjs/crypto-js-wasm';
 // @ts-ignore
 import jsRc4 from 'crypto-js/rc4';
 // @ts-ignore
