@@ -21,11 +21,6 @@ export default class Sha3WasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
 
     this.initTestData();
-    this.initRustSha3();
-  }
-
-  async initRustSha3() {
-    return await wasmCryptoJS.SHA3.loadWasm();
   }
 
   static async initRustSha3() {

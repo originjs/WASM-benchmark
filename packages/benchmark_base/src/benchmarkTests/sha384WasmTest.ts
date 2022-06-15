@@ -21,11 +21,6 @@ export default class Sha384WasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
 
     this.initTestData();
-    this.initRustSha384();
-  }
-
-  async initRustSha384() {
-    return await wasmCryptoJS.SHA384.loadWasm();
   }
 
   static async initRustSha384() {

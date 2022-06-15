@@ -21,11 +21,6 @@ export default class Sha256WasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
 
     this.initTestData();
-    this.initRustSha256();
-  }
-
-  async initRustSha256() {
-    return await wasmCryptoJS.SHA256.loadWasm();
   }
 
   static async initRustSha256() {

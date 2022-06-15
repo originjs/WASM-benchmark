@@ -27,11 +27,6 @@ export default class TripleDesWasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustTripleDes();
-  }
-
-  async initRustTripleDes() {
-    return await wasmCryptoJS.TripleDES.loadWasm();
   }
 
   static async initRustTripleDes() {

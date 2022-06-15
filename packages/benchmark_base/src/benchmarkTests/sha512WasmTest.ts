@@ -21,11 +21,6 @@ export default class Sha512WasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
 
     this.initTestData();
-    this.initRustSha512();
-  }
-
-  async initRustSha512() {
-    return await wasmCryptoJS.SHA512.loadWasm();
   }
 
   static async initRustSha512() {

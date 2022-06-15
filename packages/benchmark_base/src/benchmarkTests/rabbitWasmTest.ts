@@ -27,11 +27,6 @@ export default class RabbitWasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustRabbit();
-  }
-
-  async initRustRabbit() {
-    return await wasmCryptoJS.Rabbit.loadWasm();
   }
 
   static async initRustRabbit() {

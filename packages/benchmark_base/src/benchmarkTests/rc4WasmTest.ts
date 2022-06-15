@@ -27,11 +27,6 @@ export default class Rc4WasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustRC4();
-  }
-
-  async initRustRC4() {
-    return await wasmCryptoJS.RC4.loadWasm();
   }
 
   static async initRustRC4() {

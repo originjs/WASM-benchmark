@@ -27,11 +27,6 @@ export default class AesWasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustAes();
-  }
-
-  async initRustAes() {
-    return await wasmCryptoJS.AES.loadWasm();
   }
 
   static async initRustAes() {

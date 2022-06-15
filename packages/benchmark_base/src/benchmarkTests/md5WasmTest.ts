@@ -22,11 +22,6 @@ export default class Md5WasmTest extends WasmTestBaseClass {
     this.dataSize = dataSize;
 
     this.initTestData();
-    this.initRustMd5();
-  }
-
-  async initRustMd5() {
-    return await wasmCryptoJS.MD5.loadWasm();
   }
 
   static async initRustMd5() {

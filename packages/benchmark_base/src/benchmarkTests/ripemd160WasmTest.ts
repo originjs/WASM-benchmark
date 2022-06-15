@@ -25,11 +25,6 @@ export default class Ripemd160WasmTest extends WasmTestBaseClass {
     this.key = "key";
 
     this.initTestData();
-    this.initRustRipemd160();
-  }
-
-  async initRustRipemd160() {
-    return await wasmCryptoJS.RIPEMD160.loadWasm();
   }
 
   static async initRustRipemd160() {
