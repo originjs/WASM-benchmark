@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as o}from"./index.fec506ea.js";const s={name:"404"},a={class:"text-p"};function c(n,r,_,p,f,d){return t(),o("p",a,"page not found...")}var l=e(s,[["render",c]]);export{l as default};
