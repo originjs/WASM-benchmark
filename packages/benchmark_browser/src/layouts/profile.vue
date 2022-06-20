@@ -1,6 +1,7 @@
 <template>
   <router-view />
   <h3>This is a JavaScript vs WebAssembly(WASM) benchmark.</h3>
+  <h3>Want to try this crypto library out yourself? See <a href="https://github.com/originjs/crypto-js-wasm">crypto-js-wasm</a> for details.</h3>
   <h3>The WASM files are written in C/C++ or Rust.</h3>
   <div class="logo-box-flex">
     <img
