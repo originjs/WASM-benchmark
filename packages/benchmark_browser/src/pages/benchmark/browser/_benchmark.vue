@@ -183,7 +183,8 @@ export default {
       'tripledes',
       'rabbit',
       'rc4',
-      'ripemd160'],
+      'ripemd160',
+      'rsa'],
     ];
 
     return {

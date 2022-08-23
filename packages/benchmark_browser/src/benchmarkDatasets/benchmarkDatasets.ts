@@ -53,6 +53,7 @@ import tripleDesWasmTest from '../../../benchmark_base/src/benchmarkTests/triple
 import rabbitWasmTest from '../../../benchmark_base/src/benchmarkTests/rabbitWasmTest';
 import rc4WasmTest from '../../../benchmark_base/src/benchmarkTests/rc4WasmTest';
 import ripemd160WasmTest from '../../../benchmark_base/src/benchmarkTests/ripemd160WasmTest';
+import rsaWasmTest from '../../../benchmark_base/src/benchmarkTests/rsaWasmTest';
 
 const benchmarkDatasets = {
   collisionDetection: {
@@ -251,6 +252,11 @@ const benchmarkDatasets = {
     testbench: ripemd160WasmTest,
     dataSize: 0x0001,
   },
+  rsa: {
+    rustWasmLoad: rsaWasmTest.initRustRsa,
+    testbench: rsaWasmTest,
+    dataSize: 0x0001,
+  }
 };
 
 export default benchmarkDatasets;
