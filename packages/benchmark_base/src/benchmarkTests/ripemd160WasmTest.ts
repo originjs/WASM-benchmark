@@ -1,5 +1,4 @@
 import { Modules, WasmTestBaseClass } from './index';
-// @ts-ignore
 import wasmCryptoJS from '@originjs/crypto-js-wasm';
 // @ts-ignore
 import jsRipemd160 from 'crypto-js/ripemd160';
@@ -8,10 +7,10 @@ export default class Ripemd160WasmTest extends WasmTestBaseClass {
   dataSize: number;
   testStrings: Array<string> = [];
   testStringLength: number = 1024 * 1024 * 10;
-  jsEncryptResult: Array<String> = [];
-  jsDecryptResult: Array<String> = [];
-  rustEncryptResult: Array<String> = [];
-  rustDecryptResult: Array<String> = [];
+  jsEncryptResult: Array<string> = [];
+  jsDecryptResult: Array<string> = [];
+  rustEncryptResult: Array<string> = [];
+  rustDecryptResult: Array<string> = [];
   key: string;
 
   constructor(

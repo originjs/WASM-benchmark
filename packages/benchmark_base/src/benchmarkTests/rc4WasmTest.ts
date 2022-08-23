@@ -1,5 +1,4 @@
 import { Modules, WasmTestBaseClass } from './index';
-// @ts-ignore
 import wasmCryptoJS from '@originjs/crypto-js-wasm';
 // @ts-ignore
 import jsRc4 from 'crypto-js/rc4';
@@ -10,10 +9,10 @@ export default class Rc4WasmTest extends WasmTestBaseClass {
   dataSize: number;
   testStrings: Array<string> = [];
   testStringLength: number = 1024 * 1024;
-  jsEncryptResult: Array<String> = [];
-  jsDecryptResult: Array<String> = [];
-  rustEncryptResult: Array<String> = [];
-  rustDecryptResult: Array<String> = [];
+  jsEncryptResult: Array<string> = [];
+  jsDecryptResult: Array<string> = [];
+  rustEncryptResult: Array<string> = [];
+  rustDecryptResult: Array<string> = [];
   key: string;
 
   constructor(

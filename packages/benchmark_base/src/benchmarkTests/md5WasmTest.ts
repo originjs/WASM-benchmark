@@ -1,5 +1,4 @@
 import { Modules, WasmTestBaseClass } from './index';
-// @ts-ignore
 import wasmCryptoJS from '@originjs/crypto-js-wasm';
 // @ts-ignore
 import jsMd5 from 'crypto-js/md5';
@@ -8,8 +7,8 @@ export default class Md5WasmTest extends WasmTestBaseClass {
   dataSize: number;
   testStrings: Array<string> = [];
   testStringLength: number = 1024 * 1024 * 10;
-  javascriptResult: Array<String> = [];
-  wasmResult: Array<String> = [];
+  javascriptResult: Array<string> = [];
+  wasmResult: Array<string> = [];
   md5: any;
 
   constructor(
@@ -50,7 +49,7 @@ export default class Md5WasmTest extends WasmTestBaseClass {
     }
   }
 
-  clearArray(array: Array<String>): void {
+  clearArray(array: Array<string>): void {
     for (let i = 0, il = array.length; i < il; i++) {
       array[i] = '';
     }

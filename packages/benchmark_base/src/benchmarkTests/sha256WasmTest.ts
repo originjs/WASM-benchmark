@@ -1,5 +1,4 @@
 import { Modules, WasmTestBaseClass } from './index';
-// @ts-ignore
 import wasmCryptoJS from '@originjs/crypto-js-wasm';
 // @ts-ignore
 import jsSha256 from 'crypto-js/sha256';
@@ -8,8 +7,8 @@ export default class Sha256WasmTest extends WasmTestBaseClass {
   dataSize: number;
   testStrings: Array<string> = [];
   testStringLength: number = 1024 * 1024 * 10;
-  javascriptResult: Array<String> = [];
-  wasmResult: Array<String> = [];
+  javascriptResult: Array<string> = [];
+  wasmResult: Array<string> = [];
 
   constructor(
     dataSize: number,
