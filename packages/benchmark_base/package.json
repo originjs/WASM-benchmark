@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@originjs/crypto-js-wasm": "^1.1.0-beta3",
+    "@originjs/crypto-js-wasm": "^1.1.0",
     "crypto-js": "^4.1.1",
     "jsencrypt": "^3.2.1",
     "three": "^0.85.0"
